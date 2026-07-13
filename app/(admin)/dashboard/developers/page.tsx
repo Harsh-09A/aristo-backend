@@ -18,7 +18,7 @@ export default async function DevelopersPage({
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const developers = await prisma.developer.findMany({
-    orderBy: { id: "desc" },
+    orderBy: { name: "asc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
   });
@@ -37,7 +37,7 @@ export default async function DevelopersPage({
           <table className="table table-hover mb-0 align-middle">
             <thead className="table-light">
               <tr>
-                <th>ID</th>
+                <th>Logo</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -55,7 +55,24 @@ export default async function DevelopersPage({
               )}
               {developers.map((developer) => (
                 <tr key={developer.id}>
-                  <td>{developer.id}</td>
+                  {/* <td>{developer.id}</td> */}
+                  <td>
+                    {developer.logo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={developer.logo}
+                        alt={developer.name}
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "cover",
+                          borderRadius: 6,
+                        }}
+                      />
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                   <td>{developer.name}</td>
                   <td>{developer.email || "-"}</td>
                   <td>{developer.phone || "-"}</td>
@@ -67,7 +84,10 @@ export default async function DevelopersPage({
                     >
                       Edit
                     </Link>
-                    <DeleteButton id={developer.id} deleteAction={deleteDeveloper} />
+                    <DeleteButton
+                      id={developer.id}
+                      deleteAction={deleteDeveloper}
+                    />
                   </td>
                 </tr>
               ))}

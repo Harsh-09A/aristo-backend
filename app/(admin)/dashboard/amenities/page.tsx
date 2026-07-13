@@ -37,9 +37,9 @@ export default async function AmenitiesPage({
           <table className="table table-hover mb-0 align-middle">
             <thead className="table-light">
               <tr>
-                <th>ID</th>
-                <th>Icon</th>
+                {/* <th>ID</th> */}
                 <th>Name</th>
+                <th>Icon</th>
                 <th className="text-end">Actions</th>
               </tr>
             </thead>
@@ -53,11 +53,15 @@ export default async function AmenitiesPage({
               )}
               {amenities.map((amenity) => (
                 <tr key={amenity.id}>
-                  <td>{amenity.id}</td>
-                  <td>
-                    {amenity.icon ? <i className={`bi ${amenity.icon}`}></i> : "-"}
-                  </td>
+                  {/* <td>{amenity.id}</td> */}
                   <td>{amenity.name}</td>
+                  <td>
+                    {amenity.icon ? (
+                      <i className={`bi ${amenity.icon}`}></i>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                   <td className="text-end">
                     <Link
                       href={`/dashboard/amenities/${amenity.id}/edit`}
@@ -65,7 +69,10 @@ export default async function AmenitiesPage({
                     >
                       Edit
                     </Link>
-                    <DeleteButton id={amenity.id} deleteAction={deleteAmenity} />
+                    <DeleteButton
+                      id={amenity.id}
+                      deleteAction={deleteAmenity}
+                    />
                   </td>
                 </tr>
               ))}

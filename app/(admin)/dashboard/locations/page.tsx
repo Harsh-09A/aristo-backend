@@ -18,7 +18,7 @@ export default async function LocationsPage({
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const locations = await prisma.location.findMany({
-    orderBy: { id: "desc" },
+    orderBy: { name: "asc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
   });

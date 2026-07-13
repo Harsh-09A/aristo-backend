@@ -62,7 +62,7 @@ export default function LoginForm() {
       return;
     }
 
-    router.push("/admin/dashboard");
+    router.push("/dashboard");
     router.refresh();
   }
 

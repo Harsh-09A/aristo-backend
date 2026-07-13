@@ -18,7 +18,7 @@ export default async function BlogsPage({
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const blogs = await prisma.blog.findMany({
-    orderBy: { id: "desc" },
+    orderBy: { updatedAt: "desc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
   });
@@ -37,7 +37,7 @@ export default async function BlogsPage({
           <table className="table table-hover mb-0 align-middle">
             <thead className="table-light">
               <tr>
-                <th>ID</th>
+                <th>Image</th>
                 <th>Title</th>
                 <th>Slug</th>
                 <th>Status</th>
@@ -54,7 +54,24 @@ export default async function BlogsPage({
               )}
               {blogs.map((blog) => (
                 <tr key={blog.id}>
-                  <td>{blog.id}</td>
+                  {/* <td>{blog.id}</td> */}
+                  <td>
+                    {blog.images ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={blog.images[0]}
+                        alt={blog.title}
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "cover",
+                          borderRadius: 6,
+                        }}
+                      />
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                   <td>{blog.title}</td>
                   <td className="text-muted">{blog.slug}</td>
                   <td>

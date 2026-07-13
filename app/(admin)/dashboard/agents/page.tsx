@@ -18,7 +18,7 @@ export default async function AgentsPage({
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const agents = await prisma.agent.findMany({
-    orderBy: { id: "desc" },
+    orderBy: { name: "asc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
   });
@@ -37,7 +37,7 @@ export default async function AgentsPage({
           <table className="table table-hover mb-0 align-middle">
             <thead className="table-light">
               <tr>
-                <th>ID</th>
+                <th>Photo</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -54,7 +54,24 @@ export default async function AgentsPage({
               )}
               {agents.map((agent) => (
                 <tr key={agent.id}>
-                  <td>{agent.id}</td>
+                  {/* <td>{agent.id}</td> */}
+                  <td>
+                    {agent.photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={agent.photo}
+                        alt={agent.name}
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "cover",
+                          borderRadius: 6,
+                        }}
+                      />
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                   <td>{agent.name}</td>
                   <td>{agent.email || "-"}</td>
                   <td>{agent.phone || "-"}</td>
