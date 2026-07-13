@@ -1,0 +1,131 @@
+/* components/LoginForm.module.css */
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.iconCircle {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.header p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Wraps each input so we can put an icon inside it */
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputGroup i {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.inputGroup input {
+  padding-left: 40px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Nice glow when the input is focused - small "modern" touch */
+.inputGroup input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* The eye icon button to show/hide password */
+.eyeButton {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.eyeButton:hover {
+  color: #475569;
+}
+
+.forgotRow {
+  text-align: right;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+}
+
+.forgotRow a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.forgotRow a:hover {
+  text-decoration: underline;
+}
+
+/* Main submit button with a gradient + hover lift animation */
+.loginButton {
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.loginButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+.loginButton:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.footerText {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.footerText a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footerText a:hover {
+  text-decoration: underline;
+}

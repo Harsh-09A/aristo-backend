@@ -1,0 +1,117 @@
+/* components/AuthLayout.module.css */
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- LEFT SIDE (hero image) ---------- */
+.heroSide {
+  position: relative;
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  /* Real estate photo background */
+  background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+
+  /* Subtle slow zoom animation, defined in globals.css */
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+/* Dark gradient overlay so the white text is readable on top of the photo */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.75) 0%,
+    rgba(15, 23, 42, 0.55) 50%,
+    rgba(15, 23, 42, 0.85) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 60px;
+  max-width: 560px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.logo i {
+  color: #38bdf8;
+}
+
+.heroContent h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.heroContent p {
+  font-size: 1rem;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.featureList li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+}
+
+.featureList i {
+  color: #38bdf8;
+  width: 18px;
+}
+
+/* Hide the photo side on small/mobile screens - form takes full width instead */
+@media (max-width: 900px) {
+  .heroSide {
+    display: none;
+  }
+}
+
+/* ---------- RIGHT SIDE (form) ---------- */
+.formSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0f172a;
+  padding: 24px;
+}
+
+.formCard {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
