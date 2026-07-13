@@ -4,6 +4,8 @@
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import styles from "./LoginForm.module.css"; // reusing the same styles as LoginForm
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 // Shape of our signup form data - kept simple and beginner-friendly
 type SignupFormData = {
@@ -14,6 +16,7 @@ type SignupFormData = {
 };
 
 export default function SignupForm() {
+    const router = useRouter();
   const [formData, setFormData] = useState<SignupFormData>({
     name: "",
     email: "",
@@ -33,13 +36,18 @@ export default function SignupForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setMessage("");
 
     // Basic validation - simple checks, easy to follow
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
       setError("Please fill in all fields.");
       return;
     }
@@ -61,14 +69,25 @@ export default function SignupForm() {
 
     setLoading(true);
 
-    // Fake network delay to simulate an API call.
-    // In a real app, replace this with a fetch() call to your signup API.
-    setTimeout(() => {
-      setLoading(false);
-      setMessage(`Account created! Welcome, ${formData.name}.`);
-      setFormData({ name: "", email: "", password: "", confirmPassword: "" });
-      setAgreeTerms(false);
-    }, 1200);
+    const email = formData.email;
+    const password = formData.password;
+    const name = formData.name;
+
+    const { error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    router.push("/admin/dashboard");
+    router.refresh();
   }
 
   return (
@@ -142,7 +161,9 @@ export default function SignupForm() {
               onClick={() => setShowPassword(!showPassword)}
               aria-label="Toggle password visibility"
             >
-              <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+              <i
+                className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+              ></i>
             </button>
           </div>
         </div>
@@ -175,14 +196,22 @@ export default function SignupForm() {
             checked={agreeTerms}
             onChange={(e) => setAgreeTerms(e.target.checked)}
           />
-          <label className="form-check-label" htmlFor="agreeTerms" style={{ fontSize: "0.85rem" }}>
+          <label
+            className="form-check-label"
+            htmlFor="agreeTerms"
+            style={{ fontSize: "0.85rem" }}
+          >
             I agree to the Terms &amp; Conditions
           </label>
         </div>
 
         {/* Error message */}
         {error && (
-          <div className="alert alert-danger py-2 fade-in" role="alert" style={{ fontSize: "0.85rem" }}>
+          <div
+            className="alert alert-danger py-2 fade-in"
+            role="alert"
+            style={{ fontSize: "0.85rem" }}
+          >
             <i className="fa-solid fa-circle-exclamation me-1"></i>
             {error}
           </div>
@@ -192,7 +221,8 @@ export default function SignupForm() {
         <button type="submit" className={styles.loginButton} disabled={loading}>
           {loading ? (
             <>
-              <i className="fa-solid fa-circle-notch fa-spin"></i> Creating account...
+              <i className="fa-solid fa-circle-notch fa-spin"></i> Creating
+              account...
             </>
           ) : (
             <>

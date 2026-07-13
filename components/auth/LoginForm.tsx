@@ -1,22 +1,19 @@
 // components/LoginForm.tsx
 "use client";
-// "use client" is required because this component uses useState (interactivity)
-// and responds to button clicks. Pages are server components by default,
-// but components with interactivity must opt into being client components.
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import styles from "./LoginForm.module.css";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
-// A simple TypeScript "type" describing the shape of our form data.
-// This is optional for beginners, but it helps catch mistakes
-// (e.g. typing "emial" instead of "email") while coding.
 type LoginFormData = {
   email: string;
   password: string;
 };
 
 export default function LoginForm() {
+  const router = useRouter();
   // formData holds both the email and password in one object
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
@@ -38,7 +35,7 @@ export default function LoginForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault(); // stop the page from refreshing
 
     // Basic validation - just checking nothing is empty
@@ -50,12 +47,23 @@ export default function LoginForm() {
     setLoading(true);
     setMessage("");
 
-    // Fake network delay so you can see the loading spinner in action.
-    // In a real app, replace this with a fetch() call to your login API.
-    setTimeout(() => {
-      setLoading(false);
-      setMessage(`Welcome back! Logged in as ${formData.email}`);
-    }, 1200);
+    const email = formData.email;
+    const password = formData.password;
+
+    const { error } = await authClient.signIn.email({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    router.push("/admin/dashboard");
+    router.refresh();
   }
 
   return (
@@ -111,7 +119,9 @@ export default function LoginForm() {
               onClick={() => setShowPassword(!showPassword)}
               aria-label="Toggle password visibility"
             >
-              <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+              <i
+                className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+              ></i>
             </button>
           </div>
         </div>
@@ -143,7 +153,7 @@ export default function LoginForm() {
       )}
 
       <p className={styles.footerText}>
-        Don&apos;t have an account? <Link href="#">Sign up</Link>
+        Don&apos;t have an account? <Link href="/signup">Sign up</Link>
       </p>
     </div>
   );
