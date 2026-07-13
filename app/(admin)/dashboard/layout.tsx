@@ -2,6 +2,7 @@
 import "./dashboard.css"
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
+import Sidebar from "@/components/dashboard/Sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -17,7 +18,7 @@ export default async function DashboardLayout({
   return (
     <div className="container-fluid">
       <div className="row">
-        {/* <Sidebar /> */}
+        <Sidebar />
         <main className="col-12 col-md-9 col-lg-10 p-4">{children}</main>
       </div>
     </div>

@@ -12,6 +12,8 @@ datasource db {
   provider = "postgresql"
 }
 
+// Better Auth User, Session, Account, Verification Tables
+// Used for Authenticate user 
 model User {
   id            String    @id
   name          String
@@ -73,4 +75,157 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+// A simple enum used by both Project and Blog to mark whether
+// something is visible to the public yet or still being worked on.
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+}
+
+// ---------------------------------------------------------------------
+// Developer: a real estate company that builds projects.
+// ---------------------------------------------------------------------
+model Developer {
+  // id          Int      @id @default(autoincrement())
+  id          String   @id @default(cuid())
+  name        String
+  logo        String?
+  description String?
+  email       String?
+  phone       String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // One developer can have many projects
+  projects Project[]
+}
+
+// ---------------------------------------------------------------------
+// Agent: a sales person who can be assigned to many projects.
+// ---------------------------------------------------------------------
+model Agent {
+  // id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  photo     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Many-to-many: an agent can work on many projects, and a project can have many agents
+  projects Project[] @relation("ProjectAgents")
+}
+
+// ---------------------------------------------------------------------
+// Location: an area/city where a project is located.
+// ---------------------------------------------------------------------
+model Location {
+  // id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
+  name      String
+  state     String?
+  image     String? // featured image shown in dropdowns/lists
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // One location can have many projects
+  projects Project[]
+}
+
+// ---------------------------------------------------------------------
+// Amenity: something a project offers, like "Swimming Pool" or "Gym".
+// ---------------------------------------------------------------------
+model Amenity {
+  // id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
+  name      String
+  icon      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Many-to-many: an amenity can belong to many projects, and a project can have many amenities
+  projects Project[] @relation("ProjectAmenities")
+}
+
+// ---------------------------------------------------------------------
+// Project: the main entity of the whole app.
+// ---------------------------------------------------------------------
+model Project {
+  // id                 Int       @id @default(autoincrement())
+  id                 String    @id @default(cuid())
+  title              String
+  slug               String    @unique
+  category           String?
+  type               String?
+  status             String?
+  images             String[] // list of image URLs / paths
+  address            String?
+  googleMapsEmbedUrl String?
+  configurationUnit  String    @default("BHK")
+  price              Float?
+  possessionDate     DateTime?
+  area               Float?
+  reraNumber         String?
+  tags               String[]
+  highlights         String[]
+  description        String?
+  parking            Int?
+  yearBuilt          Int?
+  locationFeatures   String[]
+
+  publishStatus PublishStatus @default(DRAFT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Belongs to one Developer
+  developerId String
+  developer   Developer @relation(fields: [developerId], references: [id])
+
+  // Belongs to one Location
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+
+  // One project has many Configurations (e.g. 2 BHK, 3 BHK)
+  configurations Configuration[]
+
+  // Many-to-many relations
+  amenities Amenity[] @relation("ProjectAmenities")
+  agents    Agent[]   @relation("ProjectAgents")
+}
+
+// ---------------------------------------------------------------------
+// Configuration: a unit type inside a Project, e.g. "2 BHK" with its own
+// price, area, and floor plan images.
+// ---------------------------------------------------------------------
+model Configuration {
+  // id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
+  value     String // e.g. "2" (for 2 BHK) or "2.5"
+  price     Float?
+  areaValue Float?
+  areaLabel String? // e.g. "sq.ft" or "sq.m"
+  images    String[] // floor plan images
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+// ---------------------------------------------------------------------
+// Blog: a completely standalone entity, not linked to anything else.
+// ---------------------------------------------------------------------
+model Blog {
+  // id            Int           @id @default(autoincrement())
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  body          String
+  images        String[]
+  publishStatus PublishStatus @default(DRAFT)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
