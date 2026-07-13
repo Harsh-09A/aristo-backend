@@ -1,0 +1,64 @@
+/* Bootstrap 5 base styles
+@import "bootstrap/dist/css/bootstrap.min.css"; */
+
+body {
+  background-color: #f5f6f8;
+}
+
+/* Sidebar */
+.sidebar {
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: #1e2a38;
+}
+
+.sidebar a {
+  color: #c9d2dc;
+  text-decoration: none;
+  display: block;
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background-color: #2f3f52;
+  color: #ffffff;
+}
+
+.sidebar-brand {
+  color: #ffffff;
+  font-weight: 700;
+  padding: 16px;
+  font-size: 1.2rem;
+}
+
+/* Simple image preview grid used in the multi-image uploader */
+.image-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.image-preview-item {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+}
+
+.image-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
