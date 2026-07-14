@@ -27,7 +27,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           <div className={styles.logo}>
             {/* <i className="fa-solid fa-city"></i> */}
             {/* <span>EstateHub</span> */}
-            <img src="/assets/logo/aristo-logo-white.png" alt="" height={"80px"} />
+            <img src="/assets/images/logo/aristo-logo-white.png" alt="" height={"80px"} />
           </div>
           <h1>Find your dream home with us</h1>
           <p>

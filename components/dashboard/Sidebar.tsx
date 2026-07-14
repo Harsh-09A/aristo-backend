@@ -25,7 +25,7 @@ export default function Sidebar() {
     <div className="sidebar col-12 col-md-3 col-lg-2 p-0">
       <div className="sidebar-brand">
         {/* 🏠 Aristo Dashboard */}
-        <img src="/assets/logo/aristo-logo-white.png" alt="" height={"80px"} />
+        <img src="/assets/images/logo/aristo-logo-white.png" alt="" height={"80px"} />
       </div>
       <nav className="d-flex flex-column gap-1 px-2">
         {navItems.map((item) => {
