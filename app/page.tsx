@@ -1,27 +1,28 @@
-import prisma from "@/lib/prisma";
 import Link from "next/link";
 
-const Home = async() => {
-  const users = await prisma.user.findMany();
+const Home = async () => {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        color: "#fff",
-        gap: "16px",
-      }}
-    >
-      <h1>
-        <i className="fa-solid fa-city"></i> EstateHub
-      </h1>
-      <Link href="/login" className="btn btn-primary">
-        Go to Login Page
-      </Link>
-    </div>
+    <>
+      {/* Home Banner Style V1 */}
+      <section
+        className="home-banner-style1 p0"
+        style={{
+          backgroundImage: "url(/assets/images/banners/navi-mumbai-bg-600.jpeg)",
+        }}
+      >
+        <div className="home-style1">
+          <div className="container">
+            <div className="row">
+              <div className="col-xl-11 mx-auto">
+                {/* <Hero /> */}
+              </div>
+            </div>
+          </div>
+          {/* End .container */}
+        </div>
+      </section>
+      {/* End Home Banner Style V1 */}
+    </>
   );
 };
 
