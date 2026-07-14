@@ -1,4 +1,6 @@
-import Link from "next/link";
+import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
+import Hero from "@/components/frontend/home/hero/Hero";
+import PricesCard from "@/components/frontend/home/prices/PricesCard";
 
 const Home = async () => {
   return (
@@ -7,14 +9,15 @@ const Home = async () => {
       <section
         className="home-banner-style1 p0"
         style={{
-          backgroundImage: "url(/assets/images/banners/navi-mumbai-bg-600.jpeg)",
+          backgroundImage:
+            "url(/assets/images/banners/navi-mumbai-bg-600.jpeg)",
         }}
       >
         <div className="home-style1">
           <div className="container">
             <div className="row">
               <div className="col-xl-11 mx-auto">
-                {/* <Hero /> */}
+                <Hero />
               </div>
             </div>
           </div>
@@ -22,6 +25,26 @@ const Home = async () => {
         </div>
       </section>
       {/* End Home Banner Style V1 */}
+
+      {/* Explore By Prices */}
+      <section className="pb-0">
+        <div className="container">
+          <div className="row wow fadeInUp" data-wow-delay="00ms">
+            <div className="col-lg-12 mb-4" data-aos="fade-up">
+              <SectionHeading
+                heading={"Budgets"}
+                title={"Explore By"}
+                highlight={"Prices"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+          </div>
+          <div className="row" data-aos="fade-up" data-aos-delay="100">
+            <PricesCard />
+          </div>
+        </div>
+      </section>
+      {/* End Explore By Prices */}
     </>
   );
 };

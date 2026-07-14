@@ -10,7 +10,7 @@ type Props = {
 export default function ClientProviders({ children }: Props) {
   useEffect(() => {
     // Load Bootstrap JS safely in browser
-    // import("bootstrap");
+    import("bootstrap");
 
     // Initialize AOS animation
     AOS.init({
