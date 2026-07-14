@@ -25,6 +25,45 @@ const DashboardPage = async () => {
   ] = results.map((res) => (res.status === "fulfilled" ? res.value : "N/A"));
   // Aap 'N/A' ki jagah 'Not Found' ya 0 bhi rakh sakte hain
 
+  // const cards = [
+  //   {
+  //     label: "Projects",
+  //     count: projectCount,
+  //     href: "/dashboard/projects",
+  //     color: "primary",
+  //   },
+  //   {
+  //     label: "Developers",
+  //     count: developerCount,
+  //     href: "/dashboard/developers",
+  //     color: "success",
+  //   },
+  //   {
+  //     label: "Agents",
+  //     count: agentCount,
+  //     href: "/dashboard/agents",
+  //     color: "info",
+  //   },
+  //   {
+  //     label: "Locations",
+  //     count: locationCount,
+  //     href: "/dashboard/locations",
+  //     color: "warning",
+  //   },
+  //   {
+  //     label: "Amenities",
+  //     count: amenityCount,
+  //     href: "/dashboard/amenities",
+  //     color: "secondary",
+  //   },
+  //   {
+  //     label: "Blog Posts",
+  //     count: blogCount,
+  //     href: "/dashboard/blogs",
+  //     color: "dark",
+  //   },
+  // ];
+
   const cards = [
     {
       label: "Projects",
@@ -54,13 +93,13 @@ const DashboardPage = async () => {
       label: "Amenities",
       count: amenityCount,
       href: "/dashboard/amenities",
-      color: "secondary",
+      color: "danger",
     },
     {
-      label: "Blog Posts",
+      label: "Blogs",
       count: blogCount,
       href: "/dashboard/blogs",
-      color: "dark",
+      color: "secondary",
     },
   ];
 
@@ -74,7 +113,12 @@ const DashboardPage = async () => {
               <div className={`card border-${card.color} h-100`}>
                 <div className="card-body">
                   <h6 className="text-muted">{card.label}</h6>
-                  <p className="display-6 mb-0">{card.count}</p>
+                  {/* Agar value N/A hai toh red color me text dikhega, nahi toh display-6 size me number */}
+                  <p
+                    className={`${card.count === "N/A" ? "text-danger fs-5" : "display-6"} mb-0`}
+                  >
+                    {card.count}
+                  </p>
                 </div>
               </div>
             </Link>

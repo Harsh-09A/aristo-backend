@@ -1,3 +1,4 @@
+import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 import Hero from "@/components/frontend/home/hero/Hero";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
@@ -25,6 +26,36 @@ const Home = async () => {
         </div>
       </section>
       {/* End Home Banner Style V1 */}
+
+      {/* Our Developers */}
+      <section className="our-partners pb-0">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12 mb-4" data-aos="fade-up">
+              <SectionHeading
+                heading={"Developers"}
+                title={"Our Top"}
+                highlight={"Developers"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+            <div className="col-lg-12 text-center">
+              <div
+                className="dots_none nav_none"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                {
+                  /* <Partner /> */
+
+                  <Developers />
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End Our Partners */}
 
       {/* Explore By Prices */}
       <section className="pb-0">

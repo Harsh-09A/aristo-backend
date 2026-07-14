@@ -4,7 +4,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "aos/dist/aos.css";
 import "rc-slider/assets/index.css";
-import "@/_styles/scss/main.scss"
+// import "@/_styles/scss/main.scss"
 import "./globals.css";
 
 import BootstrapClient from "@/components/wrappers/BootstrapClient";
@@ -51,19 +51,19 @@ export default function RootLayout({
         <ClientProviders >
           <div className="wrapper">
             {/* Main Header Nav */}
-            <DefaultHeader />
+            {/* <DefaultHeader /> */}
             {/* End Main Header Nav */}
 
             {/* Mobile Nav  */}
-            <MobileMenu />
+            {/* <MobileMenu /> */}
             {/* End Mobile Nav  */}
 
             {children}
 
             {/* Start Our Footer */}
-            <section className="footer-style1 pt60 pb-0">
+            {/* <section className="footer-style1 pt60 pb-0">
               <Footer />
-            </section>
+            </section> */}
             {/* End Our Footer */}
           </div>
           {/* <ScrollToTop /> */}
