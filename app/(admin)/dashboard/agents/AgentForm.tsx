@@ -12,6 +12,7 @@ export default function AgentForm({
     id: string;
     name: string;
     email: string | null;
+    specialization: string | null;
     phone: string | null;
     photo: string | null;
   };
@@ -21,8 +22,13 @@ export default function AgentForm({
 
   const [name, setName] = useState(agent?.name || "");
   const [email, setEmail] = useState(agent?.email || "");
+  const [specialization, setSpecialization] = useState(
+    agent?.specialization || "",
+  );
   const [phone, setPhone] = useState(agent?.phone || "");
-  const [photo, setPhoto] = useState<string[]>(agent?.photo ? [agent.photo] : []);
+  const [photo, setPhoto] = useState<string[]>(
+    agent?.photo ? [agent.photo] : [],
+  );
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -32,7 +38,13 @@ export default function AgentForm({
     setErrorMessage("");
     setIsSaving(true);
 
-    const formData = { name, email, phone, photo: photo[0] || "" };
+    const formData = {
+      name,
+      email,
+      specialization,
+      phone,
+      photo: photo[0] || "",
+    };
 
     try {
       if (isEditing && agent) {
@@ -42,7 +54,7 @@ export default function AgentForm({
       }
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Something went wrong"
+        error instanceof Error ? error.message : "Something went wrong",
       );
       setIsSaving(false);
     }
@@ -71,6 +83,15 @@ export default function AgentForm({
             className="form-control"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+          />
+        </div>
+        <div className="col-md-6 mb-3">
+          <label className="form-label">Specialization</label>
+          <input
+            type="text"
+            className="form-control"
+            value={specialization}
+            onChange={(event) => setSpecialization(event.target.value)}
           />
         </div>
         <div className="col-md-6 mb-3">

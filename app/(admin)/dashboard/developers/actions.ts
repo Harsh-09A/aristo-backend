@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { makeSlug } from "@/lib/slugify";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -25,9 +26,12 @@ export async function createDeveloper(data: DeveloperFormData) {
     throw new Error("A developer with this name already exists.");
   }
 
+  const slug = makeSlug(data.name);
+
   await prisma.developer.create({
     data: {
       name: data.name,
+      slug: slug,
       logo: data.logo || null,
       description: data.description || null,
       email: data.email || null,
@@ -54,10 +58,13 @@ export async function updateDeveloper(id: string, data: DeveloperFormData) {
     throw new Error("A developer with this name already exists.");
   }
 
+  const slug = makeSlug(data.name);
+
   await prisma.developer.update({
     where: { id },
     data: {
       name: data.name,
+      slug: slug,
       logo: data.logo || null,
       description: data.description || null,
       email: data.email || null,
@@ -72,6 +79,16 @@ export async function updateDeveloper(id: string, data: DeveloperFormData) {
 
 // Delete a Developer
 export async function deleteDeveloper(id: string) {
+  const projectCount = await prisma.project.count({
+    where: { developerId: id },
+  });
+
+  if (projectCount > 0) {
+    throw new Error(
+      `Can't delete this developer — ${projectCount} project${projectCount === 1 ? " is" : "s are"} still assigned to it. Reassign or delete ${projectCount === 1 ? "it" : "them"} first.`
+    );
+  }
+
   await prisma.developer.delete({ where: { id } });
   revalidatePath("/dashboard/developers");
 }

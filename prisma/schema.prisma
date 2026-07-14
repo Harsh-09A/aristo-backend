@@ -91,6 +91,7 @@ model Developer {
   // id          Int      @id @default(autoincrement())
   id          String   @id @default(cuid())
   name        String
+  slug        String   @unique
   logo        String?
   description String?
   email       String?
@@ -108,13 +109,15 @@ model Developer {
 // ---------------------------------------------------------------------
 model Agent {
   // id        Int      @id @default(autoincrement())
-  id        String   @id @default(cuid())
-  name      String
-  email     String?
-  phone     String?
-  photo     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  specialization String?
+  email          String?
+  phone          String?
+  photo          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   // Many-to-many: an agent can work on many projects, and a project can have many agents
   projects Project[] @relation("ProjectAgents")
@@ -127,6 +130,7 @@ model Location {
   // id        Int      @id @default(autoincrement())
   id        String   @id @default(cuid())
   name      String
+  slug      String   @unique
   state     String?
   image     String? // featured image shown in dropdowns/lists
   createdAt DateTime @default(now())
