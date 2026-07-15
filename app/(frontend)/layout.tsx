@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <>
       <ClientProviders>
-        <div className="wrapper">
+        <div className={` wrapper ${poppins.variable} ${dmSans.variable}`}>
           {/* Main Header Nav */}
           <DefaultHeader />
           {/* End Main Header Nav */}

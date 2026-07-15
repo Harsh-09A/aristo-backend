@@ -3,7 +3,11 @@ import SectionHeading from "@/components/frontend/common/sections/SectionHeading
 import Hero from "@/components/frontend/home/hero/Hero";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
 import FeaturedListings from "@/components/frontend/property/listing/FeaturedListings";
+import TopListings from "@/components/frontend/property/listing/TopListings";
+import ReelsSection4 from "@/components/frontend/temporary/ReelsSection4";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 
 const Home = async () => {
   return (
@@ -105,6 +109,44 @@ const Home = async () => {
             <div className="col-lg-12" data-aos="fade-up" data-aos-delay="200">
               <div className="">
                 <FeaturedListings />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End Featured Listings */}
+
+      {/* Reels Section */}
+      <ReelsSection4 />
+      {/* End Reels Section */}
+
+            {/* Top Listings */}
+      <section className="bgc-f7">
+        <div className="container">
+          <div className="row align-items-center" data-aos="fade-up">
+            <div className="col-lg-9 mb-4 ">
+              <SectionHeading
+                heading={"Top Properties"}
+                title={"Discover Our"}
+                highlight={"Top Properties"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+            <div className="col-lg-3">
+              <div className="text-start text-lg-end mb-3">
+                <Link className="ud-btn2" href="/listings">
+                  See All Properties
+                  <i className="fal fa-arrow-right-long" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          {/* End header */}
+
+          <div className="row">
+            <div className="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+              <div className="feature-listing-slider">
+                <TopListings />
               </div>
             </div>
           </div>

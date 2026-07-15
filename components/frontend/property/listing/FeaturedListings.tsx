@@ -4,7 +4,7 @@ import FeaturedListingsSlider from "./FeaturedListingsSlider";
 
 const FeaturedListings = async () => {
   const featuredProperties = await getFeaturedProperties(5);
-  console.log(featuredProperties[0].amenities)
+  // console.log(featuredProperties[0].amenities)
   // console.log(featuredProperties)
 
   return (
