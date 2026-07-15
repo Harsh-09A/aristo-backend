@@ -2,6 +2,8 @@ import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 import Hero from "@/components/frontend/home/hero/Hero";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
+import FeaturedListings from "@/components/frontend/property/listing/FeaturedListings";
+import Link from "next/link";
 
 const Home = async () => {
   return (
@@ -47,7 +49,6 @@ const Home = async () => {
               >
                 {
                   /* <Partner /> */
-
                   <Developers />
                 }
               </div>
@@ -76,6 +77,40 @@ const Home = async () => {
         </div>
       </section>
       {/* End Explore By Prices */}
+
+      {/* Featured Listings */}
+      <section className="bgc-f7 py">
+        <div className="container">
+          <div className="row align-items-center" data-aos="fade-up">
+            <div className="col-lg-9 mb-4 ">
+              <SectionHeading
+                heading={"Latest Properties"}
+                title={"Discover Our"}
+                highlight={"Latest Properties"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+            <div className="col-lg-3">
+              <div className="text-start text-lg-end mb-3">
+                <Link className="ud-btn2" href="/listings">
+                  See All Properties
+                  <i className="fal fa-arrow-right-long" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          {/* End header */}
+
+          <div className="row">
+            <div className="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+              <div className="">
+                <FeaturedListings />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End Featured Listings */}
     </>
   );
 };
