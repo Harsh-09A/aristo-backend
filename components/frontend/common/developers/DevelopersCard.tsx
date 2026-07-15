@@ -1,31 +1,43 @@
-import React from "react";
-import { agentsData } from "./agency";
 import Image from "next/image";
 import Link from "next/link";
+import { getAllDevelopers } from "@/services/developer-service";
 
-const DevelopersCard = () => {
-  const data = agentsData;
+const DevelopersCard = async () => {
+  const developers = await getAllDevelopers();
   return (
     <>
-      {data.map((agent) => (
-        <div key={agent.id} className="col-md-6 col-lg-3">
+      {developers.map((developer) => (
+        <div key={developer.id} className="col-md-6 col-lg-3">
           <div className="agency-style1 p30 bdrs12 bdr1 mb30">
             <div className="agency-img">
-              <Image
-                width={324}
-                height={209}
-                className=" contain"
-                src={agent.imgSrc}
-                alt="agency"
-              />
-              <div className="tag">{agent.propertiesCount}</div>
+              <div
+                style={{
+                  position: "relative",
+                  width: "220px",
+                  height: "200px",
+                }}
+              >
+                <Image
+                  fill
+                  src={
+                    developer.logo ||
+                    "/assets/images/placeholder/placeholder-image.jpg"
+                  }
+                  alt={developer.name}
+                  style={{ objectFit: "contain" }}
+                />
+              </div>
+              <div className="tag">{`${developer._count.projects} Properties`}</div>
             </div>
             <div className="agency-details pt10">
-              <h6 className="agency-title mb-1 ">{agent.agencyTitle}</h6>
+              <h6 className="agency-title mb-1 ">{developer.name}</h6>
 
               <div className="d-grid pt10">
                 {/* <Link href={`/agency-single/${agent.id}`} className="ud-btn btn-white2"> */}
-                <Link href={`#`} className="ud-btn btn-white2">
+                <Link
+                  href={`/developers/${developer.slug}`}
+                  className="ud-btn btn-white2"
+                >
                   View Listings
                   <i className="fal fa-arrow-right-long" />
                 </Link>

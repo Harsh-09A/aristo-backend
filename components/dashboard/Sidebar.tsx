@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserMenu from "./UserMenu"; //
 
 // Each link the sidebar shows
 const navItems = [
@@ -18,16 +19,29 @@ const navItems = [
   { href: "/dashboard/blogs", label: "Blog Posts", icon: "bi-journal-text" },
 ];
 
-export default function Sidebar() {
+// User ka simple type — agar aapke lib/session.ts mein already koi type
+// export hota hai (jaise `SessionUser`), toh usko yahan import kar lena
+// behtar rahega. Filhaal beginner-friendly rakhne ke liye yahi kaafi hai.
+type SidebarUser = {
+  name: string;
+  email: string;
+  image?: string | null;
+};
+
+export default function Sidebar({ user }: { user: SidebarUser }) {
   const pathname = usePathname();
 
   return (
     <div className="sidebar col-12 col-md-3 col-lg-2 p-0">
       <div className="sidebar-brand">
         {/* 🏠 Aristo Dashboard */}
-        <img src="/assets/images/logo/aristo-logo-white.png" alt="" height={"80px"} />
+        <img
+          src="/assets/images/logo/aristo-logo-white.png"
+          alt=""
+          height={"80px"}
+        />
       </div>
-      <nav className="d-flex flex-column gap-1 px-2">
+      <nav className="d-flex flex-column gap-1 px-2 flex-grow-1 overflow-auto mb-5">
         {navItems.map((item) => {
           // Highlight the link if we're currently on that page (or a sub-page of it)
           const isActive =
@@ -46,6 +60,10 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      {/* mt-auto isko navigation links ke neeche, sidebar ke bottom tak push kar dega */}
+      <div className="mt-auto">
+        <UserMenu user={user} />
+      </div>
     </div>
   );
 }

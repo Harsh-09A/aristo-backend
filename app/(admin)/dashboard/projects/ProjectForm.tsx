@@ -34,17 +34,17 @@ function makeEmptyConfigurationRow(): ConfigurationRow {
   };
 }
 
-// Turns a comma separated string like "Pool, Gym, Garden" into ["Pool", "Gym", "Garden"]
+// Turns a newline separated string like "Pool\nGym\nGarden" into ["Pool", "Gym", "Garden"]
 function textToList(text: string): string[] {
   return text
-    .split(",")
+    .split("\n")
     .map((item) => item.trim())
     .filter((item) => item.length > 0);
 }
 
-// Turns ["Pool", "Gym"] back into "Pool, Gym" for showing inside a text input
+// Turns ["Pool", "Gym"] back into "Pool\nGym" for showing inside a textarea
 function listToText(list: string[]): string {
-  return list.join(", ");
+  return list.join("\n");
 }
 
 export default function ProjectForm({
@@ -554,22 +554,22 @@ export default function ProjectForm({
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Tags (comma separated)</label>
-            <input
-              type="text"
+            <label className="form-label">Tags (one per line)</label>
+            <textarea
+              rows={6}
               className="form-control"
-              placeholder="e.g. Luxury, Sea View, New Launch"
+              placeholder={"Luxury\nSea View\nNew Launch"}
               value={tagsText}
               onChange={(event) => setTagsText(event.target.value)}
             />
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Highlights (comma separated)</label>
-            <input
-              type="text"
+            <label className="form-label">Highlights (one per line)</label>
+            <textarea
+              rows={6}
               className="form-control"
-              placeholder="e.g. Clubhouse, Rooftop Pool, EV Charging"
+              placeholder={"Clubhouse\nRooftop Pool\nEV Charging"}
               value={highlightsText}
               onChange={(event) => setHighlightsText(event.target.value)}
             />
@@ -577,12 +577,12 @@ export default function ProjectForm({
 
           <div className="mb-3">
             <label className="form-label">
-              Location Features (comma separated)
+              Location Features (one per line)
             </label>
-            <input
-              type="text"
+            <textarea
+              rows={6}
               className="form-control"
-              placeholder="e.g. Near Metro, Close to School"
+              placeholder={"Near Metro\nClose to School"}
               value={locationFeaturesText}
               onChange={(event) => setLocationFeaturesText(event.target.value)}
             />

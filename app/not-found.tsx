@@ -1,4 +1,5 @@
 import Link from "next/link";
+import "@/_styles/scss/main.scss"
 
 export const metadata = {
   title: "Not-Found ",

@@ -103,6 +103,20 @@ const DashboardPage = async () => {
     },
   ];
 
+  async function checkConnection() {
+  try {
+    // Ye query sirf database ka connection test karegi
+    await prisma.$queryRaw`SELECT 1`
+    console.log('🎉 NeonDB se successfully connect ho gaya hai!')
+  } catch (error) {
+    console.error('❌ Connection fail ho gaya. Error:', error)
+  } finally {
+    await prisma.$disconnect()
+  }
+}
+
+checkConnection()
+
   return (
     <div>
       <h1 className="h3 mb-4">Dashboard</h1>

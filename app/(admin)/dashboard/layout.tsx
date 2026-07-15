@@ -18,7 +18,7 @@ export default async function DashboardLayout({
   return (
     <div className="container-fluid">
       <div className="row">
-        <Sidebar />
+        <Sidebar user={session.user} />
         <main className="col-12 col-md-9 col-lg-10 p-4">{children}</main>
       </div>
     </div>
