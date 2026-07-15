@@ -1,4 +1,4 @@
-// lib/queries/developers.ts
+//services/developers-service.ts
 import prisma from "@/lib/prisma";
 
 // List page — sabhi developers

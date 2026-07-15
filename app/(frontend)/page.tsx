@@ -2,6 +2,7 @@ import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 import Hero from "@/components/frontend/home/hero/Hero";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
+import LocationListings from "@/components/frontend/location/LocationListings";
 import FeaturedListings from "@/components/frontend/property/listing/FeaturedListings";
 import TopListings from "@/components/frontend/property/listing/TopListings";
 import ReelsSection4 from "@/components/frontend/temporary/ReelsSection4";
@@ -120,7 +121,7 @@ const Home = async () => {
       <ReelsSection4 />
       {/* End Reels Section */}
 
-            {/* Top Listings */}
+      {/* Top Listings */}
       <section className="bgc-f7">
         <div className="container">
           <div className="row align-items-center" data-aos="fade-up">
@@ -153,6 +154,48 @@ const Home = async () => {
         </div>
       </section>
       {/* End Featured Listings */}
+
+      {/* Explore Locations */}
+      <section className="pb40-md pb90">
+        <div className="container">
+          <div
+            className="row align-items-center"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div className="col-lg-9 mb-4">
+              <SectionHeading
+                heading={"Top Locations"}
+                title={"Discover Our"}
+                highlight={"Top Locations"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+            {/* End col-lg-9 */}
+
+            <div className="col-lg-3">
+              <div className="text-start text-lg-end mb-3">
+                <a className="ud-btn2" href="#">
+                  See All Locations
+                  <i className="fal fa-arrow-right-long" />
+                </a>
+              </div>
+            </div>
+            {/* End col-lg-3 */}
+          </div>
+          {/* End .row */}
+
+          <div className="row">
+            <div className="col-lg-12" data-aos="fade-up" data-aos-delay="300">
+              <div className="property-city-slider position-relative">
+                <LocationListings />
+              </div>
+            </div>
+          </div>
+          {/* End .row */}
+        </div>
+      </section>
+      {/* End Explore Locations */}
     </>
   );
 };

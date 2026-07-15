@@ -1,4 +1,5 @@
 // ===================================================================
+//services/developers-service.ts
 // Property (Prisma model: Project) queries
 // Rewritten to use the real Prisma client instead of a static
 // in-memory `properties` array, based on the new schema.
