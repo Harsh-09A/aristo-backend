@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import ImageUploader from "@/components/dashboard/ImageUploader";
+import ImageUploader, {
+  ImageUploaderHandle,
+} from "@/components/dashboard/ImageUploader";
 import { createBlog, updateBlog } from "./actions";
 
 export default function BlogForm({
@@ -21,10 +23,11 @@ export default function BlogForm({
 
   const [title, setTitle] = useState(blog?.title || "");
   const [body, setBody] = useState(blog?.body || "");
-  const [images, setImages] = useState<string[]>(blog?.images || []);
   const [publishStatus, setPublishStatus] = useState<"DRAFT" | "PUBLISHED">(
-    blog?.publishStatus || "DRAFT"
+    blog?.publishStatus || "DRAFT",
   );
+
+  const imagesUploaderRef = useRef<ImageUploaderHandle>(null);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -34,9 +37,12 @@ export default function BlogForm({
     setErrorMessage("");
     setIsSaving(true);
 
-    const formData = { title, body, images, publishStatus };
-
     try {
+      const imagePaths =
+        (await imagesUploaderRef.current?.uploadPendingFiles()) || [];
+
+      const formData = { title, body, images: imagePaths, publishStatus };
+
       if (isEditing && blog) {
         await updateBlog(blog.id, formData);
       } else {
@@ -44,7 +50,7 @@ export default function BlogForm({
       }
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Something went wrong"
+        error instanceof Error ? error.message : "Something went wrong",
       );
       setIsSaving(false);
     }
@@ -91,10 +97,10 @@ export default function BlogForm({
       </div>
 
       <ImageUploader
+        ref={imagesUploaderRef}
         folder="blogs"
         label="Images"
-        value={images}
-        onChange={setImages}
+        initialValue={blog?.images || []}
       />
 
       <div className="d-flex gap-2 mt-3">

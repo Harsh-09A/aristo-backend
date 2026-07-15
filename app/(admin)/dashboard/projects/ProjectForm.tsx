@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import ImageUploader from "@/components/dashboard/ImageUploader";
+import ImageUploader, {
+  ImageUploaderHandle,
+} from "@/components/dashboard/ImageUploader";
 import GooglePlacesPlaceholder from "@/components/dashboard/GooglePlacesPlaceholder";
 import {
   createProject,
@@ -101,7 +103,9 @@ export default function ProjectForm({
   const [category, setCategory] = useState(project?.category || "");
   const [type, setType] = useState(project?.type || "");
   const [status, setStatus] = useState(project?.status || "");
-  const [images, setImages] = useState<string[]>(project?.images || []);
+  // const [images, setImages] = useState<string[]>(project?.images || []);
+  const projectImagesRef = useRef<ImageUploaderHandle>(null);
+
   const [address, setAddress] = useState(project?.address || "");
   const [googleMapsEmbedUrl, setGoogleMapsEmbedUrl] = useState(
     project?.googleMapsEmbedUrl || "",
@@ -148,6 +152,8 @@ export default function ProjectForm({
   );
 
   // --- Configurations (e.g. 2 BHK, 3 BHK) ---
+  const configImageRefs = useRef<Map<string, ImageUploaderHandle>>(new Map());
+
   const [configurations, setConfigurations] = useState<ConfigurationRow[]>(
     project?.configurations && project.configurations.length > 0
       ? project.configurations.map((config) => ({
@@ -213,37 +219,51 @@ export default function ProjectForm({
 
     setIsSaving(true);
 
-    const formData = {
-      title,
-      category,
-      type,
-      status,
-      images,
-      address,
-      googleMapsEmbedUrl,
-      configurationUnit,
-      price,
-      possessionDate,
-      area,
-      reraNumber,
-      tags: textToList(tagsText),
-      highlights: textToList(highlightsText),
-      description,
-      parking,
-      yearBuilt,
-      locationFeatures: textToList(locationFeaturesText),
-      publishStatus,
-      developerId,
-      locationId,
-      amenityIds: selectedAmenityIds,
-      agentIds: selectedAgentIds,
-      configurations: configurations
-        // Ignore totally empty rows (user added one but never filled it in)
-        .filter((row) => row.value.trim() !== "")
-        .map(({ key, ...rest }) => rest),
-    };
-
     try {
+      // 1. Pehle project ki main images upload karo
+      const projectImagePaths =
+        (await projectImagesRef.current?.uploadPendingFiles()) || [];
+
+      // 2. Fir har configuration row ki images upload karo (ek ek karke)
+      const configurationsWithUploadedImages = await Promise.all(
+        configurations
+          .filter((row) => row.value.trim() !== "") // khali rows ignore karo
+          .map(async (row) => {
+            const rowRef = configImageRefs.current.get(row.key);
+            const rowImagePaths = (await rowRef?.uploadPendingFiles()) || [];
+
+            const { key, ...rest } = row;
+            return { ...rest, images: rowImagePaths };
+          }),
+      );
+
+      const formData = {
+        title,
+        category,
+        type,
+        status,
+        images: projectImagePaths,
+        address,
+        googleMapsEmbedUrl,
+        configurationUnit,
+        price,
+        possessionDate,
+        area,
+        reraNumber,
+        tags: textToList(tagsText),
+        highlights: textToList(highlightsText),
+        description,
+        parking,
+        yearBuilt,
+        locationFeatures: textToList(locationFeaturesText),
+        publishStatus,
+        developerId,
+        locationId,
+        amenityIds: selectedAmenityIds,
+        agentIds: selectedAgentIds,
+        configurations: configurationsWithUploadedImages,
+      };
+
       if (isEditing && project) {
         await updateProject(project.id, formData);
       } else {
@@ -398,10 +418,10 @@ export default function ProjectForm({
           </div>
 
           <ImageUploader
+            ref={projectImagesRef}
             folder="projects"
             label="Project Images"
-            value={images}
-            onChange={setImages}
+            initialValue={project?.images || []}
           />
         </div>
       </div>
@@ -764,12 +784,17 @@ export default function ProjectForm({
               </div>
 
               <ImageUploader
+                ref={(handle) => {
+                  // Ye "callback ref" hai — React khud call karta hai jab component mount/unmount ho
+                  if (handle) {
+                    configImageRefs.current.set(row.key, handle);
+                  } else {
+                    configImageRefs.current.delete(row.key);
+                  }
+                }}
                 folder="configurations"
                 label="Floor Plan Images"
-                value={row.images}
-                onChange={(paths) =>
-                  updateConfigurationRow(row.key, "images", paths)
-                }
+                initialValue={row.images}
               />
             </div>
           ))}

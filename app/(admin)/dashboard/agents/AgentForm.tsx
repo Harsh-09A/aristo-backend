@@ -55,7 +55,6 @@ export default function AgentForm({
         photo: photoPaths[0] || "",
       };
 
-    try {
       if (isEditing && agent) {
         await updateAgent(agent.id, formData);
       } else {
@@ -68,8 +67,6 @@ export default function AgentForm({
       setIsSaving(false);
     }
   }
-}
-
   return (
     <form onSubmit={handleSubmit}>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}

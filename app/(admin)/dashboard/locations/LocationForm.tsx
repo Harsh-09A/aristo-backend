@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import ImageUploader from "@/components/dashboard/ImageUploader";
+import ImageUploader, {
+  ImageUploaderHandle,
+} from "@/components/dashboard/ImageUploader";
 import { createLocation, updateLocation } from "./actions";
 
 export default function LocationForm({
@@ -20,9 +22,8 @@ export default function LocationForm({
 
   const [name, setName] = useState(location?.name || "");
   const [state, setState] = useState(location?.state || "");
-  const [image, setImage] = useState<string[]>(
-    location?.image ? [location.image] : []
-  );
+
+  const imageUploaderRef = useRef<ImageUploaderHandle>(null);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -32,9 +33,12 @@ export default function LocationForm({
     setErrorMessage("");
     setIsSaving(true);
 
-    const formData = { name, state, image: image[0] || "" };
-
     try {
+      const imagePaths =
+        (await imageUploaderRef.current?.uploadPendingFiles()) || [];
+
+      const formData = { name, state, image: imagePaths[0] || "" };
+
       if (isEditing && location) {
         await updateLocation(location.id, formData);
       } else {
@@ -42,7 +46,7 @@ export default function LocationForm({
       }
     } catch (error) {
       setErrorMessage(
-        error instanceof Error ? error.message : "Something went wrong"
+        error instanceof Error ? error.message : "Something went wrong",
       );
       setIsSaving(false);
     }
@@ -76,10 +80,11 @@ export default function LocationForm({
       </div>
 
       <ImageUploader
+        ref={imageUploaderRef}
         folder="locations"
         label="Featured Image"
-        value={image}
-        onChange={(paths) => setImage(paths.slice(-1))}
+        initialValue={location?.image ? [location.image] : []}
+        maxFiles={1}
       />
 
       <div className="d-flex gap-2 mt-3">
