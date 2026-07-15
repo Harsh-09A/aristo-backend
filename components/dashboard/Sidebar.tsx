@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import UserMenu from "./UserMenu"; //
+import UserMenu from "./UserMenu";
 
 // Each link the sidebar shows
 const navItems = [
@@ -32,18 +32,19 @@ export default function Sidebar({ user }: { user: SidebarUser }) {
   const pathname = usePathname();
 
   return (
-    <div className="sidebar col-12 col-md-3 col-lg-2 p-0">
+    <div className="sidebar col-12 col-md-3 col-lg-2 p-0 d-flex flex-column">
       <div className="sidebar-brand">
-        {/* 🏠 Aristo Dashboard */}
         <img
           src="/assets/images/logo/aristo-logo-white.png"
           alt=""
           height={"80px"}
         />
       </div>
-      <nav className="d-flex flex-column gap-1 px-2 flex-grow-1 overflow-auto mb-5">
+
+      {/* flex-grow-1 + overflow-y-auto: agar nav items zyada ho jayein
+          toh sirf yeh section scroll ho, poora sidebar nahi */}
+      <nav className="d-flex flex-column gap-1 px-2 flex-grow-1 overflow-auto">
         {navItems.map((item) => {
-          // Highlight the link if we're currently on that page (or a sub-page of it)
           const isActive =
             pathname === item.href ||
             (item.href !== "/dashboard" && pathname.startsWith(item.href));
@@ -60,10 +61,9 @@ export default function Sidebar({ user }: { user: SidebarUser }) {
           );
         })}
       </nav>
-      {/* mt-auto isko navigation links ke neeche, sidebar ke bottom tak push kar dega */}
-      <div className="mt-auto">
-        <UserMenu user={user} />
-      </div>
+
+      {/* User info + sign out, hamesha bottom par */}
+      <UserMenu user={user} />
     </div>
   );
 }

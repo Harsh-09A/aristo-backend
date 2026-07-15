@@ -38,9 +38,9 @@ export default function UserMenu({ user }: { user: SidebarUser }) {
           </div>
         )}
 
-        <div className="flex-grow-1 text-white" style={{ minWidth: 0 }}>
+        <div className="flex-grow-1" style={{ minWidth: 0 }}>
           <div className="fw-semibold text-truncate">{user.name}</div>
-          <div className="small text-truncate  text-white">{user.email}</div>
+          <div className="small text-truncate text-muted">{user.email}</div>
         </div>
       </div>
 

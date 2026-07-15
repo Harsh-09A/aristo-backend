@@ -5,7 +5,9 @@ body {
   background-color: #f5f6f8;
 }
 
-/* Sidebar */
+/* ---------------------------------------------------------------
+   Sidebar - Desktop (default) behavior
+   --------------------------------------------------------------- */
 .sidebar {
   min-height: 100vh;
   position: sticky;
@@ -32,6 +34,40 @@ body {
   font-weight: 700;
   padding: 16px;
   font-size: 1.2rem;
+}
+
+/* ---------------------------------------------------------------
+   Sidebar - Mobile override (screens smaller than Bootstrap's "md")
+   Isse pehle sidebar poori screen height le raha tha mobile par,
+   jo galat lag raha tha. Ab yeh normal top-bar jaisa behave karega.
+   --------------------------------------------------------------- */
+@media (max-width: 767.98px) {
+  .sidebar {
+    min-height: auto; /* poori height mat lo, sirf jitna content hai utna */
+    position: relative; /* sticky hata do, warna content ke upar chipka rahega */
+  }
+
+  .sidebar-brand img {
+    height: 50px; /* mobile par logo thoda chota */
+  }
+
+  /* Nav links ko ek row mein horizontally scrollable bana do */
+  .sidebar nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+  }
+
+  .sidebar nav a {
+    white-space: nowrap; /* text ek line mein rahe, wrap na ho */
+  }
+
+  /* User menu (naam + sign out) ko mobile par chota/compact rakho */
+  .sidebar-user-menu {
+    border-top: none;
+    padding: 8px 16px;
+  }
 }
 
 /* Simple image preview grid used in the multi-image uploader */

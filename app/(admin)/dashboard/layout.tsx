@@ -1,5 +1,4 @@
-// import Sidebar from "@/components/Sidebar";
-import "./dashboard.css"
+import "./dashboard.css";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import Sidebar from "@/components/dashboard/Sidebar";
@@ -18,6 +17,7 @@ export default async function DashboardLayout({
   return (
     <div className="container-fluid">
       <div className="row">
+        {/* session.user ko sidebar mein bhej rahe hain */}
         <Sidebar user={session.user} />
         <main className="col-12 col-md-9 col-lg-10 p-4">{children}</main>
       </div>
