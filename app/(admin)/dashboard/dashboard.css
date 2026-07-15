@@ -1,18 +1,34 @@
-/* Bootstrap 5 base styles
-@import "bootstrap/dist/css/bootstrap.min.css"; */
-
 body {
   background-color: #f5f6f8;
 }
 
+/* Sidebar ki width ek jagah define kar di, taaki main content
+   ko bhi wahi value pata rahe (margin ke liye) */
+:root {
+  --sidebar-width: 260px;
+}
+
 /* ---------------------------------------------------------------
-   Sidebar - Desktop (default) behavior
+   Layout wrapper (Bootstrap ke .container-fluid/.row ki jagah)
+   --------------------------------------------------------------- */
+.dashboard-layout {
+  min-height: 100vh;
+}
+
+/* ---------------------------------------------------------------
+   Sidebar - Desktop: hamesha screen par fixed rahega
    --------------------------------------------------------------- */
 .sidebar {
-  min-height: 100vh;
-  position: sticky;
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed; /* sticky ki jagah fixed — zyada reliable */
   top: 0;
+  left: 0;
   background-color: #1e2a38;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* agar nav links bahut zyada ho jayein toh sirf sidebar scroll ho */
+  z-index: 1000;
 }
 
 .sidebar a {
@@ -36,19 +52,28 @@ body {
   font-size: 1.2rem;
 }
 
+/* Main content ko sidebar ki width jitna left-margin de do,
+   taaki content sidebar ke neeche na chhupe */
+.dashboard-main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
 /* ---------------------------------------------------------------
-   Sidebar - Mobile override (screens smaller than Bootstrap's "md")
-   Isse pehle sidebar poori screen height le raha tha mobile par,
-   jo galat lag raha tha. Ab yeh normal top-bar jaisa behave karega.
+   Mobile override (screens smaller than 768px)
+   Sidebar ab fixed nahi rahega — normal top bar jaisa behave karega
    --------------------------------------------------------------- */
 @media (max-width: 767.98px) {
   .sidebar {
-    min-height: auto; /* poori height mat lo, sirf jitna content hai utna */
-    position: relative; /* sticky hata do, warna content ke upar chipka rahega */
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
   }
 
   .sidebar-brand img {
-    height: 50px; /* mobile par logo thoda chota */
+    height: 50px;
   }
 
   /* Nav links ko ek row mein horizontally scrollable bana do */
@@ -67,6 +92,12 @@ body {
   .sidebar-user-menu {
     border-top: none;
     padding: 8px 16px;
+  }
+
+  /* Mobile par main content ko left-margin ki zaroorat nahi */
+  .dashboard-main {
+    margin-left: 0;
+    padding: 1rem;
   }
 }
 

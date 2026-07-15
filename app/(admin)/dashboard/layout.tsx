@@ -15,12 +15,9 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        {/* session.user ko sidebar mein bhej rahe hain */}
-        <Sidebar user={session.user} />
-        <main className="col-12 col-md-9 col-lg-10 p-4">{children}</main>
-      </div>
+    <div className="dashboard-layout">
+      <Sidebar user={session.user} />
+      <main className="dashboard-main">{children}</main>
     </div>
   );
 }

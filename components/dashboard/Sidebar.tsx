@@ -32,7 +32,8 @@ export default function Sidebar({ user }: { user: SidebarUser }) {
   const pathname = usePathname();
 
   return (
-    <div className="sidebar col-12 col-md-3 col-lg-2 p-0 d-flex flex-column">
+    // p-0 aur col-* classes hata di — width ab CSS (.sidebar) se control ho rahi hai
+    <div className="sidebar">
       <div className="sidebar-brand">
         <img
           src="/assets/images/logo/aristo-logo-white.png"
@@ -41,9 +42,7 @@ export default function Sidebar({ user }: { user: SidebarUser }) {
         />
       </div>
 
-      {/* flex-grow-1 + overflow-y-auto: agar nav items zyada ho jayein
-          toh sirf yeh section scroll ho, poora sidebar nahi */}
-      <nav className="d-flex flex-column gap-1 px-2 flex-grow-1 overflow-auto">
+      <nav className="d-flex flex-column gap-1 px-2 flex-grow-1">
         {navItems.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -62,7 +61,6 @@ export default function Sidebar({ user }: { user: SidebarUser }) {
         })}
       </nav>
 
-      {/* User info + sign out, hamesha bottom par */}
       <UserMenu user={user} />
     </div>
   );
