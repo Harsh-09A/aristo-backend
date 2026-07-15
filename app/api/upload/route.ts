@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
   }
 
   // 4. Make sure the destination folder exists
-  const uploadDir = path.join(process.cwd(), "public", "uploads", folder);
+  const uploadDir = path.join(process.cwd(), "uploads", folder);
   await mkdir(uploadDir, { recursive: true });
 
   const savedFilePaths: string[] = [];
@@ -56,7 +56,8 @@ export async function POST(request: NextRequest) {
     await writeFile(filePath, buffer);
 
     // This is the public URL path we store in the database and show in <img> tags
-    savedFilePaths.push(`/uploads/${folder}/${uniqueName}`);
+    savedFilePaths.push(`/api/files/${folder}/${uniqueName}`);
+
   }
 
   return NextResponse.json({ paths: savedFilePaths });
