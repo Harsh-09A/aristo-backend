@@ -2,10 +2,12 @@ import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 import Hero from "@/components/frontend/home/hero/Hero";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
+import WhyChooseUs from "@/components/frontend/home/why-choose/WhyChooseUs";
 import LocationListings from "@/components/frontend/location/LocationListings";
 import FeaturedListings from "@/components/frontend/property/listing/FeaturedListings";
 import TopListings from "@/components/frontend/property/listing/TopListings";
 import ReelsSection4 from "@/components/frontend/temporary/ReelsSection4";
+import TestimonialListings from "@/components/frontend/testimonial/TestimonialListings";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -196,6 +198,51 @@ const Home = async () => {
         </div>
       </section>
       {/* End Explore Locations */}
+
+      {/* <!-- Why Choose Us --> */}
+      <section>
+        <div className="container">
+          <div
+            className="row align-items-md-center"
+            data-aos="fade-left"
+            data-aos-delay="100"
+          >
+            <WhyChooseUs />
+          </div>
+        </div>
+      </section>
+      {/*  <!-- End Why Choose Us --> */}
+
+      {/* Our Testimonials */}
+      <section className="pb100 pb50-md bgc-thm-light">
+        <div className="container">
+          <div className="row  justify-content-between align-items-center">
+            <div className="col-auto mb-4">
+              <SectionHeading
+                heading={"Reviews"}
+                title={"What Our Customers Say About"}
+                highlight={"Aristo"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+            {/* End header */}
+          </div>
+          {/* End .row */}
+
+          <div className="row">
+            <div className="col-lg-12">
+              <div
+                className="testimonial-slider"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <TestimonialListings />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End Our Testimonials */}
     </>
   );
 };

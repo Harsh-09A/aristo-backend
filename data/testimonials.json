@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Smooth Buying Experience",
+    "quote":
+      "The entire home buying process was seamless. The team guided us at every step, from site visits to documentation. Very transparent and professional service in Navi Mumbai.",
+    "stars": 5,
+    "name": "Rohit Patil",
+    "company": "Kharghar, Navi Mumbai"
+  },
+  {
+    "id": 2,
+    "title": "Highly Recommended",
+    "quote":
+      "We were looking for a 2 BHK in a good locality and got the perfect option within our budget. The amenities and connectivity in the area are excellent.",
+    "stars": 5,
+    "name": "Neha Kulkarni",
+    "company": "Vashi, Navi Mumbai"
+  },
+  {
+    "id": 3,
+    "title": "Great Investment Guidance",
+    "quote":
+      "Got expert advice on property investment in Navi Mumbai. The team explained future growth potential and helped us choose a project with good ROI.",
+    "stars": 2,
+    "name": "Amit Deshmukh",
+    "company": "Panvel, Navi Mumbai"
+  },
+  {
+    "id": 4,
+    "title": "Trusted Real Estate Partner",
+    "quote":
+      "Very reliable and honest service. No hidden charges, and all commitments were fulfilled on time. Would definitely recommend to anyone looking for property in Navi Mumbai.",
+    "stars": 5,
+    "name": "Pooja Shah",
+    "company": "Nerul, Navi Mumbai"
+  }
+]
