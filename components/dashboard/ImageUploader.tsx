@@ -1,16 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 
-// This component lets the user pick multiple images, shows a preview grid,
-// uploads them to our /api/upload route, and reports the final list of
-// saved image paths back to the parent form through onChange.
-export default function ImageUploader({
-  folder,
-  value,
-  onChange,
-  label,
-}: {
+// Parent form ye "handle" use karke ImageUploader ko bolega:
+// "ab jo bhi naya file pending hai, usko real upload kar do"
+export type ImageUploaderHandle = {
+  uploadPendingFiles: () => Promise<string[]>;
+};
+
+// Har image ya toh "existing" hai (pehle se DB/server pe saved path)
+// ya "pending" hai (abhi sirf user ke browser me select hui hai, upload nahi hui)
+type ImageItem =
+  | { type: "existing"; path: string }
+  | { type: "pending"; file: File; previewUrl: string };
+
+type Props = {
   folder:
     | "projects"
     | "developers"
@@ -18,62 +22,133 @@ export default function ImageUploader({
     | "blogs"
     | "configurations"
     | "locations";
-  value: string[]; // current list of saved image paths
-  onChange: (paths: string[]) => void;
+  initialValue?: string[]; // agar edit mode hai, pehle se saved paths
   label?: string;
-}) {
+  maxFiles?: number; // e.g. 1 = single photo (naya file select karne par purana replace ho)
+};
+
+const ImageUploader = forwardRef<ImageUploaderHandle, Props>(function ImageUploader(
+  { folder, initialValue = [], label, maxFiles },
+  ref,
+) {
+  // Component apna khud ka state rakhta hai — existing + pending dono ek hi list me
+  const [items, setItems] = useState<ImageItem[]>(
+    initialValue.map((path) => ({ type: "existing", path })),
+  );
   const [isUploading, setIsUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Called whenever the user picks new files from the file input
-  async function handleFileSelection(event: React.ChangeEvent<HTMLInputElement>) {
+  // Component unmount hone par blob preview URLs cleanup karo (memory leak se bachne ke liye)
+  useEffect(() => {
+    return () => {
+      items.forEach((item) => {
+        if (item.type === "pending") {
+          URL.revokeObjectURL(item.previewUrl);
+        }
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // User ne naya file(s) select kiya — bas local preview banao, server pe kuch mat bhejo abhi
+  function handleFileSelection(event: React.ChangeEvent<HTMLInputElement>) {
     const selectedFiles = event.target.files;
     if (!selectedFiles || selectedFiles.length === 0) {
       return;
     }
 
-    setIsUploading(true);
+    const newItems: ImageItem[] = Array.from(selectedFiles).map((file) => ({
+      type: "pending",
+      file,
+      previewUrl: URL.createObjectURL(file), // browser ke andar hi ek temporary preview URL
+    }));
+
     setErrorMessage("");
-
-    // Build the form data to send to our upload API
-    const formData = new FormData();
-    formData.append("folder", folder);
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append("files", selectedFiles[i]);
-    }
-
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        headers: {
-          // Simple internal check so only our own app can use this route
-          "x-internal-api-key": process.env.NEXT_PUBLIC_INTERNAL_API_KEY || "",
-        },
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        setErrorMessage(result.error || "Upload failed");
-      } else {
-        // Add the newly uploaded image paths to our existing list
-        onChange([...value, ...result.paths]);
+    setItems((prev) => {
+      if (maxFiles) {
+        // Single-photo mode: purana replace kar do, naya rakh lo
+        prev.forEach((item) => {
+          if (item.type === "pending") URL.revokeObjectURL(item.previewUrl);
+        });
+        return newItems.slice(0, maxFiles);
       }
-    } catch (error) {
-      setErrorMessage("Something went wrong while uploading");
-    } finally {
-      setIsUploading(false);
-      // Reset the input so the same file can be selected again later if needed
-      event.target.value = "";
-    }
+      return [...prev, ...newItems];
+    });
+
+    event.target.value = "";
   }
 
-  // Called when the user clicks the "x" button on a preview image
-  function handleRemoveImage(pathToRemove: string) {
-    const updatedList = value.filter((path) => path !== pathToRemove);
-    onChange(updatedList);
+  // "x" button dabane par ek image list se hata do (pending ho ya existing, dono chalega)
+  function handleRemoveImage(itemToRemove: ImageItem) {
+    if (itemToRemove.type === "pending") {
+      URL.revokeObjectURL(itemToRemove.previewUrl);
+    }
+    setItems((prev) => prev.filter((item) => item !== itemToRemove));
   }
+
+  // Ye function parent form call karega apne handleSubmit ke andar, save karne se THIK PEHLE
+  useImperativeHandle(
+    ref,
+    () => ({
+      async uploadPendingFiles() {
+        const pendingItems = items.filter(
+          (item): item is Extract<ImageItem, { type: "pending" }> =>
+            item.type === "pending",
+        );
+
+        const existingPaths = items
+          .filter(
+            (item): item is Extract<ImageItem, { type: "existing" }> =>
+              item.type === "existing",
+          )
+          .map((item) => item.path);
+
+        // Koi naya file select hi nahi hua — purane paths jaise the waise hi return karo,
+        // koi upload call bhi nahi hogi
+        if (pendingItems.length === 0) {
+          return existingPaths;
+        }
+
+        setIsUploading(true);
+        setErrorMessage("");
+
+        try {
+          const formData = new FormData();
+          formData.append("folder", folder);
+          pendingItems.forEach((item) => formData.append("files", item.file));
+
+          const response = await fetch("/api/upload", {
+            method: "POST",
+            headers: {
+              "x-internal-api-key":
+                process.env.NEXT_PUBLIC_INTERNAL_API_KEY || "",
+            },
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            setErrorMessage(result.error || "Upload failed");
+            throw new Error(result.error || "Upload failed");
+          }
+
+          // Ab real files upload ho gayi, local blob previews ki zaroorat nahi
+          pendingItems.forEach((item) => URL.revokeObjectURL(item.previewUrl));
+
+          const finalPaths = [...existingPaths, ...result.paths];
+
+          // State ko "sab kuch ab existing hai" wali state me update kar do
+          setItems(finalPaths.map((path) => ({ type: "existing", path })));
+
+          return finalPaths;
+        } finally {
+          setIsUploading(false);
+        }
+      },
+    }),
+    [items, folder],
+  );
 
   return (
     <div className="mb-3">
@@ -82,7 +157,7 @@ export default function ImageUploader({
       <input
         type="file"
         className="form-control"
-        multiple
+        multiple={!maxFiles || maxFiles > 1}
         accept="image/*"
         onChange={handleFileSelection}
         disabled={isUploading}
@@ -93,16 +168,22 @@ export default function ImageUploader({
       )}
       {errorMessage && <div className="form-text text-danger">{errorMessage}</div>}
 
-      {value.length > 0 && (
+      {items.length > 0 && (
         <div className="image-preview-grid">
-          {value.map((imagePath) => (
-            <div key={imagePath} className="image-preview-item">
+          {items.map((item) => (
+            <div
+              key={item.type === "existing" ? item.path : item.previewUrl}
+              className="image-preview-item"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imagePath} alt="Uploaded preview" />
+              <img
+                src={item.type === "existing" ? item.path : item.previewUrl}
+                alt="Preview"
+              />
               <button
                 type="button"
                 className="btn btn-sm btn-danger image-preview-remove-btn"
-                onClick={() => handleRemoveImage(imagePath)}
+                onClick={() => handleRemoveImage(item)}
               >
                 &times;
               </button>
@@ -112,4 +193,6 @@ export default function ImageUploader({
       )}
     </div>
   );
-}
+});
+
+export default ImageUploader;

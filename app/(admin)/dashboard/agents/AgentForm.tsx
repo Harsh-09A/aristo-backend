@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import ImageUploader from "@/components/dashboard/ImageUploader";
+import ImageUploader, {
+  ImageUploaderHandle,
+} from "@/components/dashboard/ImageUploader";
 import { createAgent, updateAgent } from "./actions";
 
 export default function AgentForm({
@@ -26,9 +28,10 @@ export default function AgentForm({
     agent?.specialization || "",
   );
   const [phone, setPhone] = useState(agent?.phone || "");
-  const [photo, setPhoto] = useState<string[]>(
-    agent?.photo ? [agent.photo] : [],
-  );
+
+  // Photo ka apna state ab nahi rakhna — ImageUploader khud manage karta hai.
+  // Isse hume sirf ek "handle" (ref) chahiye taaki submit ke time usse upload karwa sakein.
+  const photoUploaderRef = useRef<ImageUploaderHandle>(null);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -38,13 +41,19 @@ export default function AgentForm({
     setErrorMessage("");
     setIsSaving(true);
 
-    const formData = {
-      name,
-      email,
-      specialization,
-      phone,
-      photo: photo[0] || "",
-    };
+    try {
+      // Yahi wo moment hai — ab jo bhi naya photo select hua hai wo upload hoga.
+      // Agar kuch naya select nahi hua, toh purana path jaisa tha waisa hi mil jayega.
+      const photoPaths =
+        (await photoUploaderRef.current?.uploadPendingFiles()) || [];
+
+      const formData = {
+        name,
+        email,
+        specialization,
+        phone,
+        photo: photoPaths[0] || "",
+      };
 
     try {
       if (isEditing && agent) {
@@ -59,6 +68,7 @@ export default function AgentForm({
       setIsSaving(false);
     }
   }
+}
 
   return (
     <form onSubmit={handleSubmit}>
@@ -106,10 +116,11 @@ export default function AgentForm({
       </div>
 
       <ImageUploader
+        ref={photoUploaderRef}
         folder="agents"
         label="Photo"
-        value={photo}
-        onChange={(paths) => setPhoto(paths.slice(-1))}
+        initialValue={agent?.photo ? [agent.photo] : []}
+        maxFiles={1}
       />
 
       <div className="d-flex gap-2 mt-3">
