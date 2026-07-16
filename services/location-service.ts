@@ -53,3 +53,11 @@ export async function getLocationsCount() {
   const count = await prisma.location.count();
   return count;
 }
+
+// Search panel ke Location dropdown ke liye - sirf jitna chahiye utna hi select karo
+export async function getAllLocations() {
+  return prisma.location.findMany({
+    select: { id: true, name: true, slug: true },
+    orderBy: { name: "asc" },
+  });
+}

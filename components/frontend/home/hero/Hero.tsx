@@ -1,6 +1,9 @@
-import PropertySearchPanel from "./PropertySearchPanel";
+import PropertySearchFilters from "@/components/frontend/property-search/PropertySearchFilters";
+import { getAllLocations } from "@/services/location-service"
 
-const Hero = () => {
+const Hero = async() => {
+  const locations = await getAllLocations();
+
   return (
     <>
       <div className="inner-banner-style1 text-center">
@@ -11,6 +14,7 @@ const Hero = () => {
         </p>
         {/* Hero Tab Content */}
         {/* <PropertySearchPanel /> */}
+        <PropertySearchFilters locations={locations} variant="hero" />
       </div>
       {/* End Hero content */}
     </>

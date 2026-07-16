@@ -1,0 +1,131 @@
+.heroWrapper {
+  margin-top: -0px; /* banner ke upar float karne ke liye, apne banner height ke hisaab se adjust karo */
+  position: relative;
+  z-index: 5;
+}
+
+.tabsBar {
+  display: inline-flex;
+  gap: 24px;
+  background: #fff;
+  padding: 14px 28px 0;
+  border-radius: 14px 14px 0 0;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  color: #8b8f97;
+  font-weight: 600;
+  font-size: 15px;
+  padding-bottom: 12px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.tabActive {
+  color: #16181d;
+  border-bottom-color: var(--main-color, #e9433b);
+}
+
+.panel {
+  background: #fff;
+  border-radius: 0 16px 16px 16px;
+  padding: 20px;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.2);
+}
+
+.sidebarPanel {
+  box-shadow: none;
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+}
+
+.row1 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.typeCol {
+  flex: 1 1 200px;
+}
+
+.searchCol {
+  position: relative;
+  flex: 3 1 280px;
+  display: flex;
+  align-items: center;
+}
+
+.searchTagIcon {
+  position: absolute;
+  left: 16px;
+  color: #8a8a8a;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: #f5f5f7;
+  padding: 0 16px 0 42px;
+  font-size: 14px;
+  color: #16181d;
+}
+
+.searchInput::placeholder {
+  color: #6b6f76;
+}
+
+.searchInput:focus {
+  outline: none;
+  background: #fff;
+  border: 1px solid var(--main-color, #e9433b);
+}
+
+.searchBtn {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: var(--main-color, #e9433b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.searchBtn:hover {
+  opacity: 0.9;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.sidebarApplyBtn {
+  grid-column: 1 / -1;
+  height: 46px;
+  border: none;
+  border-radius: 10px;
+  background: var(--main-color, #e9433b);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Mobile: search box + button ek row me rahenge, baaki sab neeche stack */
+@media (max-width: 576px) {
+  .typeCol {
+    flex-basis: 100%;
+  }
+}

@@ -16,7 +16,7 @@ import {
   CATEGORY_OPTIONS,
   TYPE_OPTIONS_BY_CATEGORY,
   STATUS_OPTIONS,
-} from "@/lib/constants/project";
+} from "@/lib/constants";
 
 // Simple dropdown option shapes
 type Option = { id: string; name: string };
