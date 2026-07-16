@@ -109,7 +109,9 @@ export default function PropertySearchFilters({
             />
           </div>
 
-          <div className={styles.searchCol}>
+          <div     className={`${styles.searchCol} ${
+      variant === "sidebar" ? styles.searchColFull : ""
+    }`}>
             <svg
               className={styles.searchTagIcon}
               width="18"
@@ -133,6 +135,8 @@ export default function PropertySearchFilters({
             />
           </div>
 
+           {/* Yeh button ab SIRF hero variant mein dikhega */}
+          {variant === "hero" && (
           <button
             type="submit"
             className={styles.searchBtn}
@@ -148,10 +152,11 @@ export default function PropertySearchFilters({
               />
             </svg>
           </button>
+            )}
         </div>
 
         {/* Row 2: Location, BHK, Min, Max, Status */}
-        <div className={styles.row2}>
+        <div className={`${styles.row2} ${variant === "sidebar" ? styles.row2Sidebar : ""}`}>
           <Select<Option, false>
             instanceId="location-select"
             options={locationOptions}

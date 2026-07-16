@@ -129,3 +129,18 @@
     flex-basis: 100%;
   }
 }
+.searchColFull {
+  width: 100%;
+  flex: 1 1 100%;
+}
+
+.row2Sidebar {
+  display: flex;
+  flex-direction: column;   /* sab kuch neeche-neeche stack ho jayega */
+  gap: 12px;                /* thoda spacing */
+  width: 100%;
+}
+
+.row2Sidebar > div {
+  width: 100%;              /* react-select ka wrapper div full width */
+}
