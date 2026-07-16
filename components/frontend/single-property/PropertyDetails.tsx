@@ -71,16 +71,22 @@ const PropertyDetails = ({ data }: Props) => {
   ];
   return (
     <>
-      <div className="grid grid-cols-2 gap-x-10 ">
+      {/* Main container ko row banaya aur niche se thoda gap diya */}
+      <div className="row g-1 ">
         {propertyDetailsData.map((item, index) => (
-          <div key={index} className="d-flex gap-2  ">
-            <div className="pd-list">
-              <p className="fw600 mb10 ff-heading dark-color">
-                {item.label} :{" "}
-              </p>
-            </div>
-            <div className="pd-list">
-              <p className="text mb10 text-capitalize">{item.value}</p>
+          // col-6 lagane se har ek item 50% width lega, yani ek line me 2 items aayenge
+          <div key={index} className="col-6">
+            <div className="d-flex align-items-baseline gap-2">
+              <div className="pd-list">
+                <p className="fw600 mb-2 ff-heading dark-color text-nowrap">
+                  {item.label} :
+                </p>
+              </div>
+              <div className="pd-list">
+                <p className="text mb-2 text-capitalize">
+                  {item.value || "N/A"}
+                </p>
+              </div>
             </div>
           </div>
         ))}

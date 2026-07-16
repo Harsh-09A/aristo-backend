@@ -37,9 +37,13 @@ const PropertyAddress = ({ data }: Props) => {
       <div className="nearby-places mt-4">
         <h5 className="mb-3 fw-semibold">Nearby Places</h5>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3 list-unstyled mb-0">
+        <ul className="row list-unstyled mb-0 g-x-5 g-y-3">
           {places.map((place, index) => (
-            <li key={index} className="d-flex align-items-start">
+            // col-12 (mobile pe 1 column) aur col-md-6 (tablet/desktop pe 2 columns)
+            <li
+              key={index}
+              className="col-12 col-md-6 d-flex align-items-start"
+            >
               {/* Icon */}
               <span className="icon me-2">
                 <i className="fas fa-building"></i>

@@ -9,9 +9,10 @@ const PropertyAmenities = ({ data }: Props) => {
 
   return (
     <>
-      <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-3 list-unstyled mb-0">
+      <ul className="row list-unstyled mb-0 g-x-5 g-y-3">
         {amenities.map((amenity, index) => (
-          <li key={index} className="d-flex align-items-start">
+          // col-6 (mobile pe 2 columns) aur col-md-4 (desktop pe 3 columns)
+          <li key={index} className="col-6 col-md-4 d-flex align-items-start">
             {/* Icon */}
             <span className="icon me-2 text-danger">
               <span className="me-2 d-inline-flex align-items-center">

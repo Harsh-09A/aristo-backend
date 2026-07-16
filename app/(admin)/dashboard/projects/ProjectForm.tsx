@@ -726,6 +726,9 @@ export default function ProjectForm({
                     className="form-control"
                     placeholder="e.g. 2"
                     value={row.value}
+                    maxLength={2}
+                    pattern="^(?:[1-9]|10)$"
+                    title="Please enter a number between 1 and 10"
                     onChange={(event) =>
                       updateConfigurationRow(
                         row.key,

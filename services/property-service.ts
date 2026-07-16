@@ -73,6 +73,19 @@ export async function getFeaturedProperties(limit?: number) {
   });
 }
 
+export async function getLatestProjects(limit?: number) {
+  return prisma.project.findMany({
+    where: {
+      ...publishedOnly,
+    },
+    include: propertyInclude,
+    orderBy: { 
+      createdAt: "desc" // Naye projects sabse upar dikhane ke liye
+    },
+    take: limit, // Sirf top 10 projects fetch karega
+  });
+}
+
 export async function getFilteredProperties(filters: Filters) {
   // Start with publishedOnly so every branch below builds on top of it.
   const where: Prisma.ProjectWhereInput = { ...publishedOnly };

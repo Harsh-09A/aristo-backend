@@ -50,7 +50,7 @@ const PropertySinglePage = async({ params }: Props) => {
                 <PropertyDescription data={property} />
                 {/* End property description */}
 
-                <h4 className="title fz17 mb30 mt50">Property Details</h4>
+                <h4 className="title fz17  mt50">Property Details</h4>
                 <div className="row">
                   <PropertyDetails data={property} />
                 </div>

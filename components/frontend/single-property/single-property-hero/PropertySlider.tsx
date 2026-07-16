@@ -61,7 +61,7 @@ const PropertySlider = ({ images }: Props) => {
                           quality={100}
                           className="object-fit-cover"
                           placeholder="blur"
-                          blurDataURL="/images/placeholder/blur-placeholder.jpg"
+                          blurDataURL="/assets/images/placeholder/placeholder-image.jpg"
                         />
                       </div>
                     </div>
