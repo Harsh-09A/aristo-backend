@@ -1,17 +1,28 @@
-export function formatIndianDate(date: Date | string) {
-  const d = new Date(date); // works whether it's a Date object or ISO string
+export function formatIndianDate(date: Date | string | null | undefined): string {
+  if (date === null || date === undefined) return "";
+
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return ""; // invalid date string bhi handle ho gaya
 
   return d.toLocaleDateString("en-IN", {
-    timeZone: "Asia/Kolkata", // forces Indian time, no matter server location
-    // day: "2-digit",
+    timeZone: "Asia/Kolkata",
     month: "long",
     year: "numeric",
   });
 }
-export function formatIndianFullDateParts(date: Date | string) {
-  const d = new Date(date);
 
-  // Set up the formatter with your exact locale and timezone
+export function formatIndianFullDateParts(
+  date: Date | string | null | undefined
+): { day: string; month: string; year: string } {
+  if (date === null || date === undefined) {
+    return { day: "", month: "", year: "" };
+  }
+
+  const d = new Date(date);
+  if (isNaN(d.getTime())) {
+    return { day: "", month: "", year: "" };
+  }
+
   const formatter = new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",
     day: "2-digit",
@@ -19,10 +30,8 @@ export function formatIndianFullDateParts(date: Date | string) {
     year: "numeric",
   });
 
-  // Break the formatted date into its individual parts
   const parts = formatter.formatToParts(d);
 
-  // Extract the specific pieces we need
   const day = parts.find(p => p.type === "day")?.value || "";
   const month = parts.find(p => p.type === "month")?.value || "";
   const year = parts.find(p => p.type === "year")?.value || "";
@@ -30,26 +39,22 @@ export function formatIndianFullDateParts(date: Date | string) {
   return { day, month, year };
 }
 
+export function formatIndianPrice(value: number | null | undefined): string {
+  if (value === null || value === undefined || isNaN(value)) return "";
 
-
-export function formatIndianPrice(value: number): string {
   if (value >= 1000000000) {
-    // 100 Cr+
     return `${(value / 10000000).toFixed(0)} Cr`;
   }
 
   if (value >= 10000000) {
-    // 1 Cr+
     return `${(value / 10000000).toFixed(1).replace(/\.0$/, "")} Cr`;
   }
 
   if (value >= 100000) {
-    // 1 Lakh+
     return `${(value / 100000).toFixed(1).replace(/\.0$/, "")} Lac`;
   }
 
   if (value >= 1000) {
-    // 1 Thousand+
     return `${(value / 1000).toFixed(1).replace(/\.0$/, "")} K`;
   }
 

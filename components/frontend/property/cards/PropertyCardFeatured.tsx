@@ -19,7 +19,7 @@ const PropertyCardFeatured = ({ listing }: Props) => {
               <Image
                 width={600}
                 height={600}
-                src={listing.images[0]}
+                src={listing.images[0] || "/assets/images/placeholder/placeholder-image.jpg"}
                 alt={listing.title}
               />
               {listing.tags && listing.tags[0] && (
@@ -85,7 +85,7 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                   <Image
                     width={40}
                     height={40}
-                    src={listing.developer.logo}
+                    src={listing.developer.logo || "/assets/images/placeholder/placeholder-image.jpg"}
                     alt={listing.developer.name}
                   />
                 </div>

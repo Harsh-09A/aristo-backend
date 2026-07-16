@@ -8,7 +8,7 @@ const PropertyOverview = ({ data }: Props) => {
   const getConfigData = (data: Project) => {
     // Guard: If there are no configurations, return a fallback early
     if (!data.configurations || data.configurations.length === 0) {
-      return `No configurations available`;
+      return `N/A`;
     }
 
     // Residential: Join the string values directly (e.g., "2, 3 BHK")
