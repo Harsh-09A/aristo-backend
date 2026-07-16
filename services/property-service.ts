@@ -1,16 +1,14 @@
 // ===================================================================
-//services/developers-service.ts
-// Property (Prisma model: Project) queries
-// Rewritten to use the real Prisma client instead of a static
-// in-memory `properties` array, based on the new schema.
+// services/developers-service.ts (a.k.a. property-service)
+// Property (Prisma model: Project) queries.
 //
-// ASSUMPTION: you have a Prisma client singleton exported from
-// `@/lib/prisma` (the usual Next.js pattern, e.g. `src/lib/prisma.ts`
-// that does `export default new PrismaClient()`). Adjust the import
-// path below if yours lives somewhere else.
+// FIX: every public-facing query now filters `publishStatus: PUBLISHED`
+// so DRAFT projects (the default when a project is created) don't show
+// up on the live site — same pattern as blogs-service.ts.
 // ===================================================================
 
 import prisma from "@/lib/prisma";
+import { PublishStatus } from "@/generated/prisma/client";
 import type { Prisma } from "@/generated/prisma/client"; // adjust path if your `output` in schema.prisma differs
 
 type Filters = {
@@ -37,6 +35,13 @@ const propertyInclude = {
   agents: true,
 } satisfies Prisma.ProjectInclude;
 
+// Every query below starts from this base `where` — it guarantees
+// drafts never leak onto the public site. Spread it first, then let
+// filters override/add on top.
+const publishedOnly = {
+  publishStatus: PublishStatus.PUBLISHED,
+} satisfies Prisma.ProjectWhereInput;
+
 // Har 0.5 step pe 5 se 12 tak string list bana deta hai: ["5","5.5","6",...,"12"]
 function bhkFivePlusValues(): string[] {
   const values: string[] = [];
@@ -48,6 +53,7 @@ function bhkFivePlusValues(): string[] {
 
 export async function getProperties() {
   return prisma.project.findMany({
+    where: publishedOnly,
     include: propertyInclude,
     orderBy: { createdAt: "desc" },
   });
@@ -56,6 +62,7 @@ export async function getProperties() {
 export async function getFeaturedProperties(limit?: number) {
   return prisma.project.findMany({
     where: {
+      ...publishedOnly,
       tags: {
         has: "featured", // Prisma's way of checking "is this value inside the String[] array"
       },
@@ -67,7 +74,8 @@ export async function getFeaturedProperties(limit?: number) {
 }
 
 export async function getFilteredProperties(filters: Filters) {
-  const where: Prisma.ProjectWhereInput = {};
+  // Start with publishedOnly so every branch below builds on top of it.
+  const where: Prisma.ProjectWhereInput = { ...publishedOnly };
 
   if (filters.category) where.category = filters.category;
   if (filters.type) where.type = filters.type;
@@ -100,6 +108,10 @@ export async function getFilteredProperties(filters: Filters) {
     };
   }
 
+  // NOTE: `filters.status` here refers to a business field like
+  // "Ready to Move" / "Under Construction" (Project.status), NOT
+  // publishStatus. Don't confuse the two — publishStatus is always
+  // forced to PUBLISHED above, regardless of this filter.
   if (filters.status) where.status = filters.status;
   if (filters.developer) where.developer = { name: filters.developer };
 
@@ -130,8 +142,11 @@ export async function getFilteredProperties(filters: Filters) {
 }
 
 export async function getPropertyBySlug(slug: string) {
-  return prisma.project.findUnique({
-    where: { slug },
+  return prisma.project.findFirst({
+    where: {
+      slug,
+      ...publishedOnly,
+    },
     include: propertyInclude,
   });
 }
@@ -145,6 +160,7 @@ export async function getSimilarProperties(
 ) {
   return prisma.project.findMany({
     where: {
+      ...publishedOnly,
       locationId: locationId, // same location as current property
       id: {
         not: currentProjectId, // exclude the current property itself
@@ -153,5 +169,17 @@ export async function getSimilarProperties(
     include: propertyInclude,
     orderBy: { createdAt: "desc" },
     take: limit, // how many similar properties to show (default 4)
+  });
+}
+
+// -----------------------------------------------------------------------
+// getPropertyBySlugForAdmin — for an admin/preview page where you DO
+// want to see a draft (e.g. to preview it before publishing). Use this
+// instead of getPropertyBySlug when you intentionally need drafts.
+// -----------------------------------------------------------------------
+export async function getPropertyBySlugForAdmin(slug: string) {
+  return prisma.project.findUnique({
+    where: { slug },
+    include: propertyInclude,
   });
 }
