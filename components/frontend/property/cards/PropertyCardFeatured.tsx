@@ -22,7 +22,9 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 src={listing.images[0]}
                 alt={listing.title}
               />
-              <span className="img-badge">{listing.tags[0]}</span>
+              {listing.tags && listing.tags[0] && (
+                <span className="img-badge">{listing.tags[0]}</span>
+              )}
             </div>
           </div>
           {/* <!-- Content Column --> */}
@@ -33,7 +35,9 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 <Link href={`/property/${listing.slug}`}>
                   <h2 className="property-title">{listing.title}</h2>
                 </Link>
-                <span className="price-badge">{formatIndianPrice(listing.price)}</span>
+                <span className="price-badge">
+                  {formatIndianPrice(listing.price)}
+                </span>
               </div>
 
               {/* <!-- Location --> */}
@@ -48,14 +52,16 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                   <div className="spec-label">Configuration</div>
                   <div className="spec-value">
                     {listing.configurations
-                      .map((config:any) => config.value)
+                      .map((config: any) => config.value)
                       .join(", ")}{" "}
                     {listing.configurationUnit}
                   </div>
                 </div>
                 <div className="spec-item">
                   <div className="spec-label">Possession</div>
-                  <div className="spec-value">{formatIndianDate(listing.possessionDate)} </div>
+                  <div className="spec-value">
+                    {formatIndianDate(listing.possessionDate)}{" "}
+                  </div>
                 </div>
                 <div className="spec-item">
                   <div className="spec-label">Property Type</div>
@@ -77,16 +83,14 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 <div className="developer-logo">
                   {/* <!-- Placeholder logo using initials --> */}
                   <Image
-                width={40}
-                height={40}
-                src={listing.developer.logo}
-                alt={listing.developer.name}
-              />
+                    width={40}
+                    height={40}
+                    src={listing.developer.logo}
+                    alt={listing.developer.name}
+                  />
                 </div>
                 <div>
-                  <div className="developer-name">
-                    {listing.developer.name}
-                  </div>
+                  <div className="developer-name">{listing.developer.name}</div>
                   <div className="developer-tag">Developer</div>
                 </div>
               </div>
