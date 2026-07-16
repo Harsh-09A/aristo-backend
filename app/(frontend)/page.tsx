@@ -1,3 +1,5 @@
+import BlogsListings from "@/components/frontend/blogs/BlogsListings";
+import CallToActions from "@/components/frontend/common/cta/CallToActions";
 import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 import Hero from "@/components/frontend/home/hero/Hero";
@@ -243,6 +245,33 @@ const Home = async () => {
         </div>
       </section>
       {/* End Our Testimonials */}
+
+      {/* Explore Blog */}
+      <section className="pb90 pb20-md">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 mb-4" data-aos="fade-up">
+              <SectionHeading
+                heading={"Blog"}
+                title={"Aristo"}
+                highlight={"Blog"}
+                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+              />
+            </div>
+          </div>
+          {/* End .row */}
+
+          <div className="row" data-aos="fade-up" data-aos-delay="300">
+            <BlogsListings />
+          </div>
+          {/* End .row */}
+        </div>
+      </section>
+      {/* Explore Blog */}
+
+      {/* Our CTA */}
+      <CallToActions />
+      {/* Our CTA */}
     </>
   );
 };

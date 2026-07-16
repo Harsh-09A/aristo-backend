@@ -229,6 +229,7 @@ model Blog {
   slug          String        @unique
   body          String
   images        String[]
+  category      String?
   publishStatus PublishStatus @default(DRAFT)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt

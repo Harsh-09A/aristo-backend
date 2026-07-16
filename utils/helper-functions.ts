@@ -8,6 +8,29 @@ export function formatIndianDate(date: Date | string) {
     year: "numeric",
   });
 }
+export function formatIndianFullDateParts(date: Date | string) {
+  const d = new Date(date);
+
+  // Set up the formatter with your exact locale and timezone
+  const formatter = new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+
+  // Break the formatted date into its individual parts
+  const parts = formatter.formatToParts(d);
+
+  // Extract the specific pieces we need
+  const day = parts.find(p => p.type === "day")?.value || "";
+  const month = parts.find(p => p.type === "month")?.value || "";
+  const year = parts.find(p => p.type === "year")?.value || "";
+
+  return { day, month, year };
+}
+
+
 
 export function formatIndianPrice(value: number): string {
   if (value >= 1000000000) {
