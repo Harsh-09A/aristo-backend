@@ -132,3 +132,23 @@ export async function getPropertyBySlug(slug: string) {
     include: propertyInclude,
   });
 }
+
+// Get similar properties — same location, but NOT the current property.
+// Used on the property detail page to show "You might also like" section.
+export async function getSimilarProperties(
+  currentProjectId: string,
+  locationId: string,
+  limit: number = 4,
+) {
+  return prisma.project.findMany({
+    where: {
+      locationId: locationId, // same location as current property
+      id: {
+        not: currentProjectId, // exclude the current property itself
+      },
+    },
+    include: propertyInclude,
+    orderBy: { createdAt: "desc" },
+    take: limit, // how many similar properties to show (default 4)
+  });
+}
