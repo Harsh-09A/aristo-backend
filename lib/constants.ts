@@ -31,3 +31,5 @@ export const PRICE_OPTIONS = [
   { label: "7 Crore", value: 70000000 },
   { label: "10 Crore+", value: 100000000 },
 ] as const;
+
+export const PROPERTIES_PER_PAGE = 1; // 30 chahiye toh bas ye number badal dena

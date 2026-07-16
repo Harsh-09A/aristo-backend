@@ -40,21 +40,25 @@ export function buildListingQueryString(values: PropertyFilterValues) {
 }
 
 export function parseListingSearchParams(
-  searchParams: Record<string, string | string[] | undefined>
+  searchParams: Record<string, string | string[] | undefined>,
 ): PropertyFilterValues {
   const get = (key: string) => {
     const value = searchParams[key];
-    return Array.isArray(value) ? value[0] ?? "" : value ?? "";
+    return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
   };
 
-  const rawBhk = get("bhk");
+  const categoryParam = get("category");
+  const typeParam = get("type");
 
   return {
-    category: get("category") || DEFAULT_FILTER_VALUES.category,
-    type: get("type"),
+    // Agar URL me category nahi hai (fresh /listing visit) -> "Residential"
+    category: categoryParam || DEFAULT_FILTER_VALUES.category,
+    // Type sirf tab default "Apartment" hoga jab category bhi bilkul diya na ho.
+    // Agar user ne khud category=Commercial choose kiya hai, toh type ko force nahi karenge.
+    type: typeParam || (categoryParam ? "" : DEFAULT_FILTER_VALUES.type),
     search: get("search"),
     location: get("location"),
-    bhk: rawBhk === "5" ? "5+" : rawBhk,
+    bhk: get("bhk"),
     status: get("status"),
     minPrice: get("min_price"),
     maxPrice: get("max_price"),

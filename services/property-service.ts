@@ -23,6 +23,8 @@ type Filters = {
   max_price?: number;
   status?: string;
   developer?: string;
+  page?: number;
+  pageSize?: number;
 };
 
 // Reused across every query so all relations come back the same shape
@@ -56,50 +58,31 @@ export async function getFeaturedProperties(limit?: number) {
 }
 
 export async function getFilteredProperties(filters: Filters) {
-  // Build the `where` object piece by piece. Only add a condition if
-  // the matching filter was actually passed in.
   const where: Prisma.ProjectWhereInput = {};
 
-  // category
-  if (filters.category) {
-    where.category = filters.category;
-  }
+  if (filters.category) where.category = filters.category;
+  if (filters.type) where.type = filters.type;
 
-  // type
-  if (filters.type) {
-    where.type = filters.type;
-  }
-
-  // search (case-insensitive match on title)
   if (filters.search) {
-    where.title = {
-      contains: filters.search,
-      mode: "insensitive",
-    };
+    where.title = { contains: filters.search, mode: "insensitive" };
   }
 
-  // location — this is now a relation, so we filter through it.
-  // Matches against the location's name (e.g. "Andheri West").
   if (filters.location) {
     where.location = {
-      name: {
-        contains: filters.location,
-        mode: "insensitive",
-      },
+      name: { contains: filters.location, mode: "insensitive" },
     };
   }
 
-  // bhk — Configuration.value is a STRING in the DB (e.g. "2", "2.5"),
-  // so we convert the incoming number to a string before comparing.
+  // bhk ab number hai. "5" select karne ka matlab "5 BHK ya usse zyada".
   if (filters.bhk) {
     where.configurations = {
-      some: {
-        value: String(filters.bhk),
-      },
+      some:
+        filters.bhk >= 5
+          ? { value: { gte: filters.bhk } }
+          : { value: filters.bhk },
     };
   }
 
-  // min price / max price
   if (filters.min_price || filters.max_price) {
     where.price = {
       ...(filters.min_price ? { gte: filters.min_price } : {}),
@@ -107,23 +90,33 @@ export async function getFilteredProperties(filters: Filters) {
     };
   }
 
-  // status
-  if (filters.status) {
-    where.status = filters.status;
-  }
+  if (filters.status) where.status = filters.status;
+  if (filters.developer) where.developer = { name: filters.developer };
 
-  // developer — also a relation now, filter by the developer's name
-  if (filters.developer) {
-    where.developer = {
-      name: filters.developer,
-    };
-  }
+  // Pagination values - kuch invalid ho toh safe defaults
+  const page = filters.page && filters.page > 0 ? filters.page : 1;
+  const pageSize =
+    filters.pageSize && filters.pageSize > 0 ? filters.pageSize : 20;
 
-  return prisma.project.findMany({
-    where,
-    include: propertyInclude,
-    orderBy: { createdAt: "desc" },
-  });
+  // Dono queries ek saath chalao - properties bhi aur total count bhi
+  const [properties, total] = await Promise.all([
+    prisma.project.findMany({
+      where,
+      include: propertyInclude,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.project.count({ where }),
+  ]);
+
+  return {
+    properties,
+    total,
+    page,
+    pageSize,
+    totalPages: Math.max(1, Math.ceil(total / pageSize)),
+  };
 }
 
 export async function getPropertyBySlug(slug: string) {

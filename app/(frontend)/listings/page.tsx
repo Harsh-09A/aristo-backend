@@ -1,66 +1,37 @@
-
-// "use client";
-
 import PropertyListings from "@/components/frontend/property/listing/PropertyListings";
+import Pagination from "@/components/frontend/property/listing/Pagination";
 import { getFilteredProperties } from "@/services/property-service";
-
-// type Props = {
-//   searchParams: Promise<{
-//     category?: string;
-//     type?: string;
-//     search?: string;
-//     location?: string;
-//     bhk?: string;
-//     min_price?: string;
-//     max_price?: string;
-//     status?: string;
-//     developer?: string;
-//   }>;
-// };
+import { getAllLocations } from "@/services/location-service";
+import PropertySearchFilters from "@/components/frontend/property-search/PropertySearchFilters";
+import { parseListingSearchParams } from "@/lib/property-filters";
+import { PROPERTIES_PER_PAGE } from "@/lib/constants";
 
 type Props = {
-  searchParams: Promise<{
-    category?: string;
-    type?: string;
-    search?: string;
-    location?: string;
-    bhk?: number;
-    min_price?: string;
-    max_price?: string;
-    status?: string;
-    developer?: string;
-  }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
-const ListingsPage =  async({ searchParams }: Props) => {
 
-   const params = await searchParams;
+const ListingsPage = async ({ searchParams }: Props) => {
+  const rawParams = await searchParams; // Next 16 me searchParams Promise hota hai
+  const filters = parseListingSearchParams(rawParams);
 
-//   const [filters, setFilters] = useState({
-//   category: params.get("category") || "residential",
-//   propertyType: params.get("type"),
-//   search: params.get("search"),
-//   location: params.get("location"),
-//   bhk: params.get("bhk"),
-//   min_price: params.get("min_price"),
-//   max_price: searchParams.get("max_price"),
-//   status: params.get("status"),
-//   developer: params.get("developer"),
-// });
+  const pageParam = Array.isArray(rawParams.page) ? rawParams.page[0] : rawParams.page;
+  const page = pageParam ? Math.max(1, Number(pageParam)) : 1;
 
-  const properties = await getFilteredProperties({
-    category: params.category,
-    type: params.type,
-    search: params.search,
-    location: params.location,
-    // bhk: params.bhk,
-    bhk: params.bhk ? Number(params.bhk) : undefined,
-    min_price: params.min_price ? Number(params.min_price) : undefined,
-    max_price: params.max_price ? Number(params.max_price) : undefined,
-    status: params.status,
-    developer: params.developer,
-  });
-
-
+  const [{ properties, totalPages }, locations] = await Promise.all([
+    getFilteredProperties({
+      category: filters.category || undefined,
+      type: filters.type || undefined,
+      search: filters.search || undefined,
+      location: filters.location || undefined,
+      bhk: filters.bhk ? Number(filters.bhk) : undefined,
+      status: filters.status || undefined,
+      min_price: filters.minPrice ? Number(filters.minPrice) : undefined,
+      max_price: filters.maxPrice ? Number(filters.maxPrice) : undefined,
+      page,
+      pageSize: PROPERTIES_PER_PAGE,
+    }),
+    getAllLocations(),
+  ]);
 
   return (
     <>
@@ -73,18 +44,17 @@ const ListingsPage =  async({ searchParams }: Props) => {
                 <h2 className="title">Property Listing</h2>
                 <div className="breadcumb-list text-capitalize">
                   <a href="#">Home</a>
-                  <a href="#">{(params.category) ? params.category :"Listing"}</a>
-                  {/* <a href="#">{params.category}</a> */}
+                  <a href="#">{filters.category}</a>
                 </div>
                 <a
-                  className="filter-btn-left mobile-filter-btn d-block d-lg-none"
+                   className="filter-btn-left mobile-filter-btn d-block d-lg-none"
                   data-bs-toggle="offcanvas"
                   href="#listingSidebarFilter"
                   role="button"
                   aria-controls="listingSidebarFilter"
                 >
                   <span className="flaticon-settings" /> Filter
-                </a>
+                </a> 
               </div>
             </div>
           </div>
@@ -92,18 +62,19 @@ const ListingsPage =  async({ searchParams }: Props) => {
       </section>
       {/* End Breadcumb Sections */}
 
-      {/*  */}
       <section className="pt0 pb90 bgc-f7">
         <div className="container">
           <div className="row gx-xl-5">
             <div className="col-lg-4 d-none d-lg-block">
-              {/* <ListingSidebar /> */}
-              {/* <h1>ListingSidebar</h1> */}
-
+              <PropertySearchFilters
+                locations={locations}
+                variant="sidebar"
+                initialValues={filters}
+              />
             </div>
             {/* End .col-lg-4 */}
 
-            {/* start mobile filter sidebar */}
+            {/* mobile filter sidebar */}
             <div
               className="offcanvas offcanvas-start p-0"
               tabIndex={-1}
@@ -122,36 +93,23 @@ const ListingsPage =  async({ searchParams }: Props) => {
                 ></button>
               </div>
               <div className="offcanvas-body p-0">
-              {/* <ListingSidebar  /> */}
-                {/* <h1>ListingSidebar</h1> */}
+                <PropertySearchFilters
+                  locations={locations}
+                  variant="sidebar"
+                  initialValues={filters}
+                />
               </div>
             </div>
             {/* End mobile filter sidebar */}
 
             <div className="col-lg-8">
-              <div className="row align-items-center mb20">
-                {/* <TopFilterBar
-                  pageContentTrac={pageContentTrac}
-                  colstyle={colstyle}
-                  setColstyle={setColstyle}
-                  setCurrentSortingOption={setCurrentSortingOption}
-                /> */}
-              </div>
-              {/* End TopFilterBar */}
-
               <div className="row mt15">
-                <PropertyListings listings ={properties}  />
+                <PropertyListings listings={properties} />
               </div>
               {/* End .row */}
 
-              {/* Pagination */}
               <div className="row">
-                {/* <PaginationTwo
-                  pageCapacity={6}
-                  data={sortedFilteredData}
-                  pageNumber={pageNumber}
-                  setPageNumber={setPageNumber}
-                /> */}
+                <Pagination currentPage={page} totalPages={totalPages} searchParams={rawParams} />
               </div>
               {/* End .row */}
             </div>
@@ -161,7 +119,6 @@ const ListingsPage =  async({ searchParams }: Props) => {
         </div>
         {/* End .container */}
       </section>
-      {/*  */}
     </>
   );
 };
