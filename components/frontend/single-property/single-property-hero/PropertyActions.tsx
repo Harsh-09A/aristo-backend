@@ -1,4 +1,4 @@
-import { Property } from "@/types/property";
+import { Project } from "@/types/property";
 import Link from "next/link";
 import React from "react";
 
