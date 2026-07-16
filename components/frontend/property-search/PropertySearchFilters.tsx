@@ -48,7 +48,12 @@ export default function PropertySearchFilters({
   const typeOptions = toOptions(
     TYPE_OPTIONS_BY_CATEGORY[values.category] ?? [],
   );
-  const bhkOptions = toOptions(BHK_OPTIONS);
+  // const bhkOptions = toOptions(BHK_OPTIONS);
+  // Pehle wala object-array wala mapping hata ke ye rakho:
+  const bhkOptions: Option[] = BHK_OPTIONS.map((b) => ({
+    value: b,
+    label: `${b} BHK`,
+  }));
   const statusOptions = toOptions(STATUS_OPTIONS);
   const locationOptions: Option[] = locations.map((loc) => ({
     value: loc.name,

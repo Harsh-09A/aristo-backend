@@ -23,7 +23,7 @@ const ListingsPage = async ({ searchParams }: Props) => {
       type: filters.type || undefined,
       search: filters.search || undefined,
       location: filters.location || undefined,
-      bhk: filters.bhk ? Number(filters.bhk) : undefined,
+      bhk: filters.bhk ? filters.bhk : undefined,
       status: filters.status || undefined,
       min_price: filters.minPrice ? Number(filters.minPrice) : undefined,
       max_price: filters.maxPrice ? Number(filters.maxPrice) : undefined,

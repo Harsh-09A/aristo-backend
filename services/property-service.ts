@@ -18,7 +18,7 @@ type Filters = {
   type?: string;
   search?: string;
   location?: string;
-  bhk?: number;
+  bhk?: string;
   min_price?: number;
   max_price?: number;
   status?: string;
@@ -36,6 +36,15 @@ const propertyInclude = {
   amenities: true,
   agents: true,
 } satisfies Prisma.ProjectInclude;
+
+// Har 0.5 step pe 5 se 12 tak string list bana deta hai: ["5","5.5","6",...,"12"]
+function bhkFivePlusValues(): string[] {
+  const values: string[] = [];
+  for (let n = 5; n <= 12; n += 0.5) {
+    values.push(String(n));
+  }
+  return values;
+}
 
 export async function getProperties() {
   return prisma.project.findMany({
@@ -74,12 +83,13 @@ export async function getFilteredProperties(filters: Filters) {
   }
 
   // bhk ab number hai. "5" select karne ka matlab "5 BHK ya usse zyada".
+  // getFilteredProperties ke andar bhk wala block:
   if (filters.bhk) {
     where.configurations = {
       some:
-        filters.bhk >= 5
-          ? { value: { gte: filters.bhk } }
-          : { value: filters.bhk },
+        filters.bhk === "5+"
+          ? { value: { in: bhkFivePlusValues() } }
+          : { value: filters.bhk }, // exact match, e.g. "2.5"
     };
   }
 

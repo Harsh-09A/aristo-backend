@@ -29,9 +29,11 @@ export function buildListingQueryString(values: PropertyFilterValues) {
   if (values.type) params.set("type", values.type);
   if (values.search.trim()) params.set("search", values.search.trim());
   if (values.location) params.set("location", values.location);
+
   if (values.category === "Residential" && values.bhk) {
-    params.set("bhk", values.bhk.replace("+", ""));
+    params.set("bhk", values.bhk.replace("+", "")); // "5+" -> "5"
   }
+
   if (values.status) params.set("status", values.status);
   if (values.minPrice) params.set("min_price", values.minPrice);
   if (values.maxPrice) params.set("max_price", values.maxPrice);
@@ -49,16 +51,14 @@ export function parseListingSearchParams(
 
   const categoryParam = get("category");
   const typeParam = get("type");
+  const rawBhk = get("bhk");
 
   return {
-    // Agar URL me category nahi hai (fresh /listing visit) -> "Residential"
     category: categoryParam || DEFAULT_FILTER_VALUES.category,
-    // Type sirf tab default "Apartment" hoga jab category bhi bilkul diya na ho.
-    // Agar user ne khud category=Commercial choose kiya hai, toh type ko force nahi karenge.
     type: typeParam || (categoryParam ? "" : DEFAULT_FILTER_VALUES.type),
     search: get("search"),
     location: get("location"),
-    bhk: get("bhk"),
+    bhk: rawBhk === "5" ? "5+" : rawBhk, // dropdown me "5+" hi dikhna chahiye
     status: get("status"),
     minPrice: get("min_price"),
     maxPrice: get("max_price"),
