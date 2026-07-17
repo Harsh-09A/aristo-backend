@@ -44,7 +44,7 @@ const LocationListingCard = ({ location }: LocationListingCardProps) => {
             <div className="bottom-area">
               <Link
                 className="ud-btn2"
-                href={`/listings?location=${location.slug}`}
+                href={`/listings?location=${location.name}`}
               >
                 See All Projects
                 <i className="fal fa-arrow-right-long" />

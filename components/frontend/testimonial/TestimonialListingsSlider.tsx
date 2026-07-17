@@ -59,7 +59,7 @@ const TestimonialListingsSlider = ({ testimonials }: TestimonialSliderProps) => 
       <div className="row align-items-center justify-content-center mt-4">
         <div className="col-auto">
           <button className="testimonial_prev__active swiper_button reels-nav-btn">
-            <i className="far fa-arrow-left-long" />
+            <i className="fa-solid fa-arrow-left-long" />
           </button>
         </div>
         {/* End prev */}
@@ -71,7 +71,7 @@ const TestimonialListingsSlider = ({ testimonials }: TestimonialSliderProps) => 
 
         <div className="col-auto">
           <button className="testimonial_next__active swiper_button reels-nav-btn">
-            <i className="far fa-arrow-right-long" />
+            <i className="fa-solid fa-arrow-right-long" />
           </button>
         </div>
         {/* End Next */}

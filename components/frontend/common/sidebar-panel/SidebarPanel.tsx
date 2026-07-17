@@ -18,7 +18,7 @@ const SidebarPanel = () => {
           data-bs-dismiss="offcanvas"
           aria-label="Close"
         >
-          <span className="far fa-times"></span>
+          <span className="fa-solid fa-times"></span>
         </div>
         <h4 className="title">Aristo</h4>
       </div>

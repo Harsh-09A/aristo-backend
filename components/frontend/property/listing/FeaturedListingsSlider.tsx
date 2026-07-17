@@ -35,7 +35,7 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
       <div className="row align-items-center justify-content-center mt-4">
         <div className="col-auto">
           <button className="featured-prev__active swiper_button reels-nav-btn">
-            <i className="far fa-arrow-left-long" />
+            <i className="fa-solid fa-arrow-left-long" />
           </button>
         </div>
         <div className="col-auto">
@@ -43,7 +43,7 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
         </div>
         <div className="col-auto">
           <button className="featured-next__active swiper_button reels-nav-btn">
-            <i className="far fa-arrow-right-long" />
+            <i className="fa-solid fa-arrow-right-long" />
           </button>
         </div>
       </div>

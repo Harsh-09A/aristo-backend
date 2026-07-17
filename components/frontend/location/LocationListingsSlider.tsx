@@ -53,12 +53,12 @@ const LocationListingsSlider = ({ locations }: LocationListingsSliderProps) => {
 
       <div className="rounded-arrow arrowY-center-position">
         <button className="property-by-location-prev__active swiper_button _prev">
-          <i className="far fa-chevron-left" />
+          <i className="fa-solid fa-chevron-left" />
         </button>
         {/* End prev */}
 
         <button className="property-by-location-next__active swiper_button _next">
-          <i className="far fa-chevron-right" />
+          <i className="fa-solid fa-chevron-right"></i>
         </button>
         {/* End Next */}
       </div>
