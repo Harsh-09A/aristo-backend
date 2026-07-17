@@ -10,7 +10,7 @@ type Props = {
     slug: string;
     photo: string | null;
     specialization: string | null;
-    _count: { projects: number };
+    _count?: { projects: number } ;
   };
 };
 
@@ -37,7 +37,8 @@ const AgentCard = ({ agent }: Props) => {
             style={{ objectFit: "cover" }}
           />
         </div>
-        <div className="tag">{`${_count.projects} Properties`}</div>
+        {/* <div className="tag">{`${_count.projects || ""} Properties`}</div> */}
+        <div className="tag">{`${_count?.projects ?? 0} Properties`}</div>
       </div>
       <div className="agency-details pt20">
         <h5 className="agency-title mb-1 text-center">{name}</h5>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/types/property";
 import PropertyActions from "./single-property-hero/PropertyActions";
+import AgentCard from "../agent/cards/AgentCard";
 
 interface Props {
   data: Project;
@@ -43,6 +44,8 @@ const PropertyDeveloper = ({ data }: Props) => {
          {data.developer.description || "No Description"}
         </p>
       </div>
+
+      {/* <AgentCard agent={data.agents[0]} /> */}
       <PropertyActions/>
 
 
