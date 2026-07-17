@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAllDevelopers } from "@/services/developer-service";
+import { getAllDevelopers2 } from "@/services/developer-service";
 
 const DevelopersCard = async () => {
-  const developers = await getAllDevelopers();
+  const developers = await getAllDevelopers2();
   return (
     <>
       {developers.map((developer) => (

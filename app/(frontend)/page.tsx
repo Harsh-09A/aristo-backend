@@ -39,10 +39,10 @@ const Home = async () => {
       {/* End Home Banner Style V1 */}
 
       {/* Our Developers */}
-      <section className="our-partners pb-0">
+      <section className="mb-0 pb-0">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12 mb-4" data-aos="fade-up">
+          <div className="row align-items-center" data-aos="fade-up">
+            <div className="col-lg-9 mb-4 ">
               <SectionHeading
                 heading={"Developers"}
                 title={"Our Top"}
@@ -50,16 +50,21 @@ const Home = async () => {
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />
             </div>
-            <div className="col-lg-12 text-center">
-              <div
-                className="dots_none nav_none"
-                data-aos="fade-up"
-                data-aos-delay="300"
-              >
-                {
-                  /* <Partner /> */
-                  <Developers />
-                }
+            <div className="col-lg-3">
+              <div className="text-start text-lg-end mb-3">
+                <Link className="ud-btn2" href="/developers">
+                  See All Developers
+                  <i className="fal fa-arrow-right-long" />
+                </Link>
+              </div>
+            </div>
+          </div>
+          {/* End header */}
+
+          <div className="row">
+            <div className="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+              <div className="">
+                <Developers />
               </div>
             </div>
           </div>

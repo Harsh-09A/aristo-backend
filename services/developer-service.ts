@@ -2,7 +2,7 @@
 import prisma from "@/lib/prisma";
 
 // List page — sabhi developers
-export async function getAllDevelopers() {
+export async function getAllDevelopers2() {
   const developers = await prisma.developer.findMany({
     select: {
       id: true,
@@ -65,6 +65,37 @@ export async function getDeveloperProjects(
 
   return {
     projects,
+    totalPages: Math.ceil(totalCount / pageSize),
+  };
+}
+
+// services/developer-service.ts
+const DEVELOPERS_PER_PAGE = 2;
+
+export async function getAllDevelopers(page: number = 1) {
+  const pageSize = DEVELOPERS_PER_PAGE;
+  const skip = (page - 1) * pageSize;
+
+  const [developers, totalCount] = await Promise.all([
+    prisma.developer.findMany({
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        logo: true,
+        _count: {
+          select: { projects: true },
+        },
+      },
+      orderBy: { name: "asc" },
+      skip,
+      take: pageSize,
+    }),
+    prisma.developer.count(),
+  ]);
+
+  return {
+    developers,
     totalPages: Math.ceil(totalCount / pageSize),
   };
 }
