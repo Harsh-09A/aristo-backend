@@ -372,6 +372,7 @@
 // }
 .top-specs-icon {
   color: var(--primary-color);
+  padding-right: 5px;
 }
 
 .top-specs-value {
@@ -416,4 +417,18 @@
   align-items: center;
   justify-content: center;
   align-content: center;
+}
+
+.agent-single-details,
+.projects-section {
+  background: #f7f8fa; /* soft grey instead of pure white */
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.featured-property-card {
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden; /* keeps the image's rounded corners in line with card */
 }

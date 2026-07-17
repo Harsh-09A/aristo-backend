@@ -35,7 +35,7 @@ const DevelopersCard = async () => {
               <div className="d-grid pt10">
                 {/* <Link href={`/agency-single/${agent.id}`} className="ud-btn btn-white2"> */}
                 <Link
-                  href={`/developers/${developer.slug}`}
+                  href={`/developer/${developer.slug}`}
                   className="ud-btn btn-white2"
                 >
                   View Listings
