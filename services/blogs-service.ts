@@ -36,8 +36,11 @@ export async function getFeaturedBlogs(limit: number = 3) {
 // Fetches one blog by its unique slug (e.g. /blog/my-first-post).
 // -----------------------------------------------------------------------
 export async function getBlogBySlug(slug: string) {
-  return prisma.blog.findUnique({
-    where: { slug },
+  return prisma.blog.findFirst({
+    where: {
+      slug,
+      publishStatus: PublishStatus.PUBLISHED, // ← added
+    },
   });
 }
 

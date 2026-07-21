@@ -1,7 +1,9 @@
 // services/agents-service.ts
 import prisma from "@/lib/prisma";
+import { PublishStatus } from "@/generated/prisma/client"; // add this import at top
 
 const PROJECTS_PER_PAGE = 10;
+const AGENTS_PER_PAGE = 8;
 
 // List page — sabhi agents
 // export async function getAllAgents() {
@@ -25,12 +27,17 @@ const PROJECTS_PER_PAGE = 10;
 
 // Single agent page — agent ki apni info (name, photo, contact, etc.) + total project count.
 // Project list yahan nahi — woh alag se fetch hoga taaki pagination laga sakein.
+
 export async function getAgentBySlug(slug: string) {
   return prisma.agent.findUnique({
     where: { slug },
     include: {
       _count: {
-        select: { projects: true },
+        select: {
+          projects: {
+            where: { publishStatus: PublishStatus.PUBLISHED }, // ← added
+          },
+        },
       },
     },
   });
@@ -40,11 +47,13 @@ export async function getAgentBySlug(slug: string) {
 // Note: agent <-> project many-to-many hai, isliye "developerId" jaisa direct
 // filter nahi chalega. Iski jagah "agents" relation ke andar "some" use karte hain,
 // jo matlab hai: "un projects ko do jinke agents list mein yeh agentId maujood hai".
+
 export async function getAgentProjects(agentId: string, page: number = 1) {
   const pageSize = PROJECTS_PER_PAGE;
   const skip = (page - 1) * pageSize;
 
   const where = {
+    publishStatus: PublishStatus.PUBLISHED, // ← added: DRAFT projects hide ho jayenge
     agents: {
       some: { id: agentId },
     },
@@ -54,7 +63,7 @@ export async function getAgentProjects(agentId: string, page: number = 1) {
     prisma.project.findMany({
       where,
       include: {
-        developer: true, // PropertyCardGrid ko listing.developer.name/logo chahiye
+        developer: true,
         location: true,
         configurations: true,
         amenities: true,
@@ -73,9 +82,7 @@ export async function getAgentProjects(agentId: string, page: number = 1) {
   };
 }
 
-
-// services/agents-service.ts
-const AGENTS_PER_PAGE = 8;
+// Agents Page Listing
 
 export async function getAllAgents(page: number = 1) {
   const pageSize = AGENTS_PER_PAGE;
@@ -90,7 +97,11 @@ export async function getAllAgents(page: number = 1) {
         photo: true,
         specialization: true,
         _count: {
-          select: { projects: true },
+          select: {
+            projects: {
+              where: { publishStatus: PublishStatus.PUBLISHED }, // ← added
+            },
+          },
         },
       },
       orderBy: { name: "asc" },
@@ -100,8 +111,5 @@ export async function getAllAgents(page: number = 1) {
     prisma.agent.count(),
   ]);
 
-  return {
-    agents,
-    totalPages: Math.ceil(totalCount / pageSize),
-  };
+  return { agents, totalPages: Math.ceil(totalCount / pageSize) };
 }
