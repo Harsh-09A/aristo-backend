@@ -21,7 +21,7 @@ const PropertyOverview = ({ data }: Props) => {
 
     // Commercial: Clean, filter, and convert string values to numbers
     const numericValues = data.configurations
-      .map((config) => Number(config.value))
+      .map((config) => Number(config.areaValue))
       .filter((num) => !isNaN(num)); // Remove anything that failed to parse into a number
 
     // Check if we successfully extracted any valid numbers
@@ -31,10 +31,12 @@ const PropertyOverview = ({ data }: Props) => {
 
       // If min and max are identical (e.g. only one config exists), don't show a range
       if (min === max) {
-        return `${min} ${data.configurationUnit}`;
+        // return `${min} ${data.configurationUnit}`;
+        return `${min} Sq.Ft`;
       }
 
-      return `${min} - ${max} ${data.configurationUnit}`;
+      // return `${min} - ${max} ${data.configurationUnit}`;
+      return `${min} - ${max} Sq.Ft`;
     }
 
     // Fallback fallback if values couldn't be parsed into numbers
