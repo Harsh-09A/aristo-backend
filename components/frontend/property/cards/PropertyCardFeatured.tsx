@@ -1,6 +1,6 @@
 import Image from "next/image";
 // import { Property } from "@/types/property";
-import { formatIndianPrice } from "@/utils/helper-functions";
+import { formatIndianPrice, getConfigData } from "@/utils/helper-functions";
 import Link from "next/link";
 import { formatIndianDate } from "@/utils/helper-functions";
 
@@ -51,10 +51,11 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 <div className="spec-item">
                   <div className="spec-label">Configuration</div>
                   <div className="spec-value">
-                    {listing.configurations
+                    {/* {listing.configurations
                       .map((config: any) => config.value)
                       .join(", ")}{" "}
-                    {listing.configurationUnit}
+                    {listing.configurationUnit} */}
+                    {getConfigData(listing)}
                   </div>
                 </div>
                 <div className="spec-item">

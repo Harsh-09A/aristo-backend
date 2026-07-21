@@ -1,6 +1,6 @@
 import Image from "next/image";
 // import { Property } from "@/types/property";
-import { formatIndianPrice } from "@/utils/helper-functions";
+import { formatIndianPrice, getConfigData } from "@/utils/helper-functions";
 import Link from "next/link";
 import { formatIndianDate } from "@/utils/helper-functions";
 
@@ -71,10 +71,11 @@ const PropertyCardGrid = ({ listing }: Props) => {
               <div className="top-specs-item">
                 <div className="top-specs-value">
                   <span className="flaticon-bed top-specs-icon" />
-                  {listing.configurations
+                  {/* {listing.configurations
                     .map((config: any) => config.value)
                     .join(", ") || "N/A"}{" "}
-                  {listing.configurationUnit}
+                  {listing.configurationUnit} */}
+                  {getConfigData(listing)}
                 </div>
               </div>
               <div className="top-specs-item">
