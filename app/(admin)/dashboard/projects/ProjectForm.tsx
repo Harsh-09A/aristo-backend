@@ -817,6 +817,12 @@ export default function ProjectForm({
                       )
                     }
                   />
+
+                  {row.price && (
+                    <small className="text-muted">
+                      ₹ {formatIndianPrice(Number(row.price))}
+                    </small>
+                  )}
                 </div>
                 <div className="col-md-3 mb-2">
                   <label className="form-label">Area Value</label>
