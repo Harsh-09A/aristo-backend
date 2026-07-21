@@ -2,6 +2,8 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Select from "react-select";
+
 import ImageUploader, {
   ImageUploaderHandle,
 } from "@/components/dashboard/ImageUploader";
@@ -16,7 +18,9 @@ import {
   CATEGORY_OPTIONS,
   TYPE_OPTIONS_BY_CATEGORY,
   STATUS_OPTIONS,
+  TAG_OPTIONS,
 } from "@/lib/constants";
+import { formatIndianPrice } from "@/utils/helper-functions";
 
 // Simple dropdown option shapes
 type Option = { id: string; name: string };
@@ -513,6 +517,11 @@ export default function ProjectForm({
                 value={price}
                 onChange={(event) => setPrice(event.target.value)}
               />
+              {price && (
+                <small className="text-muted">
+                  ₹ {formatIndianPrice(Number(price))}
+                </small>
+              )}
             </div>
             <div className="col-md-3 mb-3">
               <label className="form-label">Area</label>
@@ -573,6 +582,46 @@ export default function ProjectForm({
             </div>
           </div>
 
+          {/* <div className="mb-3">
+            <label className="form-label">Tags (one per line)</label>
+            <textarea
+              rows={6}
+              className="form-control"
+              placeholder={"Luxury\nSea View\nNew Launch"}
+              value={tagsText}
+              onChange={(event) => setTagsText(event.target.value)}
+            />
+          </div> */}
+
+          <div className="col-md-4 mb-3">
+            <label className="form-label">Add Tag</label>
+            <select
+              className="form-select"
+              value=""
+              onChange={(event) => {
+                const newTag = event.target.value;
+                if (!newTag) return;
+                // agar tag pehle se textarea me nahi hai to newline ke sath jod do
+                const existingTags = tagsText
+                  .split("\n")
+                  .map((t) => t.trim())
+                  .filter(Boolean);
+                if (!existingTags.includes(newTag)) {
+                  setTagsText(
+                    existingTags.length > 0 ? `${tagsText}\n${newTag}` : newTag,
+                  );
+                }
+              }}
+            >
+              <option value="">Select tag to add...</option>
+              {TAG_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="mb-3">
             <label className="form-label">Tags (one per line)</label>
             <textarea
@@ -583,6 +632,22 @@ export default function ProjectForm({
               onChange={(event) => setTagsText(event.target.value)}
             />
           </div>
+
+          {/* <div className="mb-3">
+            <label className="form-label">Tags</label>
+            <select
+              className="form-select"
+              value={tagsText}
+              onChange={(event) => setTagsText(event.target.value)}
+            >
+              <option value="">Select tag...</option>
+              {TAG_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div> */}
 
           <div className="mb-3">
             <label className="form-label">Highlights (one per line)</label>

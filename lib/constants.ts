@@ -33,3 +33,11 @@ export const PRICE_OPTIONS = [
 ] as const;
 
 export const PROPERTIES_PER_PAGE = 3; // 30 chahiye toh bas ye number badal dena
+
+export const TAG_OPTIONS = [
+  "Featured",
+  "Top",
+  "New Launch",
+  "Ready to Move",
+  "Under Construction",
+];
