@@ -1,10 +1,10 @@
 // NO "use client" here — this runs on the server
 import LocationListingsSlider from "./LocationListingsSlider";
-import { getLocations } from "@/services/location-service";
+import { getTopLocations } from "@/services/location-service";
 
 
 const LocationListings = async () => {
-  const fetchedLocations = await getLocations(6);
+  const fetchedLocations = await getTopLocations(8);
   // console.log(featuredProperties[0].amenities)
   // console.log(fetchedLocations)
   /*

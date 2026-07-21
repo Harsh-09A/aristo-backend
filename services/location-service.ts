@@ -61,3 +61,26 @@ export async function getAllLocations() {
     orderBy: { name: "asc" },
   });
 }
+
+export async function getTopLocations(limit: number = 6) {
+  // Pehle sabhi locations fetch karo, saath mein sirf PUBLISHED projects ka count
+  const locations = await prisma.location.findMany({
+    include: {
+      _count: {
+        select: {
+          projects: {
+            where: { publishStatus: "PUBLISHED" },
+          },
+        },
+      },
+    },
+  });
+
+  // Ab JS mein published count ke hisaab se sort karo (highest first)
+  const sorted = locations.sort(
+    (a, b) => b._count.projects - a._count.projects
+  );
+
+  // Sirf top `limit` locations return karo
+  return sorted.slice(0, limit);
+}

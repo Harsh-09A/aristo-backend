@@ -2,6 +2,7 @@ import BlogsListings from "@/components/frontend/blogs/BlogsListings";
 import CallToActions from "@/components/frontend/common/cta/CallToActions";
 import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
+import DeveloperListings from "@/components/frontend/developer/listing/DeveloperListings";
 import Hero from "@/components/frontend/home/hero/Hero";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
 import WhyChooseUs from "@/components/frontend/home/why-choose/WhyChooseUs";
@@ -64,7 +65,9 @@ const Home = async () => {
           <div className="row">
             <div className="col-lg-12" data-aos="fade-up" data-aos-delay="200">
               <div className="">
-                <Developers />
+                {/* <Developers /> */}
+                <DeveloperListings />
+
               </div>
             </div>
           </div>

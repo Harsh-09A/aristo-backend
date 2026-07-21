@@ -70,7 +70,7 @@ export async function getDeveloperProjects(
 }
 
 // services/developer-service.ts
-const DEVELOPERS_PER_PAGE = 2;
+const DEVELOPERS_PER_PAGE = 12;
 
 export async function getAllDevelopers(page: number = 1) {
   const pageSize = DEVELOPERS_PER_PAGE;
@@ -98,4 +98,28 @@ export async function getAllDevelopers(page: number = 1) {
     developers,
     totalPages: Math.ceil(totalCount / pageSize),
   };
+}
+
+// Top developers — jinke paas sabse zyada projects hain, limit ke saath
+export async function getTopDevelopers(limit: number = 10) {
+  const developers = await prisma.developer.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      logo: true,
+      _count: {
+        select: { projects: true },
+      },
+    },
+    orderBy: {
+      projects: {
+        _count: "desc", // sabse zyada projects wale developer sabse upar
+      },
+    },
+    take: limit,
+  });
+
+  return developers;
+  // shape same as getAllDevelopers: { id, name, slug, logo, _count: { projects: number } }[]
 }
