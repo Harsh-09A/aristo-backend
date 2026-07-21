@@ -22,7 +22,7 @@ interface Props {
   data: Project;
 }
 
-const PLACEHOLDER_IMAGE = "/assets/images/placeholder/placeholder-image.jpg";
+const PLACEHOLDER_IMAGE = "/assets/images/placeholder/floorPlanNoImage.jpg";
 
 const PropertyFloorPlans = ({ data }: Props) => {
   const configurations = data.configurations ?? [];
