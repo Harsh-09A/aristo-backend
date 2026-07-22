@@ -14,7 +14,7 @@ import React from "react";
 // }[]
 const BlogsListingsCard = ({ blog }: any) => {
   const {day,month} = formatIndianFullDateParts(blog.createdAt)
-  console.log(day)
+  // console.log(day)
   return (
     <>
       <div className="col-sm-6 col-lg-4" key={blog.id}>
