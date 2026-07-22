@@ -168,7 +168,7 @@ const Home = async () => {
       {/* End Featured Listings */}
 
       {/* Explore Locations */}
-      <section className="pb40-md pb90">
+      <section className="pb40-md">
         <div className="container">
           <div
             className="row align-items-center"
@@ -224,7 +224,7 @@ const Home = async () => {
       {/*  <!-- End Why Choose Us --> */}
 
       {/* Our Testimonials */}
-      <section className="pb100 pb50-md bgc-thm-light">
+      <section className="pb50-md bgc-thm-light">
         <div className="container">
           <div className="row  justify-content-between align-items-center">
             <div className="col-auto mb-4">
