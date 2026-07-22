@@ -51,7 +51,7 @@ export function formatIndianPrice(value: number | null | undefined): string {
   }
 
   if (value >= 100000) {
-    return `${(value / 100000).toFixed(2).replace(/\.?0+$/, "")} Lac`;
+    return `${(value / 100000).toFixed(2).replace(/\.?0+$/, "")} Lakhs`;
   }
 
   if (value >= 1000) {
