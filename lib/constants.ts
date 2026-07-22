@@ -13,7 +13,7 @@ export const STATUS_OPTIONS = [
 
 // Pehle wala BHK_OPTIONS replace karo isse - ab decimal bhi allow hai
 export const BHK_OPTIONS = [
-  "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5+",
+  "1", "2", "3", "4", "5+",
 ] as const;
 
 // Price dropdowns ke liye preset amounts (value hamesha rupees me, raw number)
