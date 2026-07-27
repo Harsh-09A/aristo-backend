@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import PropertyActions from "../../single-property/single-property-hero/PropertyActions";
 
 type Props = {
   agent: {
@@ -10,11 +11,12 @@ type Props = {
     slug: string;
     photo: string | null;
     specialization: string | null;
+    phone: string | null;
   };
 };
 
 const AgentCardSlider = ({ agent }: Props) => {
-  const { name, slug, photo, specialization } = agent;
+  const { name, slug, photo, specialization, phone } = agent;
 
   return (
     <div className="agency-style1 p30 bdrs12 bdr1 mb30">
@@ -45,10 +47,11 @@ const AgentCardSlider = ({ agent }: Props) => {
         )}
 
         <div className="d-grid pt10">
-          <Link href={`/agent/${slug}`} className="ud-btn btn-white2">
+          <Link href={`/agent/${slug}`} className="ud-btn btn-white2 mb-2">
             View Listings
             <i className="fal fa-arrow-right-long" />
           </Link>
+          <PropertyActions phone={phone} />
         </div>
       </div>
     </div>

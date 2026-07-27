@@ -11,13 +11,13 @@ type Props = {
     slug: string;
     specialization: string | null;
     photo: string | null;
-
+    phone: string | null;
   }[];
 };
 
 const AgentListingsSlider = ({ agents }: Props) => {
   return (
-    <>
+    <div className="position-relative">
       <Swiper
         spaceBetween={20}
         modules={[Navigation, Pagination]}
@@ -44,28 +44,29 @@ const AgentListingsSlider = ({ agents }: Props) => {
         ))}
       </Swiper>
 
-      <div className="row align-items-center justify-content-center mt-4">
-        <div className="col-auto">
-          <button className="top-prev__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-left-long" />
-          </button>
-        </div>
-        {/* End prev */}
+      {/* Prev arrow — left side, vertically centered on the slider */}
+      <button
+        className="top-prev__active swiper_button reels-nav-btn position-absolute top-50 start-0 translate-middle-y"
+        style={{ zIndex: 10 }}
+      >
+        <i className="fa-solid fa-arrow-left-long" />
+      </button>
 
+      {/* Next arrow — right side, vertically centered on the slider */}
+      <button
+        className="top-next__active swiper_button reels-nav-btn position-absolute top-50 end-0 translate-middle-y"
+        style={{ zIndex: 10 }}
+      >
+        <i className="fa-solid fa-arrow-right-long" />
+      </button>
+
+      {/* Pagination dots — niche center mein */}
+      <div className="row align-items-center justify-content-center mt-4">
         <div className="col-auto">
           <div className="pagination swiper--pagination top-pagination__active" />
         </div>
-        {/* End pagination */}
-
-        <div className="col-auto">
-          <button className="top-next__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-right-long" />
-          </button>
-        </div>
-        {/* End Next */}
       </div>
-      {/* End .col for navigation and pagination */}
-    </>
+    </div>
   );
 };
 

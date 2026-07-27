@@ -95,7 +95,8 @@ const PropertySinglePage = async ({ params }: Props) => {
               <div className=" sticky-top" style={{ top: "20px" }}>
                 <div className="agen-personal-info position-relative bgc-white default-box-shadow1 bdrs12 p30 mt30">
                   <div className="widget-wrapper mb-0">
-                    <h6 className="title fz17 mb30">Developer Information</h6>
+                    {/* <h6 className="title fz17 mb30">Developer Information</h6> */}
+                    <h6 className="title fz17 mb30">Connect With Out Experts</h6>
                     <PropertyDeveloper data={property} />
                   </div>
                 </div>
