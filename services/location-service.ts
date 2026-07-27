@@ -84,3 +84,22 @@ export async function getTopLocations(limit: number = 6) {
   // Sirf top `limit` locations return karo
   return sorted.slice(0, limit);
 }
+
+
+export async function getNaviMumbaiLocations() {
+  return prisma.location.findMany({
+    where: {
+      // state: "Maharashtra", // ya jo bhi filter aap use karte ho Navi Mumbai identify karne ke liye
+      latitude: { not: null },
+      longitude: { not: null },
+    },
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      latitude: true,
+      longitude: true,
+      _count: { select: { projects: true } }, // pin pe "5 projects" jaisa badge dikhane ke liye
+    },
+  });
+}

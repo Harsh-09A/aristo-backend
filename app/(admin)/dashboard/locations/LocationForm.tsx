@@ -15,6 +15,8 @@ export default function LocationForm({
     name: string;
     state: string | null;
     image: string | null;
+    latitude: number | null; // NEW
+    longitude: number | null; // NEW
   };
 }) {
   const router = useRouter();
@@ -22,6 +24,12 @@ export default function LocationForm({
 
   const [name, setName] = useState(location?.name || "");
   const [state, setState] = useState(location?.state || "");
+  const [latitude, setLatitude] = useState(
+    location?.latitude?.toString() || "",
+  ); // NEW
+  const [longitude, setLongitude] = useState(
+    location?.longitude?.toString() || "",
+  ); // NEW
 
   const imageUploaderRef = useRef<ImageUploaderHandle>(null);
 
@@ -37,7 +45,14 @@ export default function LocationForm({
       const imagePaths =
         (await imageUploaderRef.current?.uploadPendingFiles()) || [];
 
-      const formData = { name, state, image: imagePaths[0] || "" };
+      // const formData = { name, state, image: imagePaths[0] || "" };
+      const formData = {
+        name,
+        state,
+        image: imagePaths[0] || "",
+        latitude: latitude ? parseFloat(latitude) : null, // NEW
+        longitude: longitude ? parseFloat(longitude) : null, // NEW
+      };
 
       if (isEditing && location) {
         await updateLocation(location.id, formData);
@@ -79,6 +94,36 @@ export default function LocationForm({
         />
       </div>
 
+      {/* NEW — Latitude/Longitude row */}
+      <div className="row mb-3">
+        <div className="col-md-6">
+          <label className="form-label">Latitude</label>
+          <input
+            type="number"
+            step="any"
+            className="form-control"
+            placeholder="e.g. 19.0330"
+            value={latitude}
+            onChange={(event) => setLatitude(event.target.value)}
+          />
+        </div>
+        <div className="col-md-6">
+          <label className="form-label">Longitude</label>
+          <input
+            type="number"
+            step="any"
+            className="form-control"
+            placeholder="e.g. 73.0297"
+            value={longitude}
+            onChange={(event) => setLongitude(event.target.value)}
+          />
+        </div>
+        <div className="form-text">
+          Google Maps pe location pe right-click karke coordinates copy kar
+          sakte ho.
+        </div>
+      </div>
+
       <ImageUploader
         ref={imageUploaderRef}
         folder="locations"
@@ -89,7 +134,11 @@ export default function LocationForm({
 
       <div className="d-flex gap-2 mt-3">
         <button type="submit" className="btn btn-primary" disabled={isSaving}>
-          {isSaving ? "Saving..." : isEditing ? "Save Changes" : "Create Location"}
+          {isSaving
+            ? "Saving..."
+            : isEditing
+              ? "Save Changes"
+              : "Create Location"}
         </button>
         <button
           type="button"

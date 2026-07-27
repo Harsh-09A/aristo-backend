@@ -133,6 +133,8 @@ model Location {
   slug      String   @unique
   state     String?
   image     String? // featured image shown in dropdowns/lists
+  latitude  Float? // NEW — e.g. 19.0330 (Vashi)
+  longitude Float? // NEW — e.g. 73.0297 (Vashi)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

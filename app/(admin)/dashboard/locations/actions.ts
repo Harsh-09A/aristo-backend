@@ -9,6 +9,8 @@ type LocationFormData = {
   name: string;
   state: string;
   image: string;
+  latitude: number | null; // NEW
+  longitude: number | null; // NEW
 };
 
 export async function createLocation(data: LocationFormData) {
@@ -28,6 +30,8 @@ export async function createLocation(data: LocationFormData) {
       name: data.name,
       state: data.state || null,
       image: data.image || null,
+      latitude: data.latitude, // NEW
+      longitude: data.longitude, // NEW
     },
   });
 
@@ -53,6 +57,8 @@ export async function updateLocation(id: string, data: LocationFormData) {
       slug: slug,
       state: data.state || null,
       image: data.image || null,
+      latitude: data.latitude, // NEW
+      longitude: data.longitude, // NEW
     },
   });
 
