@@ -1,6 +1,10 @@
 // app/locations/map/page.tsx
+
+export const dynamic = "force-dynamic"; // ← yeh line top pe add karo
+
 import { getNaviMumbaiLocations } from "@/services/location-service";
-import NaviMumbaiMap from "@/components/frontend/map/NaviMumbaiMap";
+// import NaviMumbaiMap from "@/components/frontend/map/NaviMumbaiMap";
+import NaviMumbaiMap from "@/components/frontend/map/NaviMumbaiMapLoader";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 
 export default async function LocationMapPage() {
