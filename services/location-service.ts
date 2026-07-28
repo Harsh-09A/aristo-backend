@@ -87,7 +87,6 @@ export async function getTopLocations(limit: number = 6) {
 export async function getNaviMumbaiLocations() {
   return prisma.location.findMany({
     where: {
-      // state: "Maharashtra", // ya jo bhi filter aap use karte ho Navi Mumbai identify karne ke liye
       latitude: { not: null },
       longitude: { not: null },
     },
@@ -95,9 +94,10 @@ export async function getNaviMumbaiLocations() {
       id: true,
       name: true,
       slug: true,
+      image: true, // ← add kiya, field naam confirm kar lena
       latitude: true,
       longitude: true,
-      _count: { select: { projects: true } }, // pin pe "5 projects" jaisa badge dikhane ke liye
+      _count: { select: { projects: true } },
     },
   });
 }

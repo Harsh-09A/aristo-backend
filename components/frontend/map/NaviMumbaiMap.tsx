@@ -20,6 +20,7 @@ type MapLocation = {
   id: string;
   name: string;
   slug: string;
+  image?: string | null; // ← field naam schema ke hisaab se badal do agar zaroorat ho
   latitude: number | null;
   longitude: number | null;
   _count: { projects: number };
@@ -49,15 +50,38 @@ export default function NaviMumbaiMap({
 
         return (
           <Marker key={loc.id} position={[loc.latitude, loc.longitude]}>
-            <Popup>
+            {/* minWidth zaroori hai warna image squeeze ho jaayegi */}
+            <Popup minWidth={220}>
               <div style={{ textAlign: "center" }}>
-                <strong>{loc.name}</strong>
-                <p style={{ margin: "4px 0" }}>
+                <img
+                  src={
+                    loc.image ||
+                    "/assets/images/placeholder/placeholder-image.jpg"
+                  }
+                  alt={loc.name}
+                  style={{
+                    width: "100%",
+                    height: "120px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    marginBottom: "8px",
+                  }}
+                />
+                <strong style={{ display: "block", fontSize: "15px" }}>
+                  {loc.name}
+                </strong>
+                <p style={{ margin: "4px 0", fontSize: "13px" }}>
                   {loc._count.projects} project
                   {loc._count.projects !== 1 ? "s" : ""}
                 </p>
                 {/* <Link href={`/locations/${loc.slug}`}>View Projects →</Link> */}
-                <Link href={`/listings?location=${loc.name}`}>View Projects →</Link>
+                <Link
+                className="ud-btn btn-white2"
+                  href={`/locations/${loc.slug}`}
+                  style={{ fontSize: "13px", fontWeight: 600 }}
+                >
+                  View Projects →
+                </Link>
               </div>
             </Popup>
           </Marker>
