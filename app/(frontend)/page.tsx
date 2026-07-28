@@ -67,7 +67,6 @@ const Home = async () => {
               <div className="">
                 {/* <Developers /> */}
                 <DeveloperListings />
-
               </div>
             </div>
           </div>
@@ -187,10 +186,10 @@ const Home = async () => {
 
             <div className="col-lg-3">
               <div className="text-start text-lg-end mb-3">
-                <a className="ud-btn2" href="#">
+                <Link className="ud-btn2" href="/locations">
                   See All Locations
                   <i className="fal fa-arrow-right-long" />
-                </a>
+                </Link>
               </div>
             </div>
             {/* End col-lg-3 */}
@@ -202,6 +201,19 @@ const Home = async () => {
               <div className="property-city-slider position-relative">
                 <LocationListings />
               </div>
+            </div>
+            <div
+              className="col-lg-12 mt-2 pt-2 text-center"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <Link
+                className="ud-btn btn-white2"
+                href={`/locations/map`}
+                style={{ fontSize: "16px", fontWeight: 600, width: "max-content" }}
+              >
+                View Locations On Map
+              </Link>
             </div>
           </div>
           {/* End .row */}

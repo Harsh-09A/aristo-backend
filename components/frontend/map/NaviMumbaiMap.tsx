@@ -26,27 +26,41 @@ type MapLocation = {
   _count: { projects: number };
 };
 
+// divIcon ke andar raw HTML jaata hai, isliye location name mein agar
+// koi HTML special character ho toh usse plain text jaisa treat karne
+// ke liye escape kar dete hain (basic safety measure)
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 // -----------------------------------------------------------------------
-// Custom pin banane ka function — har location ke liye alag icon banega
-// (kyunki project count alag-alag hai, ek shared icon reuse nahi kar sakte)
+// Custom pin banane ka function — pin + project count badge + neeche
+// location name ka label. Har location ke liye alag icon banega
+// kyunki name aur count dono alag-alag hain.
 // -----------------------------------------------------------------------
-function createRealEstateIcon(projectCount: number) {
+function createRealEstateIcon(name: string, projectCount: number) {
   return L.divIcon({
     className: "custom-real-estate-marker", // Leaflet ka default white box hatane ke liye zaroori
     html: `
       <div class="pin-wrapper">
         <div class="pin-body">
           <i class="fal fa-building"></i>
+          ${
+            projectCount > 0
+              ? `<div class="pin-badge">${projectCount}</div>`
+              : ""
+          }
         </div>
-        <div class="pin-tail"></div>
-        ${
-          projectCount > 0 ? `<div class="pin-badge">${projectCount}</div>` : ""
-        }
+        <div class="pin-label">${escapeHtml(name)}</div>
       </div>
     `,
-    iconSize: [40, 50],
-    iconAnchor: [20, 50], // pin ki nok (tail ka bottom point) exact coordinate pe touch kare
-    popupAnchor: [0, -50], // popup pin ke upar khule, tail ke through nahi
+    iconSize: [130, 70], // width thodi zyada rakhi taaki lambe naam bhi fit ho jaayein
+    iconAnchor: [65, 40], // pin ki nok (tip) exact coordinate pe touch kare — width/2, aur tip ki height
+    popupAnchor: [0, -40], // popup pin ke upar khule
   });
 }
 
@@ -68,9 +82,10 @@ export default function NaviMumbaiMap({
         }
 
         .pin-wrapper {
-          position: relative;
-          width: 40px;
-          height: 50px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 130px;
           transition: transform 0.2s ease;
         }
 
@@ -79,6 +94,7 @@ export default function NaviMumbaiMap({
         }
 
         .pin-body {
+          position: relative;
           width: 36px;
           height: 36px;
           background: var(--primary-color); /* apni brand color yahan daal do */
@@ -89,7 +105,6 @@ export default function NaviMumbaiMap({
           align-items: center;
           justify-content: center;
           box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
-          margin: 0 auto;
         }
 
         .pin-body i {
@@ -100,8 +115,11 @@ export default function NaviMumbaiMap({
 
         .pin-badge {
           position: absolute;
-          top: -8px;
-          right: -4px;
+          top: -10px;
+          right: -10px;
+          transform: rotate(
+            45deg
+          ); /* pin-body ke -45deg rotation ko cancel karta hai */
           background: #1a1a1a;
           color: #fff;
           font-size: 10px;
@@ -115,12 +133,27 @@ export default function NaviMumbaiMap({
           justify-content: center;
           border: 2px solid #fff;
         }
+
+        .pin-label {
+          margin-top: 6px;
+          background: #fff;
+          color: #1a1a1a;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 3px 8px;
+          border-radius: 4px;
+          white-space: nowrap;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          max-width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       `}</style>
 
       <MapContainer
         center={center}
         zoom={12}
-        style={{ height: "500px", width: "100%", borderRadius: "12px" }}
+        style={{ height: "600px", width: "100%", borderRadius: "12px" }}
       >
         <TileLayer
           attribution="&copy; OpenStreetMap contributors"
@@ -134,7 +167,7 @@ export default function NaviMumbaiMap({
             <Marker
               key={loc.id}
               position={[loc.latitude, loc.longitude]}
-              icon={createRealEstateIcon(loc._count.projects)}
+              icon={createRealEstateIcon(loc.name, loc._count.projects)}
             >
               <Popup minWidth={150}>
                 <div style={{ textAlign: "center" }}>
@@ -161,7 +194,7 @@ export default function NaviMumbaiMap({
                   </p>
                   <Link
                     className="ud-btn btn-white2"
-                    href={`/listings?location=${loc.name}`}
+                    href={`/locations/${loc.slug}`}
                     style={{ fontSize: "13px", fontWeight: 600 }}
                   >
                     View Projects →
