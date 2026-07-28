@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/prisma";
 
-
 /**
  * Get locations, sorted alphabetically by name.
  * Also includes a count of how many PUBLISHED projects are in each location,
@@ -37,13 +36,13 @@ export async function getLocations(limit?: number) {
  * Get one location by its slug (the URL-friendly name, e.g. "andheri-west").
  * Returns `null` if nothing matches, so always check for that in your page.
  */
-export async function getLocationBySlug(slug: string) {
-  const location = await prisma.location.findUnique({
-    where: { slug },
-  });
+// export async function getLocationBySlug(slug: string) {
+//   const location = await prisma.location.findUnique({
+//     where: { slug },
+//   });
 
-  return location;
-}
+//   return location;
+// }
 
 /**
  * Get just the total number of locations in the database.
@@ -78,13 +77,12 @@ export async function getTopLocations(limit: number = 6) {
 
   // Ab JS mein published count ke hisaab se sort karo (highest first)
   const sorted = locations.sort(
-    (a, b) => b._count.projects - a._count.projects
+    (a, b) => b._count.projects - a._count.projects,
   );
 
   // Sirf top `limit` locations return karo
   return sorted.slice(0, limit);
 }
-
 
 export async function getNaviMumbaiLocations() {
   return prisma.location.findMany({
@@ -102,4 +100,86 @@ export async function getNaviMumbaiLocations() {
       _count: { select: { projects: true } }, // pin pe "5 projects" jaisa badge dikhane ke liye
     },
   });
+}
+
+const LOCATIONS_PER_PAGE = 12;
+
+export async function getLocationsPaginated(page: number = 1) {
+  const pageSize = LOCATIONS_PER_PAGE;
+  const skip = (page - 1) * pageSize;
+
+  const [locations, totalCount] = await Promise.all([
+    prisma.location.findMany({
+      orderBy: { name: "asc" },
+      skip,
+      take: pageSize,
+      include: {
+        _count: {
+          select: {
+            projects: {
+              where: { publishStatus: "PUBLISHED" }, // drafts count mein nahi aayenge
+            },
+          },
+        },
+      },
+    }),
+    prisma.location.count(),
+  ]);
+
+  return { locations, totalPages: Math.ceil(totalCount / pageSize) };
+}
+
+export async function getLocationBySlug(slug: string) {
+  const location = await prisma.location.findUnique({
+    where: { slug },
+    include: {
+      _count: {
+        select: {
+          projects: {
+            where: { publishStatus: "PUBLISHED" },
+          },
+        },
+      },
+    },
+  });
+
+  return location;
+}
+
+// Naya function — ek location ke projects, paginated (agent/developer wale pattern jaisa)
+const LOCATION_PROJECTS_PER_PAGE = 10;
+
+export async function getLocationProjects(
+  locationId: string,
+  page: number = 1,
+) {
+  const pageSize = LOCATION_PROJECTS_PER_PAGE;
+  const skip = (page - 1) * pageSize;
+
+  const where = {
+    publishStatus: "PUBLISHED" as const, // drafts hide
+    locationId,
+  };
+
+  const [projects, totalCount] = await Promise.all([
+    prisma.project.findMany({
+      where,
+      include: {
+        developer: true,
+        location: true,
+        configurations: true,
+        amenities: true,
+        agents: true,
+      },
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: pageSize,
+    }),
+    prisma.project.count({ where }),
+  ]);
+
+  return {
+    projects,
+    totalPages: Math.ceil(totalCount / pageSize),
+  };
 }

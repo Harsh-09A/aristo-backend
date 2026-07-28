@@ -12,7 +12,7 @@ const PropertyListingsGrid = ({ listings }: Props) => {
     <div className="row mt15">
       {listings.map((listing) => (
         <div
-          className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4"
+          className="col-lg-4 col-md-4 col-sm-6 col-12 mb-4"
           key={listing.id}
         >
           <PropertyCardGrid listing={listing} />

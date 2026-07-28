@@ -1,30 +1,49 @@
-// app/locations/[slug]/page.tsx
-import prisma from "@/lib/prisma";
-// import { getFilteredProperties } from "@/services/location-service";
+// app/location/[slug]/page.tsx
 
-export default async function LocationProjectsPage({
-  params,
-}: {
+import { notFound } from "next/navigation";
+import {
+  getLocationBySlug,
+  getLocationProjects,
+} from "@/services/location-service";
+import LocationSinglePage from "@/components/frontend/location/LocationSinglePage";
+
+type PageProps = {
   params: Promise<{ slug: string }>;
-}) {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
+  const location = await getLocationBySlug(slug);
 
-  const location = await prisma.location.findUnique({ where: { slug } });
-  if (!location) return <div>Location not found</div>;
+  return {
+    title: location ? `${location.name} | Locations` : "Location Not Found",
+  };
+}
 
-  // const projects = await getFilteredProperties({ location: location.name });
+export default async function Page({ params, searchParams }: PageProps) {
+  const { slug } = await params;
+  const sp = await searchParams;
+
+  const currentPage = Math.max(1, Number(sp.page) || 1);
+
+  const location = await getLocationBySlug(slug);
+  if (!location) {
+    notFound();
+  }
+
+  const { projects, totalPages } = await getLocationProjects(
+    location.id,
+    currentPage,
+  );
 
   return (
-    <div className="container py-5">
-      <h2>Projects in {location.name}</h2>
-      {/* <div className="row">
-        {projects.map((p) => (
-          <div key={p.id} className="col-md-4 mb-4">
-            <h5>{p.title}</h5>
-            <p>{p.price ? `₹${p.price}` : "Price on request"}</p>
-          </div>
-        ))}
-      </div> */}
-    </div>
+    <LocationSinglePage
+      location={location}
+      projects={projects}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      searchParams={sp}
+    />
   );
 }
