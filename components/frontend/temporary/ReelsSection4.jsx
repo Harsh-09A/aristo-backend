@@ -514,7 +514,7 @@ export default function ReelsSection4() {
             <div>
               <div className="reels-eyebrow">Reels &amp; Shorts</div>
               <h2 className="reels-title">
-                Watch Our <span>Property Reels</span>
+                Watch <span>Property Reels</span>
               </h2>
               <p className="reels-subtitle">
                 Behind-the-scenes site tours, progress updates &amp; aerial

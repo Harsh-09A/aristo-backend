@@ -46,7 +46,7 @@ const Home = async () => {
             <div className="col-lg-9 mb-4 ">
               <SectionHeading
                 heading={"Developers"}
-                title={"Our Top"}
+                title={"Top"}
                 highlight={"Developers"}
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />
@@ -101,7 +101,7 @@ const Home = async () => {
             <div className="col-lg-9 mb-4 ">
               <SectionHeading
                 heading={"Latest Properties"}
-                title={"Discover Our"}
+                title={"Discover"}
                 highlight={"Latest Properties"}
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />
@@ -139,7 +139,7 @@ const Home = async () => {
             <div className="col-lg-9 mb-4 ">
               <SectionHeading
                 heading={"Top Properties"}
-                title={"Discover Our"}
+                title={"Discover"}
                 highlight={"Top Properties"}
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />
@@ -177,7 +177,7 @@ const Home = async () => {
             <div className="col-lg-9 mb-4">
               <SectionHeading
                 heading={"Top Locations"}
-                title={"Discover Our"}
+                title={"Discover"}
                 highlight={"Top Locations"}
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />
@@ -242,7 +242,7 @@ const Home = async () => {
             <div className="col-auto mb-4">
               <SectionHeading
                 heading={"Reviews"}
-                title={"What Our Customers Say About"}
+                title={"What Customers Say About"}
                 highlight={"Aristo"}
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />

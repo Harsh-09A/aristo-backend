@@ -36,7 +36,7 @@ const DeveloperCard = ({ developer }: Props) => {
             style={{ objectFit: "contain" }}
           />
         </div>
-        <div className="tag">{`${_count.projects} Properties`}</div>
+        {/* <div className="tag">{`${_count.projects} Properties`}</div> */}
       </div>
       <div className="agency-details pt10">
         <h6 className="agency-title mb-1 text-center">{name}</h6>
