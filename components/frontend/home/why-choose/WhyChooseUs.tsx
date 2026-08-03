@@ -16,7 +16,7 @@ const WhyChooseUs = () => {
             src={"/assets/images/home/aristo-why-choose.jpeg"}
             alt="why chosse"
           />
-          <Link href="/">
+          {/* <Link href="/">
             <div className="iconbox-style5 d-flex align-items-center">
               <span className="icon flaticon-home flex-shrink-0" />
               <div className="iconbox-content flex-shrink-1 ms-2">
@@ -24,7 +24,7 @@ const WhyChooseUs = () => {
                 <h4 className="title mb-0">5000+</h4>
               </div>
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
       {/* End .col-6 */}

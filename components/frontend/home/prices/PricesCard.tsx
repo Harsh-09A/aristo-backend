@@ -41,16 +41,24 @@ const priceList = [
     link: "/listings?category=Residential&min_price=70000000",
   },
 ];
+
 const PricesCard = () => {
   return (
     <>
-      {priceList.map((list, index) => (
-        <div className="col-auto px-1 mx-1" key={index}>
-          <Link href={list.link}>
+      {priceList.map((list) => (
+        // col-md-2 * 6 items = 12 columns → row ki full width exactly fill hogi
+        // chhote screens pe 2-3 per row wrap ho jayega
+        <div className="col-6 col-sm-4 col-md-2" key={list.id}>
+          <Link href={list.link} className="text-decoration-none d-block">
             <div className="apartment-category d-flex align-items-center">
-              <span className={`icon flex-shrink-0 ${"flaticon-home"}`} />
+              <span className="icon flex-shrink-0 flaticon-home" />
               <div className="content flex-shrink-1">
-                <h6 className="title mb-0">{list.title}</h6>
+                <h6
+                  className="title mb-0 text-nowrap"
+                  // style={{ fontSize: "0.85rem" }}
+                >
+                  {list.title}
+                </h6>
               </div>
             </div>
           </Link>

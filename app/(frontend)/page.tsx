@@ -87,7 +87,7 @@ const Home = async () => {
               />
             </div>
           </div>
-          <div className="row" data-aos="fade-up" data-aos-delay="100">
+          <div className="row g-2" data-aos="fade-up" data-aos-delay="100">
             <PricesCard />
           </div>
         </div>
@@ -210,7 +210,11 @@ const Home = async () => {
               <Link
                 className="ud-btn btn-white2"
                 href={`/locations/map`}
-                style={{ fontSize: "16px", fontWeight: 600, width: "max-content" }}
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  width: "max-content",
+                }}
               >
                 View Locations On Map
               </Link>
