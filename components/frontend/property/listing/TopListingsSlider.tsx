@@ -1,5 +1,5 @@
 "use client";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PropertyCardTop from "../cards/PropertyCardTop";
 
@@ -8,7 +8,12 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
     <>
       <Swiper
         spaceBetween={20}
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Autoplay]}
+        autoplay={{
+          delay: 2500, // Time between transitions (in ms)
+          disableOnInteraction: false, // Keeps playing after user drags/clicks arrows
+          pauseOnMouseEnter: true, // Pauses scroll when hovering over the slider
+        }}
         navigation={{
           nextEl: ".top-next__active",
           prevEl: ".top-prev__active",

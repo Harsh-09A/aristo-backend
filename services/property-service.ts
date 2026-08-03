@@ -64,7 +64,7 @@ export async function getFeaturedProperties(limit?: number) {
     where: {
       ...publishedOnly,
       tags: {
-        has: "featured", // Prisma's way of checking "is this value inside the String[] array"
+        has: "Featured", // Prisma's way of checking "is this value inside the String[] array"
       },
     },
     include: propertyInclude,

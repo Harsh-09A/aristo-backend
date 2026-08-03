@@ -138,9 +138,9 @@ const Home = async () => {
           <div className="row align-items-center" data-aos="fade-up">
             <div className="col-lg-9 mb-4 ">
               <SectionHeading
-                heading={"Top Properties"}
+                heading={"Featured Properties"}
                 title={"Discover"}
-                highlight={"Top Properties"}
+                highlight={"Featured Properties"}
                 subtitle={"Lorem ipsum dolor sit, amet consectetur"}
               />
             </div>
@@ -290,7 +290,7 @@ const Home = async () => {
       {/* Explore Blog */}
 
       {/* Our CTA */}
-      <CallToActions />
+      {/* <CallToActions /> */}
       {/* Our CTA */}
     </>
   );

@@ -36,7 +36,8 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                   <h2 className="property-title">{listing.title}</h2>
                 </Link>
                 <span className="price-badge">
-                  {formatIndianPrice(listing.price)}
+                  {/* {formatIndianPrice(listing.price)} */}
+                  Contact For Price
                 </span>
               </div>
 

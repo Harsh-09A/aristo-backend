@@ -1,5 +1,5 @@
 "use client";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import DeveloperCard from "../cards/DeveloperCard";
 
@@ -8,7 +8,12 @@ const DeveloperListingsSlider = ({ developers }: { developers: any[] }) => {
     <>
       <Swiper
         spaceBetween={20}
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Autoplay]}
+        autoplay={{
+          delay: 2500, // Time between transitions (in ms)
+          disableOnInteraction: false, // Keeps playing after user drags/clicks arrows
+          pauseOnMouseEnter: true, // Pauses scroll when hovering over the slider
+        }}
         navigation={{
           nextEl: ".top-next__active",
           prevEl: ".top-prev__active",
@@ -22,12 +27,12 @@ const DeveloperListingsSlider = ({ developers }: { developers: any[] }) => {
           300: { slidesPerView: 1 },
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 3 },
-          1200: { slidesPerView: 4 },
+          1200: { slidesPerView: 5 },
         }}
       >
         {developers.map((listing) => (
           <SwiperSlide key={listing.id}>
-            <DeveloperCard developer={listing}  />
+            <DeveloperCard developer={listing} />
           </SwiperSlide>
         ))}
       </Swiper>

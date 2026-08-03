@@ -12,33 +12,33 @@ import Link from "next/link";
 const priceList = [
   {
     id: 1,
-    title: "50L - 75L",
-    link: "/listings?category=Residential&min_price=5000000&max_price=7500000",
-  },
-  {
-    id: 2,
-    title: "75L - 1Cr",
-    link: "/listings?category=Residential&min_price=7500000&max_price=10000000",
-  },
-  {
-    id: 3,
     title: "1Cr - 2Cr",
     link: "/listings?category=Residential&min_price=10000000&max_price=20000000",
   },
   {
-    id: 4,
+    id: 2,
     title: "2Cr - 3Cr",
     link: "/listings?category=Residential&min_price=20000000&max_price=30000000",
   },
   {
+    id: 3,
+    title: "3Cr - 4Cr",
+    link: "/listings?category=Residential&min_price=30000000&max_price=40000000",
+  },
+  {
+    id: 4,
+    title: "4Cr - 5Cr",
+    link: "/listings?category=Residential&min_price=40000000&max_price=50000000",
+  },
+  {
     id: 5,
-    title: "3Cr - 5Cr",
-    link: "/listings?category=Residential&min_price=30000000&max_price=50000000",
+    title: "5Cr - 7Cr",
+    link: "/listings?category=Residential&min_price=50000000&max_price=70000000",
   },
   {
     id: 6,
-    title: "5Cr & Above",
-    link: "/listings?category=Residential&min_price=50000000",
+    title: "7Cr & Above",
+    link: "/listings?category=Residential&min_price=70000000",
   },
 ];
 const PricesCard = () => {

@@ -1,9 +1,9 @@
 // NO "use client" here — this runs on the server
-import { getLatestProjects } from "@/services/property-service";
+import { getFeaturedProperties } from "@/services/property-service";
 import TopListingsSlider from "./TopListingsSlider";
 
 const TopListings = async () => {
-  const featuredProperties = await getLatestProjects(8);
+  const featuredProperties = await getFeaturedProperties(8);
   // console.log(featuredProperties[0].amenities)
   // console.log(featuredProperties)
 

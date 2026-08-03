@@ -1,9 +1,8 @@
 "use client";
-import { Navigation } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Location } from "@/types/property";
 import LocationListingCard from "./LocationListingCard";
-
 
 // 1. Create a new type that extends the base Location
 export interface LocationWithCount extends Location {
@@ -21,7 +20,12 @@ const LocationListingsSlider = ({ locations }: LocationListingsSliderProps) => {
     <>
       <Swiper
         spaceBetween={30}
-        modules={[Navigation]}
+        modules={[Navigation, Autoplay]}
+        autoplay={{
+          delay: 2500, // Time between transitions (in ms)
+          disableOnInteraction: false, // Keeps playing after user drags/clicks arrows
+          pauseOnMouseEnter: true, // Pauses scroll when hovering over the slider
+        }}
         navigation={{
           nextEl: ".property-by-location-next__active",
           prevEl: ".property-by-location-prev__active",
@@ -45,8 +49,7 @@ const LocationListingsSlider = ({ locations }: LocationListingsSliderProps) => {
       >
         {locations.map((location) => (
           <SwiperSlide key={location.id}>
-            <LocationListingCard location = {location} />
-
+            <LocationListingCard location={location} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -42,8 +42,9 @@ const PropertyCardFeatured = ({ listing }: Props) => {
             </div> */}
 
             <div className="list-price">
-              {formatIndianPrice(listing.price) || "N/A"}
+              {/* {formatIndianPrice(listing.price) || "N/A"} */}
               {/* / <span>mo</span> */}
+              Contact For Price
             </div>
           </div>
           <div className="list-content">
