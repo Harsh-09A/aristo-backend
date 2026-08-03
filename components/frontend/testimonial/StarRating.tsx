@@ -8,15 +8,23 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <span className="star-rating">
       {Array.from({ length: totalFull }).map((_, i) => (
-        <i key={`full-${i}`} className="la la-star" style={{ color: "#ff481f" }}></i>
+        <i
+          key={`full-${i}`}
+          className="bi bi-star-fill"
+          style={{ color: "#FBBC04" }}
+        ></i>
       ))}
       {hasHalfStar && (
-        <i className="la la-star-half-alt" style={{ color: "#ff481f" }}></i>
+        <i className="bi bi-star-half" style={{ color: "#FBBC04" }}></i>
       )}
       {Array.from({ length: emptyStars }).map((_, i) => (
-        <i key={`empty-${i}`} className="la la-star" style={{ color: "#ddd" }}></i>
+        <i
+          key={`empty-${i}`}
+          className="bi bi-star"
+          style={{ color: "#ddd" }}
+        ></i>
       ))}
     </span>
   );
 }
-export default StarRating
+export default StarRating;

@@ -17,16 +17,22 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 const Home = async () => {
+  type HeroBannerSlide = {
+    id: string;
+    image: string;
+    alt: string;
+    slug?: string; // optional - kyunki slide 1 mein slug nahi hai
+  };
+
   const heroBannerSlides: HeroBannerSlide[] = [
     {
       id: "1",
       image: "/assets/images/banners/navi-mumbai-bg-600.jpeg",
       alt: "Navi Mumbai Skyline",
-      // slug nahi diya -> generic banner, click se kahin nahi jayega
     },
     {
       id: "2",
-      image: "/assets/images/banners/birla-taranya.webp", // tumhare dynamic file route ke hisaab se
+      image: "/assets/images/banners/birla-taranya.webp",
       alt: "Alliaance The View",
       slug: "alliaance-the-view",
     },

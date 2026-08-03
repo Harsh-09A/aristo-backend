@@ -85,3 +85,54 @@ export async function getFormattedGoogleReviews(placeId: string) {
     relativeTime: review.relativePublishTimeDescription ?? "",
   }));
 }
+
+
+// services/testimonial-service.ts
+
+const PLACES_API_BASE = "https://places.googleapis.com/v1/places";
+
+export interface GooglePlaceRatingSummary {
+  rating: number;          // e.g. 4.8
+  totalReviews: number;    // e.g. 214 — ASLI total, sirf displayed reviews nahi
+}
+
+/**
+ * Places API (New) ke "Place Details" endpoint se sirf rating + total
+ * review count fetch karta hai. Yeh alag isliye rakha hai kyunki humein
+ * poore review text nahi chahiye — sirf yeh do numbers, jo header mein
+ * "4.8 ⭐ Based on 214 Google reviews" dikhane ke liye use honge.
+ */
+export async function getGooglePlaceRatingSummary(
+  placeId: string,
+): Promise<GooglePlaceRatingSummary> {
+  try {
+    const res = await fetch(`${PLACES_API_BASE}/${placeId}`, {
+      headers: {
+        // Naya Places API key-in-header tareeka use karta hai (query param nahi)
+        "X-Goog-Api-Key": process.env.GOOGLE_PLACES_API_KEY as string,
+        // Field mask zaroori hai — batata hai ki response mein kya-kya chahiye.
+        // Ismein reviews nahi maanga, isliye response chhota aur sasta rahega.
+        "X-Goog-FieldMask": "rating,userRatingCount",
+        Referer: "https://www.varshagroup.in/",
+      },
+      // Rating har render pe fresh fetch na ho, 1 ghante tak cache rahe
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      // API fail ho jaye toh crash nahi, bas safe default return karo
+      console.error("Google Place rating fetch failed:", await res.text());
+      return { rating: 0, totalReviews: 0 };
+    }
+
+    const data = await res.json();
+
+    return {
+      rating: data.rating ?? 0,
+      totalReviews: data.userRatingCount ?? 0,
+    };
+  } catch (error) {
+    console.error("Google Place rating fetch error:", error);
+    return { rating: 0, totalReviews: 0 };
+  }
+}

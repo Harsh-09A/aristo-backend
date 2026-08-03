@@ -1,15 +1,30 @@
-import { getFormattedGoogleReviews } from "@/services/testimonial-service";
+import {
+  getFormattedGoogleReviews,
+  getGooglePlaceRatingSummary,
+} from "@/services/testimonial-service";
 import TestimonialListingsSlider from "./TestimonialListingsSlider";
 
 const TestimonialListings = async () => {
-  // .env mein GOOGLE_PLACE_ID daalna (GOOGLE_PLACES_API_KEY ke saath)
   const placeId = process.env.GOOGLE_PLACE_ID as string;
-  const testimonials = await getFormattedGoogleReviews(placeId);
 
-  // Reviews hi nahi mile toh poora section hide kar do (crash nahi hoga)
+  // Dono API calls ek saath chalao — sequential karne se page slow hoga
+  const [testimonials, ratingSummary] = await Promise.all([
+    getFormattedGoogleReviews(placeId),
+    getGooglePlaceRatingSummary(placeId),
+  ]);
+
   if (testimonials.length === 0) return null;
 
-  return <TestimonialListingsSlider testimonials={testimonials} />;
+  const googleReviewsUrl = `https://search.google.com/local/reviews?placeid=${placeId}`;
+
+  return (
+    <TestimonialListingsSlider
+      testimonials={testimonials}
+      googleReviewsUrl={googleReviewsUrl}
+      rating={ratingSummary.rating}
+      totalReviews={ratingSummary.totalReviews}
+    />
+  );
 };
 
 export default TestimonialListings;
