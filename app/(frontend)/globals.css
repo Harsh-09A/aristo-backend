@@ -3,3 +3,64 @@
 /* section{
     overflow-x: hidden;
 } */
+
+/* Sticky header behavior */
+.header-nav {
+  position: sticky !important;
+  top: 0;
+  z-index: 99999999 !important;
+  transition: all 0.3s ease-in-out; /* smooth animation */
+}
+
+.header-nav.sticky-header {
+  background: #fff; /* scroll ke baad header ka background — apna color daal do */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* halka shadow, thoda depth ke liye */
+}
+/* ================================== */
+.home-banner-style1 {
+  position: relative;
+  overflow: hidden;
+  min-height: 500px; /* apni theme ki purani banner height yahan use karo */
+}
+
+.hero-banner-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-banner-slider .swiper-slide {
+  position: relative;
+  height: 100%;
+}
+.hero-banner-slide-img {
+  object-fit: cover;
+}
+.hero-banner-slide-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.home-style1 {
+  position: relative;
+  z-index: 3; /* Hero content slider ke upar dikhna chahiye */
+}
+
+.hero-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 2;
+  pointer-events: none; /* ← YEH LINE ADD KARO — clicks ab through pass hongi */
+}
+
+.hero-banner-slide-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: default; /* slug wale slide ke liye default (banner-only slides) */
+}
+
+.hero-banner-slide-link--clickable {
+  cursor: pointer; /* ← slug hone par hi pointer/hand cursor */
+}

@@ -1,14 +1,31 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import SidebarPanel from "../sidebar-panel/SidebarPanel";
 import HeaderIcons from "./HeaderIcons";
 
 const DefaultHeader = () => {
+  const [isSticky, setIsSticky] = useState(false); // ← track scroll state
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 80px se zyada scroll hua toh sticky mode ON, warna OFF
+      setIsSticky(window.scrollY > 80);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // cleanup — component unmount hone par listener hata do (memory leak se bachne ke liye)
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
   return (
     <>
       <header
-        className={`header-nav nav-homepage-style light-header menu-home4 main-menu `}
-      >
+        className={`header-nav nav-homepage-style light-header menu-home4 main-menu ${
+          isSticky ? "sticky-header" : "" } `}>
         <nav className="posr">
           <div className="container posr menu_bdrt1">
             <div className="row align-items-center justify-content-between">

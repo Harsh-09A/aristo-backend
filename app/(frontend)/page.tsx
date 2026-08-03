@@ -4,6 +4,7 @@ import Developers from "@/components/frontend/common/developers/Developers";
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
 import DeveloperListings from "@/components/frontend/developer/listing/DeveloperListings";
 import Hero from "@/components/frontend/home/hero/Hero";
+import HeroBannerSlider from "@/components/frontend/home/hero/HeroBannerSlider";
 import PricesCard from "@/components/frontend/home/prices/PricesCard";
 import WhyChooseUs from "@/components/frontend/home/why-choose/WhyChooseUs";
 import LocationListings from "@/components/frontend/location/LocationListings";
@@ -16,16 +17,27 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 const Home = async () => {
+  const heroBannerSlides: HeroBannerSlide[] = [
+    {
+      id: "1",
+      image: "/assets/images/banners/navi-mumbai-bg-600.jpeg",
+      alt: "Navi Mumbai Skyline",
+      // slug nahi diya -> generic banner, click se kahin nahi jayega
+    },
+    {
+      id: "2",
+      image: "/assets/images/banners/birla-taranya.webp", // tumhare dynamic file route ke hisaab se
+      alt: "Alliaance The View",
+      slug: "alliaance-the-view",
+    },
+  ];
   return (
     <>
       {/* Home Banner Style V1 */}
-      <section
-        className="home-banner-style1 p0"
-        style={{
-          backgroundImage:
-            "url(/assets/images/banners/navi-mumbai-bg-600.jpeg)",
-        }}
-      >
+      <section className="home-banner-style1 p0">
+        {/* Background carousel - project images ya festive banners */}
+        <HeroBannerSlider slides={heroBannerSlides} />
+
         <div className="home-style1">
           <div className="container">
             <div className="row">
@@ -34,7 +46,6 @@ const Home = async () => {
               </div>
             </div>
           </div>
-          {/* End .container */}
         </div>
       </section>
       {/* End Home Banner Style V1 */}
