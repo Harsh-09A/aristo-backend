@@ -1,14 +1,15 @@
-import { getTestimonials } from '@/services/testimonial-service';
-import TestimonialListingsSlider from './TestimonialListingsSlider';
+import { getFormattedGoogleReviews } from "@/services/testimonial-service";
+import TestimonialListingsSlider from "./TestimonialListingsSlider";
 
+const TestimonialListings = async () => {
+  // .env mein GOOGLE_PLACE_ID daalna (GOOGLE_PLACES_API_KEY ke saath)
+  const placeId = process.env.GOOGLE_PLACE_ID as string;
+  const testimonials = await getFormattedGoogleReviews(placeId);
 
-const TestimonialListings = async() => {
-    const testimonials = await getTestimonials();
-  return (
-    <>
-      <TestimonialListingsSlider testimonials = {testimonials} />
-    </>
-  )
-}
+  // Reviews hi nahi mile toh poora section hide kar do (crash nahi hoga)
+  if (testimonials.length === 0) return null;
 
-export default TestimonialListings
+  return <TestimonialListingsSlider testimonials={testimonials} />;
+};
+
+export default TestimonialListings;

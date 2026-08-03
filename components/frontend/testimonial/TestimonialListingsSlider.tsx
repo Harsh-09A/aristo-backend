@@ -6,11 +6,11 @@ import TestimonialListingsCard from "./TestimonialListingsCard";
 // 1. Interface define karein
 export interface Testimonial {
   id: number;
-  title: string;
   quote: string;
   stars: number;
   name: string;
-  company: string;
+  photo: string;
+  relativeTime: string;
 }
 
 // 2. Component ke Props define karein
