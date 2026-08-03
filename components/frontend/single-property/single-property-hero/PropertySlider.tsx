@@ -91,7 +91,7 @@ const PropertySlider = ({ images }: Props) => {
                         <div
                           style={{
                             width: "100px",
-                            aspectRatio: 1,
+                            aspectRatio: 0.6,
                           }}
                         >
                           <Image
@@ -99,7 +99,6 @@ const PropertySlider = ({ images }: Props) => {
                             alt="image"
                             fill
                             sizes="100px"
-                            quality={100}
                             className="w-100 bdrs12 object-fit-cover pointer"
                           />
                         </div>

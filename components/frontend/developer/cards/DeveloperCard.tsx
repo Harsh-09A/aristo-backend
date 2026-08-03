@@ -37,18 +37,18 @@ const DeveloperCard = ({ developer }: Props) => {
           </div>
           {/* <div className="tag">{`${_count.projects} Properties`}</div> */}
         </div>
-        <div className="agency-details pt10">
-          <h6 className="agency-title mb-1 text-center">{name}</h6>
-
-          <div className="d-grid pt10">
-            {/* <Link href={`/agency-single/${agent.id}`} className="ud-btn btn-white2"> */}
-            <Link href={`/developer/${slug}`} className="ud-btn btn-white2">
-              View Listings
-              <i className="fal fa-arrow-right-long" />
-            </Link>
-          </div>
-        </div>
       </Link>
+      <div className="agency-details pt10">
+        <h6 className="agency-title mb-1 text-center">{name}</h6>
+
+        <div className="d-grid pt10">
+          {/* <Link href={`/agency-single/${agent.id}`} className="ud-btn btn-white2"> */}
+          <Link href={`/developer/${slug}`} className="ud-btn btn-white2">
+            View Listings
+            <i className="fal fa-arrow-right-long" />
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

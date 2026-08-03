@@ -98,3 +98,31 @@ export const getConfigData = (data: Project) => {
   // Fallback fallback if values couldn't be parsed into numbers
   return `Contact for Details`;
 };
+
+// Sirf area range nikalne ke liye - Residential aur Commercial dono ke liye kaam karta hai
+export const getAreaRange = (data: Project) => {
+  // Guard: agar configurations hi nahi hain
+  if (!data.configurations || data.configurations.length === 0) {
+    return "N/A";
+  }
+
+  // areaValue ko number mein convert karo, invalid/empty/0 values hata do
+  const numericValues = data.configurations
+    .map((config) => Number(config.areaValue))
+    .filter((num) => !isNaN(num) && num > 0);
+
+  // Agar koi valid area value nahi mili
+  if (numericValues.length === 0) {
+    return "N/A";
+  }
+
+  const min = Math.min(...numericValues);
+  const max = Math.max(...numericValues);
+
+  // Agar sirf ek hi config hai (ya sabka area same hai), range mat dikhao
+  if (min === max) {
+    return `${min} Sq.Ft`;
+  }
+
+  return `${min} - ${max} Sq.Ft`;
+};

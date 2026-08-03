@@ -46,21 +46,9 @@ const PropertySinglePage = async ({ params }: Props) => {
           <div className="row">
             <div className="col-lg-8">
               <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p30 mb30 overflow-hidden position-relative">
-                <h4 className="title fz17 mb30">Property Description</h4>
-                <PropertyDescription data={property} />
-                {/* End property description */}
-
-                <h4 className="title fz17  mt50">Property Details</h4>
+                <h4 className="title fz17 mb30">Configurations</h4>
                 <div className="row">
-                  <PropertyDetails data={property} />
-                </div>
-              </div>
-              {/* End .ps-widget */}
-
-              <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p30 mb30 overflow-hidden position-relative">
-                <h4 className="title fz17 mb30 mt30">Location</h4>
-                <div className="row">
-                  <PropertyAddress data={property} />
+                  <PropertyFloorPlans data={property} />
                 </div>
               </div>
               {/* End .ps-widget */}
@@ -74,10 +62,22 @@ const PropertySinglePage = async ({ params }: Props) => {
               {/* End .ps-widget */}
 
               <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p30 mb30 overflow-hidden position-relative">
-                <h4 className="title fz17 mb30">Floor Plans</h4>
+                <h4 className="title fz17 mb30 mt30">Location</h4>
                 <div className="row">
-                  <PropertyFloorPlans data={property} />
+                  <PropertyAddress data={property} />
                 </div>
+              </div>
+              {/* End .ps-widget */}
+
+              <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p30 mb30 overflow-hidden position-relative">
+                <h4 className="title fz17 mb30">Property Description</h4>
+                <PropertyDescription data={property} />
+                {/* End property description */}
+
+                {/* <h4 className="title fz17  mt50">Property Details</h4>
+                <div className="row">
+                  <PropertyDetails data={property} />
+                </div> */}
               </div>
               {/* End .ps-widget */}
 
@@ -96,7 +96,9 @@ const PropertySinglePage = async ({ params }: Props) => {
                 <div className="agen-personal-info position-relative bgc-white default-box-shadow1 bdrs12 p30 mt30">
                   <div className="widget-wrapper mb-0">
                     {/* <h6 className="title fz17 mb30">Developer Information</h6> */}
-                    <h6 className="title fz17 mb30">Connect With Out Experts</h6>
+                    <h6 className="title fz17 mb30">
+                      Connect With Out Experts
+                    </h6>
                     <PropertyDeveloper data={property} />
                   </div>
                 </div>

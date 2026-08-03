@@ -16,26 +16,30 @@ type Props = {
 };
 
 const AgentCardSlider = ({ agent }: Props) => {
-  const { name, slug, photo, specialization, phone } = agent;
+  // const { name, slug, photo, specialization, phone } = agent;
+  const name = "Aristo Real Estate Consultants";
+  const photo = "/assets/images/logo/aristo-logo.png";
+  const specialization = "Navi Mumbai Property Expert";
+  const phone = "+919130307464";
 
   return (
-    <div className="agency-style1 p30 bdrs12 bdr1 mb30">
+    <div className="agency-style1 p15 bdrs12 bdr1 mb30">
       <div className="agency-img">
         <div
           style={{
             position: "relative",
-            width: "220px",
-            height: "220px",
-            borderRadius: "50%",
-            overflow: "hidden",
+            width: "200px",
+            height: "150px",
+            // borderRadius: "50%",
+            // overflow: "hidden",
             margin: "0 auto",
           }}
         >
           <Image
             fill
-            src={photo || "/assets/images/placeholder/placeholder-image.jpg"}
+            src={photo || "/assets/images/logo/aristo-logo.png"}
             alt={name}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "contain" }}
           />
         </div>
         {/* <div className="tag">{`${_count.projects || ""} Properties`}</div> */}
@@ -47,10 +51,10 @@ const AgentCardSlider = ({ agent }: Props) => {
         )}
 
         <div className="d-grid pt10">
-          <Link href={`/agent/${slug}`} className="ud-btn btn-white2 mb-2">
+          {/* <Link href={`/agent/${slug}`} className="ud-btn btn-white2 mb-2">
             View Listings
             <i className="fal fa-arrow-right-long" />
-          </Link>
+          </Link> */}
           <PropertyActions phone={phone} />
         </div>
       </div>

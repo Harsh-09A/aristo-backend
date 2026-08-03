@@ -1,11 +1,19 @@
 import { Project } from "@/types/property";
-import { formatIndianDate, getConfigData } from "@/utils/helper-functions";
+import {
+  formatIndianDate,
+  getAreaRange,
+  getConfigData,
+} from "@/utils/helper-functions";
 import React from "react";
 interface Props {
   data: Project;
 }
 const PropertyOverview = ({ data }: Props) => {
   const possession = formatIndianDate(data.possessionDate || "");
+  const isResidential = data.category?.toLowerCase() === "residential";
+
+  const configText = getConfigData(data); // Residential: "2, 3 BHK" | Commercial: area range
+  const areaText = getAreaRange(data); // Dono ke liye area range
 
   const overviewData = [
     {
@@ -19,31 +27,37 @@ const PropertyOverview = ({ data }: Props) => {
       value: data.type,
     },
     {
-      icon: "flaticon-expand",
-      label: "RERA ID",
-      value: data.reraNumber,
-    },
-
-    {
-      icon: "flaticon-bed",
-      label: "Configuration",
-      value: getConfigData(data),
-    },
-
-    {
-      icon: "flaticon-event",
-      label: "Possession",
-      value: possession,
-    },
-    {
       icon: "flaticon-garage",
       label: "Status",
       value: data.status,
     },
+    {
+      icon: "flaticon-bed",
+      label: "Configuration",
+      value: configText,
+    },
+    // Commercial mein getConfigData already area dikha deta hai,
+    // isliye Area row sirf Residential ke liye add karo — warna duplicate dikhega
+    ...(isResidential
+      ? [
+          {
+            icon: "flaticon-event",
+            label: "Area",
+            value: areaText,
+          },
+        ]
+      : []),
+
+    {
+      icon: "flaticon-expand",
+      label: "RERA ID",
+      value: data.reraNumber,
+    },
   ];
+
   return (
     <>
-      <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p30 mb30 overflow-hidden position-relative">
+      <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p15 mb30 overflow-hidden position-relative">
         <h4 className="title fz17 mb30">Overview</h4>
         <div className="row">
           {overviewData.map((item, index) => (
@@ -52,7 +66,15 @@ const PropertyOverview = ({ data }: Props) => {
                 <span className={`icon ${item.icon}`} />
                 <div className="ml15">
                   <h6 className="mb-0">{item.label}</h6>
-                  <p className="text mb-0 fz15 text-capitalize">{item.value}</p>
+                  <p
+                    className="text mb-0 fz15 text-capitalize"
+                    style={{
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                    }}
+                  >
+                    {item.value}
+                  </p>
                 </div>
               </div>
             </div>

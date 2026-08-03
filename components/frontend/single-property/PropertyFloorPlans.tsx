@@ -79,7 +79,8 @@ const PropertyFloorPlans = ({ data }: Props) => {
         </div>
 
         <div className="fw600 text-dark fs-5">
-          ₹{formatIndianPrice(currentConfig.price || 0)}
+          {/* ₹{formatIndianPrice(currentConfig.price || 0)} */}
+          Contact For Price
         </div>
       </div>
 

@@ -57,7 +57,8 @@
 }
 
 .section_title {
-  font-size: clamp(26px, 4vw, 42px);
+  // font-size: clamp(26px, 4vw, 42px);
+  font-size: clamp(20px, 3vw, 32px);
   font-weight: 800;
   color: #111;
   margin: 0 0 10px;

@@ -19,6 +19,12 @@ const HeaderIcons = () => {
         <a href="#" className="social-icon">
           <i className="fa-brands fa-linkedin"></i>
         </a>
+        <a href="#" className="social-icon">
+          <i className="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="#" className="social-icon">
+          <i className="fa-brands fa-threads"></i>
+        </a>
       </div>
     </>
   );
