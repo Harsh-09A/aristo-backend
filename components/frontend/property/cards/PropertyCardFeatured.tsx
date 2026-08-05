@@ -59,6 +59,16 @@ const PropertyCardFeatured = ({ listing }: Props) => {
               {/* <!-- Specs --> */}
               <div className="specs-grid">
                 <div className="spec-item">
+                  <div className="spec-label">Category</div>
+                  <div className="spec-value">{listing.category} </div>
+                </div>
+                <div className="spec-item">
+                  <div className="spec-label">Property Type</div>
+                  <div className="spec-value text-capitalize">
+                    {listing.type}{" "}
+                  </div>
+                </div>
+                <div className="spec-item">
                   <div className="spec-label">Configuration</div>
                   <div className="spec-value">
                     {/* {listing.configurations
@@ -68,18 +78,13 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                     {getConfigData(listing)}
                   </div>
                 </div>
-                <div className="spec-item">
+                {/* <div className="spec-item">
                   <div className="spec-label">Possession</div>
                   <div className="spec-value">
                     {formatIndianDate(listing.possessionDate)}{" "}
                   </div>
-                </div>
-                <div className="spec-item">
-                  <div className="spec-label">Property Type</div>
-                  <div className="spec-value text-capitalize">
-                    {listing.type}{" "}
-                  </div>
-                </div>
+                </div> */}
+
                 <div className="spec-item">
                   <div className="spec-label">RERA Number</div>
                   <div className="spec-value">{listing.reraNumber}</div>

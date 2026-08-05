@@ -71,13 +71,9 @@ const PropertyCardFeatured = ({ listing }: Props) => {
             <div className="top-specs-grid">
               <div className="top-specs-item">
                 <div className="top-specs-value">
-                  <span className="flaticon-bed top-specs-icon" />
-                  {/* {listing.configurations
-                    .map((config: any) => config.value)
-                    .join(", ") || "N/A"}{" "}
-                    
-                  {listing.configurationUnit} */}
-                  {getConfigData(listing)}
+                  <span className="flaticon-event top-specs-icon" />
+                  {/* {formatIndianDate(listing.possessionDate) || "N/A"} */}
+                  {listing.category || "N/A"}
                 </div>
               </div>
               <div className="top-specs-item">
@@ -88,14 +84,19 @@ const PropertyCardFeatured = ({ listing }: Props) => {
               </div>
               <div className="top-specs-item">
                 <div className="top-specs-value">
-                  <span className="flaticon-protection top-specs-icon" />
-                  {listing.reraNumber || "N/A"}
+                  <span className="flaticon-bed top-specs-icon" />
+                  {/* {listing.configurations
+                    .map((config: any) => config.value)
+                    .join(", ") || "N/A"}{" "}
+                    
+                  {listing.configurationUnit} */}
+                  {getConfigData(listing)}
                 </div>
               </div>
               <div className="top-specs-item">
                 <div className="top-specs-value">
-                  <span className="flaticon-event top-specs-icon" />
-                  {formatIndianDate(listing.possessionDate) || "N/A"}
+                  <span className="flaticon-protection top-specs-icon" />
+                  {listing.reraNumber || "N/A"}
                 </div>
               </div>
             </div>
