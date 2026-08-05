@@ -15,23 +15,25 @@ const PropertyCardGrid = ({ listing }: Props) => {
         <div className="listing-style1">
           <div className="list-thumb ">
             <div className="position-relative overflow-hidden rounded">
-              <div
-                style={{
-                  width: "100%",
-                  height: "250px",
-                }}
-              >
-                <Image
-                  src={
-                    listing.images[0] ||
-                    "/assets/images/placeholder/placeholder-image.jpg"
-                  }
-                  alt={listing.title}
-                  fill
-                  sizes="(max-width: 576px) 100vw, (max-width: 768px) 50vw, (max-width: 992px) 33vw, 25vw"
-                  className="object-fit-cover"
-                />
-              </div>
+              <Link href={`/property/${listing.slug}`}>
+                <div
+                  style={{
+                    width: "100%",
+                    height: "250px",
+                  }}
+                >
+                  <Image
+                    src={
+                      listing.images[0] ||
+                      "/assets/images/placeholder/placeholder-image.jpg"
+                    }
+                    alt={listing.title}
+                    fill
+                    sizes="(max-width: 576px) 100vw, (max-width: 768px) 50vw, (max-width: 992px) 33vw, 25vw"
+                    className="object-fit-cover"
+                  />
+                </div>
+              </Link>
             </div>
 
             {/* <div className="sale-sticker-wrap">

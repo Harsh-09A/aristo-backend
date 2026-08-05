@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
+import SectionHeading from "../common/sections/SectionHeading";
 
 // ─── Paste your video items here ──────────────────────────────────────────────
 const REELS = [
@@ -137,7 +138,8 @@ function VideoModal({ reel, onClose }) {
         justifyContent: "center",
         animation: "fadeInBackdrop .25s ease",
         overflowY: "auto",
-      }}>
+      }}
+    >
       <div
         style={{
           position: "relative",
@@ -150,7 +152,8 @@ function VideoModal({ reel, onClose }) {
           animation: "popIn .3s cubic-bezier(.34,1.56,.64,1)",
           margin: "auto",
           flexShrink: 0,
-        }}>
+        }}
+      >
         {/* Close btn */}
         <button
           onClick={onClose}
@@ -180,7 +183,8 @@ function VideoModal({ reel, onClose }) {
           }
           onMouseLeave={(e) =>
             (e.currentTarget.style.background = "rgba(255,255,255,.15)")
-          }>
+          }
+        >
           ✕
         </button>
 
@@ -191,7 +195,8 @@ function VideoModal({ reel, onClose }) {
             width: "100%",
             maxHeight: "calc(100vh - 120px)",
             overflow: "hidden",
-          }}>
+          }}
+        >
           {embedSrc ? (
             <iframe
               src={embedSrc}
@@ -231,7 +236,8 @@ function VideoModal({ reel, onClose }) {
                 fontSize: 14,
                 padding: "1rem",
                 textAlign: "center",
-              }}>
+              }}
+            >
               Unsupported video format
             </div>
           )}
@@ -242,7 +248,8 @@ function VideoModal({ reel, onClose }) {
           style={{
             padding: "14px 16px",
             background: "linear-gradient(135deg,#1a1a2e,#16213e)",
-          }}>
+          }}
+        >
           <span
             style={{
               display: "inline-block",
@@ -256,11 +263,13 @@ function VideoModal({ reel, onClose }) {
               borderRadius: 20,
               padding: "2px 10px",
               marginBottom: 6,
-            }}>
+            }}
+          >
             {reel.tag}
           </span>
           <p
-            style={{ margin: 0, color: "#fff", fontSize: 14, fontWeight: 600 }}>
+            style={{ margin: 0, color: "#fff", fontSize: 14, fontWeight: 600 }}
+          >
             {reel.title}
           </p>
         </div>
@@ -301,7 +310,8 @@ function ReelCard({ reel, onClick }) {
         transition:
           "transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease",
         background: "#111",
-      }}>
+      }}
+    >
       {/* Thumbnail */}
       {thumb ? (
         <img
@@ -354,7 +364,8 @@ function ReelCard({ reel, onClick }) {
           borderRadius: 20,
           padding: "3px 10px",
           backdropFilter: "blur(6px)",
-        }}>
+        }}
+      >
         {reel.tag}
       </div>
 
@@ -375,7 +386,8 @@ function ReelCard({ reel, onClick }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        }}>
+        }}
+      >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
           <path d="M8 5v14l11-7z" />
         </svg>
@@ -389,7 +401,8 @@ function ReelCard({ reel, onClick }) {
           left: 0,
           right: 0,
           padding: "12px 14px 14px",
-        }}>
+        }}
+      >
         <p
           style={{
             margin: 0,
@@ -398,7 +411,8 @@ function ReelCard({ reel, onClick }) {
             fontWeight: 600,
             lineHeight: 1.3,
             textShadow: "0 1px 6px rgba(0,0,0,.5)",
-          }}>
+          }}
+        >
           {reel.title}
         </p>
       </div>
@@ -511,7 +525,7 @@ export default function ReelsSection4() {
         <div className="container px-0">
           {/* Header row */}
           <div className="reels-header d-flex flex-wrap align-items-end justify-content-between gap-3">
-            <div>
+            {/* <div>
               <div className="reels-eyebrow">Reels &amp; Shorts</div>
               <h2 className="reels-title">
                 Watch <span>Property Reels</span>
@@ -520,35 +534,45 @@ export default function ReelsSection4() {
                 Behind-the-scenes site tours, progress updates &amp; aerial
                 walkthroughs.
               </p>
-            </div>
+            </div> */}
+            <SectionHeading
+              heading={"Reels & Shorts"}
+              title={"Watch"}
+              highlight={"Property Reels"}
+              subtitle={"Behind-the-scenes site tours, progress updates & aerial walkthroughs."}
+            />
 
             {/* Navigation arrows */}
             <div className="d-flex gap-2 reels-nav-wrap">
               <button
                 className="reels-nav-btn"
                 id="reels-prev"
-                aria-label="Previous">
+                aria-label="Previous"
+              >
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.2">
+                  strokeWidth="2.2"
+                >
                   <polyline points="15 18 9 12 15 6" />
                 </svg>
               </button>
               <button
                 className="reels-nav-btn"
                 id="reels-next"
-                aria-label="Next">
+                aria-label="Next"
+              >
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2.2">
+                  strokeWidth="2.2"
+                >
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </button>
@@ -567,7 +591,8 @@ export default function ReelsSection4() {
             }}
             slidesOffsetBefore={24}
             slidesOffsetAfter={24}
-            className="reels-swiper">
+            className="reels-swiper"
+          >
             {REELS.map((reel) => (
               <SwiperSlide key={reel.id}>
                 <ReelCard reel={reel} onClick={() => setActiveReel(reel)} />

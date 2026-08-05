@@ -15,23 +15,25 @@ const PropertyCardFeatured = ({ listing }: Props) => {
         <div className="listing-style1">
           <div className="list-thumb ">
             <div className="position-relative overflow-hidden rounded">
-              <div
-                style={{
-                  width: "250px",
-                  height: "250px",
-                }}
-              >
-                <Image
-                  src={
-                    listing.images[0] ||
-                    "/assets/images/placeholder/placeholder-image.jpg"
-                  }
-                  alt={listing.title}
-                  fill
-                  sizes="250px"
-                  className="object-fit-cover"
-                />
-              </div>
+              <Link href={`/property/${listing.slug}`}>
+                <div
+                  style={{
+                    width: "250px",
+                    height: "250px",
+                  }}
+                >
+                  <Image
+                    src={
+                      listing.images[0] ||
+                      "/assets/images/placeholder/placeholder-image.jpg"
+                    }
+                    alt={listing.title}
+                    fill
+                    sizes="250px"
+                    className="object-fit-cover"
+                  />
+                </div>
+              </Link>
             </div>
 
             {/* <div className="sale-sticker-wrap">

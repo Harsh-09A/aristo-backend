@@ -15,20 +15,22 @@ const PropertyCardFeatured = ({ listing }: Props) => {
         <div className="row g-0">
           {/* <!-- Image Column --> */}
           <div className="col-12 col-sm-5 card-image-col">
-            <div className="card-img-wrapper">
-              <Image
-                width={600}
-                height={600}
-                src={
-                  listing.images[0] ||
-                  "/assets/images/placeholder/placeholder-image.jpg"
-                }
-                alt={listing.title}
-              />
-              {listing.tags && listing.tags[0] && (
-                <span className="img-badge">{listing.tags[0]}</span>
-              )}
-            </div>
+            <Link href={`/property/${listing.slug}`}>
+              <div className="card-img-wrapper">
+                <Image
+                  width={600}
+                  height={600}
+                  src={
+                    listing.images[0] ||
+                    "/assets/images/placeholder/placeholder-image.jpg"
+                  }
+                  alt={listing.title}
+                />
+                {listing.tags && listing.tags[0] && (
+                  <span className="img-badge">{listing.tags[0]}</span>
+                )}
+              </div>
+            </Link>
           </div>
           {/* <!-- Content Column --> */}
           <div className="col-12 col-sm-7 card-content-col">
