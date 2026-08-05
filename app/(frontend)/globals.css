@@ -19,7 +19,7 @@
 /* ================================== */
 .home-banner-style1 {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
   min-height: 500px; /* apni theme ki purani banner height yahan use karo */
 }
 
@@ -44,6 +44,7 @@
 .home-style1 {
   position: relative;
   z-index: 3; /* Hero content slider ke upar dikhna chahiye */
+   pointer-events: none;
 }
 
 .hero-banner-overlay {
@@ -63,4 +64,8 @@
 
 .hero-banner-slide-link--clickable {
   cursor: pointer; /* ← slug hone par hi pointer/hand cursor */
+}
+/* ADD karo — sirf interactive content clickable rahe */
+.home-style1 .inner-banner-style1 > * {
+  pointer-events: auto;
 }
