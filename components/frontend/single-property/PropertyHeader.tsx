@@ -24,7 +24,7 @@ const PropertyHeader = ({ data }: Props) => {
         <div className="single-property-content">
           <div className="property-action text-lg-end">
             {/* <h3 className="price mb-0">₹ {formatIndianPrice(data.price || 0) }</h3> */}
-            <h3 className="price mb-0">Contact For Price</h3>
+            <h3 className="price mb-0 ">Contact For Price</h3>
           </div>
         </div>
       </div>

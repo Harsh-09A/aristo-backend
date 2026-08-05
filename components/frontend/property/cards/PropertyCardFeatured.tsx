@@ -19,7 +19,10 @@ const PropertyCardFeatured = ({ listing }: Props) => {
               <Image
                 width={600}
                 height={600}
-                src={listing.images[0] || "/assets/images/placeholder/placeholder-image.jpg"}
+                src={
+                  listing.images[0] ||
+                  "/assets/images/placeholder/placeholder-image.jpg"
+                }
                 alt={listing.title}
               />
               {listing.tags && listing.tags[0] && (
@@ -35,7 +38,11 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 <Link href={`/property/${listing.slug}`}>
                   <h2 className="property-title">{listing.title}</h2>
                 </Link>
-                <span className="price-badge">
+                <span
+                  className="price-badge"
+                  data-bs-toggle="modal"
+                  data-bs-target="#contactModal"
+                >
                   {/* {formatIndianPrice(listing.price)} */}
                   Contact For Price
                 </span>
@@ -87,7 +94,10 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                   <Image
                     width={40}
                     height={40}
-                    src={listing.developer.logo || "/assets/images/placeholder/placeholder-image.jpg"}
+                    src={
+                      listing.developer.logo ||
+                      "/assets/images/placeholder/placeholder-image.jpg"
+                    }
                     alt={listing.developer.name}
                   />
                 </div>

@@ -194,6 +194,7 @@
   box-shadow: 0 3px 10px rgba(14, 122, 191, 0.3);
   flex-shrink: 0; /* Yeh price ko kabhi pichakne (squeeze) nahi dega */
   white-space: nowrap; /* Price hamesha ek line mein rahega */
+  cursor: pointer;
 }
 
 .location-row {
@@ -433,4 +434,8 @@
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   overflow: hidden; /* keeps the image's rounded corners in line with card */
+}
+
+.list-price, .schedule-btn{
+  cursor: pointer;
 }

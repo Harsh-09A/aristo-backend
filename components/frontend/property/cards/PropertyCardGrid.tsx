@@ -44,13 +44,17 @@ const PropertyCardGrid = ({ listing }: Props) => {
               )}
             </div> */}
 
-            <div className="list-price">
-              {formatIndianPrice(listing.price) || "N/A"}
+            <div
+              className="list-price"
+              data-bs-toggle="modal"
+              data-bs-target="#contactModal"
+            >
+              {/* {formatIndianPrice(listing.price) || "N/A"} */}
               {/* / <span>mo</span> */}
+              Contact For Price
             </div>
           </div>
           <div className="list-content">
-           
             <h6
               className="list-title property-title"
               style={{ overflowWrap: "break-word" }}

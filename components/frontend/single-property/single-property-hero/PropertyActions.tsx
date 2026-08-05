@@ -26,10 +26,10 @@ const PropertyActions = ({ phone }: Props) => {
           WhatsApp
         </Link>
 
-        <Link href="/" className="ud-btn btn-white2 schedule-btn">
+        <div  className="ud-btn btn-white2 schedule-btn" data-bs-toggle="modal" data-bs-target="#contactModal">
           <i className="fa-solid fa-calendar pe-2"></i>
           Schedule Visit
-        </Link>
+        </div>
       </div>
     </>
   );

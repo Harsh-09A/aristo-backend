@@ -9,6 +9,7 @@ interface Props {
 }
 
 const PropertyHero = ({ data }: Props) => {
+  const phone = "+919130307464";
   return (
     <>
       <section className="property-hero py-0">
@@ -22,7 +23,7 @@ const PropertyHero = ({ data }: Props) => {
             <PropertyOverview data={data} />
 
             {/* ACTIONS */}
-            <PropertyActions />
+            <PropertyActions phone={phone} />
           </div>
         </div>
       </section>

@@ -15,6 +15,7 @@ import { DM_Sans, Poppins } from "next/font/google";
 import DefaultHeader from "@/components/frontend/common/header/DefaultHeader";
 import MobileMenu from "@/components/frontend/common/mobile-menu/MobileMenu";
 import Footer from "@/components/frontend/common/footer";
+import ContactModal from "@/components/frontend/common/popup/ContactModal";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -58,6 +59,8 @@ export default function RootLayout({
 
       {/* Loads Bootstrap's JavaScript (needed for things like dropdowns) */}
       <BootstrapClient />
+
+      <ContactModal />
     </>
   );
 }

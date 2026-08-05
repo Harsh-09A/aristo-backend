@@ -1,0 +1,160 @@
+/* ============================
+   Contact Popup Modal — Modern Style
+   ============================ */
+#contactModal{
+    z-index: 9999999999999;
+}
+#contactModal .modal-content {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+}
+
+/* Header with brand gradient */
+#contactModal .modal-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color) 100%);
+  border-bottom: none;
+  padding: 24px 28px;
+  position: relative;
+}
+
+#contactModal .modal-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.3px;
+}
+
+#contactModal .modal-title small,
+#contactModal .modal-subtitle {
+  display: block;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+#contactModal .btn-close {
+  filter: brightness(0) invert(1); /* white close icon on gradient bg */
+  opacity: 0.9;
+}
+
+#contactModal .btn-close:hover {
+  opacity: 1;
+}
+
+/* Body */
+#contactModal .modal-body {
+  padding: 28px;
+  background: #fff;
+}
+
+#contactModal .form-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+#contactModal .form-control {
+  border: 1.5px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#contactModal .form-control:focus {
+  border-color: var(--primary-color);;
+   box-shadow: 0 0 0 4px rgba(218, 37, 28, 0.1);
+}
+
+#contactModal .form-control::placeholder {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+#contactModal .modal-footer {
+  border-top: 1px solid #f0f0f0;
+  padding: 18px 28px;
+  background: #fafafa;
+}
+
+#contactModal .btn-primary {
+  background: linear-gradient(135deg,var(--primary-color) 0%, var(--primary-color) 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 28px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #fff;
+}
+
+#contactModal .btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(218, 37, 28, 0.3);
+}
+
+#contactModal .btn-primary:disabled {
+  opacity: 0.7;
+}
+
+#contactModal .btn-outline-secondary {
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-weight: 500;
+  border-color: #ddd;
+  color: #666;
+}
+
+#contactModal .btn-outline-secondary:hover {
+  background: #f0f0f0;
+  border-color: #ccc;
+  color: #333;
+}
+
+/* Success / Error messages */
+#contactModal .text-success {
+  background: #e8f8f0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+#contactModal .text-danger {
+  background: #fdecea;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Smooth zoom-in entrance */
+#contactModal .modal-dialog {
+  transform: scale(0.9);
+  transition: transform 0.25s ease;
+}
+
+#contactModal.show .modal-dialog {
+  transform: scale(1);
+}
+
+/* Mobile tweaks */
+@media (max-width: 576px) {
+  #contactModal .modal-header,
+  #contactModal .modal-body,
+  #contactModal .modal-footer {
+    padding: 18px 20px;
+  }
+}
+
+/* Modal ko sabse upar guarantee karo, chahe sidebar ka z-index kuch bhi ho */
+.modal-backdrop.show {
+  z-index: 1050 !important;
+}
+
+#contactModal.modal.show {
+  /* z-index: 1060 !important; */
+}

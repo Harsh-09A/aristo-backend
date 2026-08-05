@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/types/property";
-import PropertyActions from "./single-property-hero/PropertyActions";
-import AgentListingsSlider from "../agent/listing/AgentListingsSlider";
+import SidebarCard from "@/components/frontend/common/sidebar-panel/SidebarCard";
 
 interface Props {
   data: Project;
@@ -11,7 +10,7 @@ interface Props {
 const PropertyDeveloper = ({ data }: Props) => {
   return (
     <>
-      <AgentListingsSlider agents={data.agents} />
+      <SidebarCard />
 
       <h6 className="title fz16">DEVELOPED BY</h6>
       <div className="agent-single d-sm-flex align-items-center justify-content-between pb25">

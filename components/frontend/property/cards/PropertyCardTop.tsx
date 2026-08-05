@@ -22,7 +22,10 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 }}
               >
                 <Image
-                  src={listing.images[0] || "/assets/images/placeholder/placeholder-image.jpg"}
+                  src={
+                    listing.images[0] ||
+                    "/assets/images/placeholder/placeholder-image.jpg"
+                  }
                   alt={listing.title}
                   fill
                   sizes="250px"
@@ -41,7 +44,11 @@ const PropertyCardFeatured = ({ listing }: Props) => {
               )}
             </div> */}
 
-            <div className="list-price">
+            <div
+              className="list-price"
+              data-bs-toggle="modal"
+              data-bs-target="#contactModal"
+            >
               {/* {formatIndianPrice(listing.price) || "N/A"} */}
               {/* / <span>mo</span> */}
               Contact For Price
@@ -49,7 +56,9 @@ const PropertyCardFeatured = ({ listing }: Props) => {
           </div>
           <div className="list-content">
             <h6 className="list-title property-title">
-              <Link href={`/property/${listing.slug}`}>{listing.title || "N/A"}</Link>
+              <Link href={`/property/${listing.slug}`}>
+                {listing.title || "N/A"}
+              </Link>
             </h6>
             <p className="list-text color-primary">
               <span className="location-icon">📍</span>
@@ -99,14 +108,15 @@ const PropertyCardFeatured = ({ listing }: Props) => {
                 <Image
                   width={40}
                   height={40}
-                  src={listing.developer.logo || "/assets/images/placeholder/placeholder-image.jpg"}
+                  src={
+                    listing.developer.logo ||
+                    "/assets/images/placeholder/placeholder-image.jpg"
+                  }
                   alt={listing.developer.name}
                 />
               </div>
               <div>
-                <div className="developer-name">
-                  {listing.developer.name}
-                </div>
+                <div className="developer-name">{listing.developer.name}</div>
                 <div className="developer-tag">Developer</div>
               </div>
             </div>
