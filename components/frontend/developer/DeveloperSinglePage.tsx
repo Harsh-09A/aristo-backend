@@ -87,10 +87,9 @@ const DeveloperSinglePage = ({
                           href={`mailto:${email}`}
                         >
                           <i className="flaticon-smartphone pe-1" />
-                          {email} 
+                          {email}
                         </a>
-                      )}
-                      {" "}
+                      )}{" "}
                       {website && (
                         <a
                           className="text fz15 ps-2 text-white"
@@ -101,6 +100,12 @@ const DeveloperSinglePage = ({
                           Visit Website
                         </a>
                       )}
+                      {description && (
+                      <p className="text fz15 ps-2 text-white">
+                        {description }
+                      </p>
+                      )}
+
                     </div>
                   </div>
                 </div>
@@ -113,7 +118,7 @@ const DeveloperSinglePage = ({
         <div className="container">
           <div className="row wow fadeInUp" data-aos-delay="300">
             <div className="col-lg-12 pr40 pr20-lg">
-              <div className="row">
+              {/* <div className="row">
                 <div className="col-lg-12">
                   <div className="agent-single-details mt30 pb30 bdrb1">
                     <h6 className="fz17 mb30">About {name}</h6>
@@ -123,7 +128,7 @@ const DeveloperSinglePage = ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Paginated project list */}
               {projects.length > 0 ? (
