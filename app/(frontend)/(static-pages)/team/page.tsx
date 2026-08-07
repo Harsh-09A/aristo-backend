@@ -1,9 +1,7 @@
 import SectionHeading from "@/components/frontend/common/sections/SectionHeading";
+import TeamBioText from "@/components/frontend/static-pages/team/TeamBioText";
 import Image from "next/image";
 
-// Team data — WordPress content se liya gaya hai, sirf structure naya hai.
-// `image` placeholder path diya hai — apni actual photo files
-// /public/assets/images/team/ folder mein daal ke path update kar dena.
 const teamMembers = [
   {
     id: "gurnomal-rochani",
@@ -81,18 +79,14 @@ const TeamPage = () => {
       {/* Intro Area */}
       <section className="team-intro pt90 pb40">
         <div className="container">
-          <div
-            className="row justify-content-center text-center"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <div className="row" data-aos="fade-up" data-aos-delay="100">
             <div className="col-lg-8">
               <SectionHeading
                 heading={"Leadership"}
                 title={"Meet Our "}
                 highlight={"Executive Team"}
                 subtitle={
-                  "Four decades of trust, vision and leadership behind Aristo's success"
+                  " Four decades of trust, vision and leadership behind Aristo's success."
                 }
               />
             </div>
@@ -101,14 +95,11 @@ const TeamPage = () => {
       </section>
       {/* End Intro Area */}
 
-      {/* Team Members Area — image aur text alternate hote hain har row mein,
-          taaki page monotone na lage. Mobile pe hamesha image upar, text neeche
-          (order classes se control kiya hai). */}
+      {/* Team Members Area */}
       <section className="team-members pb90">
         <div className="container">
           {teamMembers.map((member, index) => {
-            const isReversed = index % 2 !== 0; // odd index = image right side
-            const collapseId = `bio-${member.id}`;
+            const isReversed = index % 2 !== 0;
 
             return (
               <div
@@ -134,7 +125,6 @@ const TeamPage = () => {
                       className="w-100 cover"
                       style={{ objectFit: "cover", aspectRatio: "5 / 6" }}
                     />
-                    {/* Bottom-left name tag overlay — modern touch */}
                     <div
                       className="position-absolute bottom-0 start-0 w-100 p-3"
                       style={{
@@ -154,42 +144,18 @@ const TeamPage = () => {
                   } ${isReversed ? "ps-lg-0 pe-lg-5" : "ps-lg-5"}`}
                 >
                   <span
-                    className="d-inline-block mb-2 fw-semibold"
-                    style={{ color: "#0b3d2e", letterSpacing: "0.5px" }}
+                    className="d-inline-block mb-2 fw-semibold color-primary"
+                    style={{ letterSpacing: "0.5px" }}
                   >
                     {member.designation}
                   </span>
                   <h3 className="title mb20">{member.name}</h3>
 
-                  {/* Pehla paragraph hamesha visible, baaki collapse ke andar —
-                      taaki mobile pe page lamba na ho jaaye */}
-                  <p className="text mb15">{member.bio[0]}</p>
-
-                  {member.bio.length > 1 && (
-                    <>
-                      <div className="collapse" id={collapseId}>
-                        {member.bio.slice(1).map((para, i) => (
-                          <p className="text mb15" key={i}>
-                            {para}
-                          </p>
-                        ))}
-                      </div>
-
-                      {/* Bootstrap native data attributes use kiye —
-                          project convention ke hisaab se, extra JS state nahi chahiye */}
-                      <button
-                        className="btn btn-sm btn-outline-dark rounded-pill px-3 read-more-btn"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target={`#${collapseId}`}
-                        aria-expanded="false"
-                        aria-controls={collapseId}
-                      >
-                        <span className="read-more-label">Read More</span>
-                        <span className="read-less-label">Read Less</span>
-                      </button>
-                    </>
-                  )}
+                  {/* Ab bio + read more logic isolated client component mein hai */}
+                  <TeamBioText
+                    firstParagraph={member.bio[0]}
+                    restParagraphs={member.bio.slice(1)}
+                  />
                 </div>
               </div>
             );
@@ -197,14 +163,6 @@ const TeamPage = () => {
         </div>
       </section>
       {/* End Team Members Area */}
-
-      {/* Toggle button label swap — collapse open hote hi "Read More" ki
-          jagah "Read Less" dikhega. Pure CSS trick hai, JS state nahi chahiye. */}
-      <style>{`
-        .read-more-btn .read-less-label { display: none; }
-        .read-more-btn[aria-expanded="true"] .read-more-label { display: none; }
-        .read-more-btn[aria-expanded="true"] .read-less-label { display: inline; }
-      `}</style>
     </>
   );
 };

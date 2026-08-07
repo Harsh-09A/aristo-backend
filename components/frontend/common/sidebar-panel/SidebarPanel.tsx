@@ -1,11 +1,11 @@
 // import MenuItems from "./MenuItems";
 const menuItems = [
   { id: 1, title: "About", link: "/about" },
-  { id: 2, title: "Tools & Advise", link: "/" },
-  { id: 3, title: "Post Requirements", link: "/" },
-  { id: 4, title: "Contact", link: "/" },
-  { id: 5, title: "Legal ", link: "/" },
+  { id: 2, title: "Services", link: "/services" },
+  { id: 4, title: "Contact", link: "/contact" },
+  { id: 5, title: "EMI Calculator ", link: "/emi-calculator" },
   { id: 6, title: "Home Loan Assistance", link: "/" },
+  { id: 3, title: "Post Requirements", link: "/" },
   { id: 7, title: "Documentation", link: "/" },
 ];
 

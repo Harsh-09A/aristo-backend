@@ -26,7 +26,6 @@ export async function sendContactForm(
   const name = (formData.get("name") || "").toString().trim();
   const email = (formData.get("email") || "").toString().trim();
   const phone = (formData.get("phone") || "").toString().trim();
-  const message = (formData.get("message") || "").toString().trim(); // ← naya, optional
 
   // Basic server-side validation
   if (!name || !email || !phone) {
@@ -67,19 +66,14 @@ export async function sendContactForm(
       from: `"Website" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_TO_EMAIL || process.env.SMTP_USER,
       replyTo: email,
-      subject: `New Enquiry — ${name}`,
+      subject: `New Price Enquiry — ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-          <h2 style="color:#da251c;">New Contact Form Submission</h2>
+          <h2 style="color:#ff481f;">New Contact Popup Submission</h2>
           <table cellpadding="6" style="border-collapse: collapse;">
             <tr><td><strong>Name</strong></td><td>${escapeHtml(name)}</td></tr>
             <tr><td><strong>Email</strong></td><td>${escapeHtml(email)}</td></tr>
             <tr><td><strong>Phone</strong></td><td>${escapeHtml(phone)}</td></tr>
-            ${
-              message
-                ? `<tr><td><strong>Message</strong></td><td>${escapeHtml(message)}</td></tr>`
-                : ""
-            }
           </table>
         </div>
       `,
@@ -90,7 +84,7 @@ export async function sendContactForm(
       message: "Thank you! We'll get back to you soon.",
     };
   } catch (error) {
-    console.error("Contact form email error:", error);
+    console.error("Contact popup email error:", error);
     return {
       success: false,
       message: "Something went wrong. Please try again later.",
