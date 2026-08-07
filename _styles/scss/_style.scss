@@ -443,7 +443,7 @@ li {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-image: url(/images/background/about-page-bg.jpg);
+  // background-image: url(/images/background/about-page-bg.jpg);
   background-size: cover;
   background-position: center;
   display: -webkit-box;
@@ -475,6 +475,7 @@ li {
   position: relative;
 }
 .breadcumb-style1 .title {
+  font-size: 3.75rem;
   letter-spacing: 0.02em;
 }
 .breadcumb-style1 .breadcumb-list {
@@ -482,7 +483,8 @@ li {
 }
 .breadcumb-style1 .breadcumb-list a {
   display: inline-block;
-  color: var(--headings-color);
+  // color: var(--headings-color);
+  color: #fff;
   font-family: var(--title-font-family);
   font-weight: 400;
   position: relative;
