@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   images: {
     qualities: [75, 100], // Explicitly allow these values
   },
+  allowedDevOrigins: ['192.168.0.101'],
 };
 
 export default nextConfig;

@@ -57,7 +57,7 @@ const Home = async () => {
       {/* End Home Banner Style V1 */}
 
       {/* Our Developers */}
-      <section className="mb-0 pb-0">
+      <section className="mb-0 pb-0 overx-hide">
         <div className="container">
           <div className="row align-items-center" data-aos="fade-up">
             <div className="col-lg-9 mb-4 ">
@@ -112,7 +112,7 @@ const Home = async () => {
       {/* End Explore By Prices */}
 
       {/* Featured Listings */}
-      <section className="bgc-f7 py">
+      <section className="bgc-f7 overx-hide">
         <div className="container">
           <div className="row align-items-center" data-aos="fade-up">
             <div className="col-lg-9 mb-4 ">
@@ -150,7 +150,7 @@ const Home = async () => {
       {/* End Reels Section */}
 
       {/* Top Listings */}
-      <section className="bgc-f7">
+      <section className="bgc-f7 overx-hide">
         <div className="container">
           <div className="row align-items-center" data-aos="fade-up">
             <div className="col-lg-9 mb-4 ">
@@ -184,7 +184,7 @@ const Home = async () => {
       {/* End Featured Listings */}
 
       {/* Explore Locations */}
-      <section className="pb40-md">
+      <section className="pb40-md overx-hide">
         <div className="container">
           <div
             className="row align-items-center"
@@ -243,7 +243,7 @@ const Home = async () => {
       {/* End Explore Locations */}
 
       {/* <!-- Why Choose Us --> */}
-      <section>
+      <section className="overx-hide">
         <div className="container">
           <div
             className="row align-items-md-center"
@@ -257,7 +257,7 @@ const Home = async () => {
       {/*  <!-- End Why Choose Us --> */}
 
       {/* Our Testimonials */}
-      <section className="pb50-md bgc-thm-light">
+      <section className="pb50-md bgc-thm-light overx-hide">
         <div className="container">
           <div className="row  justify-content-between align-items-center">
             <div className="col-auto mb-4">
@@ -288,7 +288,7 @@ const Home = async () => {
       {/* End Our Testimonials */}
 
       {/* Explore Blog */}
-      <section className="pb90 pb20-md">
+      <section className="pb90 pb20-md overx-hide">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 mb-4" data-aos="fade-up">

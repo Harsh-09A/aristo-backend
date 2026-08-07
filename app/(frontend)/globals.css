@@ -1,8 +1,8 @@
 /* @import "tailwindcss"; */
 
-/* section{
+.overx-hide{
     overflow-x: hidden;
-} */
+}
 
 /* Sticky header behavior */
 .header-nav {

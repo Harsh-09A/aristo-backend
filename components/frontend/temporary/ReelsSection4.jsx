@@ -521,7 +521,7 @@ export default function ReelsSection4() {
         }
       `}</style>
 
-      <section className="reels-section">
+      <section className="reels-section overx-hide">
         <div className="container px-0">
           {/* Header row */}
           <div className="reels-header d-flex flex-wrap align-items-end justify-content-between gap-3">
