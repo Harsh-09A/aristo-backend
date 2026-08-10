@@ -17,7 +17,7 @@ const DeveloperCard = ({ developer }: Props) => {
   const { name, slug, logo, _count } = developer;
 
   return (
-    <div className="agency-style1 p10 bdrs12 bdr1 mb30">
+    <div className="agency-style1 p10 bdrs12 bdr1">
       <Link href={`/developer/${slug}`}>
         <div className="agency-img">
           <div

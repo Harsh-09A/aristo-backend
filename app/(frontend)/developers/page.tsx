@@ -17,6 +17,7 @@ export default async function DevelopersPage({ searchParams }: PageProps) {
   const sp = await searchParams;
   const currentPage = Math.max(1, Number(sp.page) || 1);
 
+  // const { developers, totalPages } = await getAllDevelopers(currentPage);
   const { developers, totalPages } = await getAllDevelopers(currentPage);
 
   return (

@@ -81,34 +81,34 @@ export async function getDeveloperProjects(
   };
 }
 
-export async function getAllDevelopers(page: number = 1) {
-  const pageSize = DEVELOPERS_PER_PAGE;
-  const skip = (page - 1) * pageSize;
+// export async function getAllDevelopers(page: number = 1) {
+//   const pageSize = DEVELOPERS_PER_PAGE;
+//   const skip = (page - 1) * pageSize;
 
-  const [developers, totalCount] = await Promise.all([
-    prisma.developer.findMany({
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        logo: true,
-        _count: {
-          select: {
-            projects: {
-              where: { publishStatus: PublishStatus.PUBLISHED }, // ← added
-            },
-          },
-        },
-      },
-      orderBy: { name: "asc" },
-      skip,
-      take: pageSize,
-    }),
-    prisma.developer.count(),
-  ]);
+//   const [developers, totalCount] = await Promise.all([
+//     prisma.developer.findMany({
+//       select: {
+//         id: true,
+//         name: true,
+//         slug: true,
+//         logo: true,
+//         _count: {
+//           select: {
+//             projects: {
+//               where: { publishStatus: PublishStatus.PUBLISHED }, // ← added
+//             },
+//           },
+//         },
+//       },
+//       orderBy: { name: "asc" },
+//       skip,
+//       take: pageSize,
+//     }),
+//     prisma.developer.count(),
+//   ]);
 
-  return { developers, totalPages: Math.ceil(totalCount / pageSize) };
-}
+//   return { developers, totalPages: Math.ceil(totalCount / pageSize) };
+// }
 
 // Top developers — jinke paas sabse zyada projects hain, limit ke saath
 // export async function getTopDevelopers(limit: number = 10) {
@@ -189,4 +189,80 @@ export async function getTopDevelopers(limit: number = 10) {
       };
     })
     .filter((d): d is NonNullable<typeof d> => d !== null);
+}
+
+// getAllDevelopers — ab yeh dono kaam karta hai:
+//   1. List page ke liye paginated developers (jab `limit` nahi diya)
+//   2. "Top developers" ke liye simple top-N array (jab `limit` diya)
+//
+// getTopDevelopers function ab zaroorat nahi — isko hata do,
+// aur jahan bhi getTopDevelopers(10) call ho raha tha, wahan
+// getAllDevelopers(1, 10) likh do (page ignore ho jayega jab limit diya ho).
+
+// developer-service.ts
+
+// Overload 1: jab limit diya ho → seedha array milega
+export async function getAllDevelopers(
+  page: number,
+  limit: number
+): Promise<Array<{
+  id: string;
+  name: string;
+  slug: string;
+  logo: string | null;
+  _count: { projects: number };
+}>>;
+
+// Overload 2: jab limit na diya ho → paginated object milega
+export async function getAllDevelopers(
+  page?: number
+): Promise<{
+  developers: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    logo: string | null;
+    _count: { projects: number };
+  }>;
+  totalPages: number;
+}>;
+
+// Actual implementation (yeh signature bahar expose nahi hota,
+// upar wale 2 overloads hi TypeScript ko dikhte hain)
+export async function getAllDevelopers(page: number = 1, limit?: number) {
+  const allDevelopers = await prisma.developer.findMany({
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      logo: true,
+      _count: {
+        select: {
+          projects: {
+            where: { publishStatus: PublishStatus.PUBLISHED },
+          },
+        },
+      },
+    },
+  });
+
+  const sorted = allDevelopers.sort((a, b) => {
+    const countDiff = b._count.projects - a._count.projects;
+    if (countDiff !== 0) return countDiff;
+    return a.name.localeCompare(b.name);
+  });
+
+  if (limit) {
+    return sorted.slice(0, limit);
+  }
+
+  const pageSize = DEVELOPERS_PER_PAGE;
+  const currentPage = page && page > 0 ? page : 1;
+  const skip = (currentPage - 1) * pageSize;
+  const totalCount = sorted.length;
+
+  return {
+    developers: sorted.slice(skip, skip + pageSize),
+    totalPages: Math.ceil(totalCount / pageSize),
+  };
 }

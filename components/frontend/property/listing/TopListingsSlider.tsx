@@ -15,11 +15,11 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
           pauseOnMouseEnter: true, // Pauses scroll when hovering over the slider
         }}
         navigation={{
-          nextEl: ".top-next__active",
-          prevEl: ".top-prev__active",
+          nextEl: ".top-listings-next__active",
+          prevEl: ".top-listings-prev__active",
         }}
         pagination={{
-          el: ".top-pagination__active",
+          el: ".top-listings-pagination__active",
           clickable: true,
         }}
         slidesPerView={1}
@@ -37,27 +37,24 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
         ))}
       </Swiper>
 
-      <div className="row align-items-center justify-content-center mt-4">
-        <div className="col-auto">
-          <button className="top-prev__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-left-long" />
-          </button>
-        </div>
+      <div className="rounded-arrow arrowY-center-position">
+        <button className="top-listings-prev__active swiper_button _prev">
+          <i className="fa-solid fa-chevron-left" />
+        </button>
         {/* End prev */}
 
-        <div className="col-auto">
-          <div className="pagination swiper--pagination top-pagination__active" />
-        </div>
-        {/* End pagination */}
-
-        <div className="col-auto">
-          <button className="top-next__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-right-long" />
-          </button>
-        </div>
+        <button className="top-listings-next__active swiper_button _next">
+          <i className="fa-solid fa-chevron-right"></i>
+        </button>
         {/* End Next */}
       </div>
-      {/* End .col for navigation and pagination */}
+      {/* End .col for navigation  */}
+
+      <div className="row align-items-center justify-content-center mt-4">
+        <div className="col-auto">
+          <div className="top-listings-pagination__active pagination swiper--pagination " />
+        </div>
+      </div>
     </>
   );
 };

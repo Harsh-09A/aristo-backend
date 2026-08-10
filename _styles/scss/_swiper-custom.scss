@@ -49,10 +49,12 @@
       pointer-events: none;
     }
     &._prev {
-      margin-left: -12px;
+      // margin-left: -12px;
+      margin-left: -55px;
     }
     &._next {
-      margin-right: -12px;
+      // margin-right: -12px;
+      margin-right: -60px;
     }
     @media (max-width: 767px) {
       width: 38px;

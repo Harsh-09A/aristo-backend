@@ -15,11 +15,11 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
           pauseOnMouseEnter: true, // Pauses scroll when hovering over the slider
         }}
         navigation={{
-          nextEl: ".featured-next__active",
-          prevEl: ".featured-prev__active",
+          nextEl: ".featured-listings-next__active",
+          prevEl: ".featured-listings-prev__active",
         }}
         pagination={{
-          el: ".featured-pagination__active",
+          el: ".featured-listings-pagination__active",
           clickable: true,
         }}
         slidesPerView={1.2}
@@ -37,19 +37,22 @@ const FeaturedListingsSlider = ({ properties }: { properties: any[] }) => {
         ))}
       </Swiper>
 
+      <div className="rounded-arrow arrowY-center-position">
+        <button className="featured-listings-prev__active swiper_button _prev">
+          <i className="fa-solid fa-chevron-left" />
+        </button>
+        {/* End prev */}
+
+        <button className="featured-listings-next__active swiper_button _next">
+          <i className="fa-solid fa-chevron-right"></i>
+        </button>
+        {/* End Next */}
+      </div>
+      {/* End .col for navigation  */}
+
       <div className="row align-items-center justify-content-center mt-4">
         <div className="col-auto">
-          <button className="featured-prev__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-left-long" />
-          </button>
-        </div>
-        <div className="col-auto">
-          <div className="pagination swiper--pagination featured-pagination__active" />
-        </div>
-        <div className="col-auto">
-          <button className="featured-next__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-right-long" />
-          </button>
+          <div className="featured-listings-pagination__active pagination swiper--pagination " />
         </div>
       </div>
     </>

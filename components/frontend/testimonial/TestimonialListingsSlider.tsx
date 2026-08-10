@@ -62,8 +62,8 @@ const TestimonialListingsSlider = ({
         spaceBetween={30}
         modules={[Navigation, Pagination]}
         navigation={{
-          nextEl: ".testimonial_next__active",
-          prevEl: ".testimonial_prev__active",
+          nextEl: ".testimonial-next__active",
+          prevEl: ".testimonial-prev__active",
         }}
         pagination={{
           el: ".testimonial_pagination__active",
@@ -83,21 +83,18 @@ const TestimonialListingsSlider = ({
         ))}
       </Swiper>
 
-      <div className="row align-items-center justify-content-center mt-4">
-        <div className="col-auto">
-          <button className="testimonial_prev__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-left-long" />
-          </button>
-        </div>
-        <div className="col-auto">
-          <div className="pagination swiper--pagination testimonial_pagination__active" />
-        </div>
-        <div className="col-auto">
-          <button className="testimonial_next__active swiper_button reels-nav-btn">
-            <i className="fa-solid fa-arrow-right-long" />
-          </button>
-        </div>
+      <div className="rounded-arrow arrowY-center-position">
+        <button className="testimonial-prev__active swiper_button _prev">
+          <i className="fa-solid fa-chevron-left" />
+        </button>
+        {/* End prev */}
+
+        <button className="testimonial-next__active swiper_button _next">
+          <i className="fa-solid fa-chevron-right"></i>
+        </button>
+        {/* End Next */}
       </div>
+      {/* End .col for navigation  */}
 
       <div
         className="col-lg-12 mt-2 pt-2 text-center"
