@@ -4,17 +4,19 @@
     overflow-x: hidden;
 }
 
-/* Sticky header behavior */
-.header-nav {
+/* Sticky header behavior — Desktop + Mobile */
+.header-nav,
+.mobilie_header_nav {
   position: sticky !important;
   top: 0;
   z-index: 9999 !important;
-  transition: all 0.3s ease-in-out; /* smooth animation */
+  transition: all 0.3s ease-in-out;
 }
 
-.header-nav.sticky-header {
-  background: #fff; /* scroll ke baad header ka background — apna color daal do */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* halka shadow, thoda depth ke liye */
+.header-nav.sticky-header,
+.mobilie_header_nav.sticky-header {
+  background: rgba(255, 255, 255, 0.90);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 /* ================================== */
 .home-banner-style1 {
@@ -68,4 +70,34 @@
 /* ADD karo — sirf interactive content clickable rahe */
 .home-style1 .inner-banner-style1 > * {
   pointer-events: auto;
+}
+.submenu-list {
+  padding-left: 15px;
+  list-style: none;
+}
+
+.submenu-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.submenu-list {
+  list-style: none;
+  padding-left: 15px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.submenu-list.submenu-open {
+  max-height: 500px; 
+}
+
+.submenu-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.submenu-arrow.rotated {
+  transform: rotate(180deg);
 }

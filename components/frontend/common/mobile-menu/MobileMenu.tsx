@@ -1,19 +1,53 @@
+"use client"; // ← scroll listener use karne ke liye zaroori
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import SidebarSubmenu from "../sidebar-panel/SidebarSubmenu";
 
 const menuItems = [
   { id: 1, title: "About", link: "/about" },
-  { id: 2, title: "Tools & Advise", link: "/" },
-  { id: 3, title: "Post Requirements", link: "/" },
-  { id: 4, title: "Contact", link: "/" },
-  { id: 5, title: "Legal ", link: "/" },
-  { id: 6, title: "Home Loan Assistance", link: "/" },
-  { id: 7, title: "Documentation", link: "/" },
+  { id: 2, title: "Services", link: "/services" },
+  { id: 3, title: "Our Executive Team", link: "/team" },
+  { id: 4, title: "Blog", link: "/blog" },
+  {
+    id: 5,
+    title: "Tools & Advice",
+    link: "/",
+    submenu: [
+      { id: 51, title: "EMI Calculator", link: "/emi-calculator" },
+      { id: 52, title: "Legal Assistance", link: "/" },
+      { id: 53, title: "Home Loan Assistance", link: "/" },
+      { id: 54, title: "Property Valuation", link: "/" },
+      { id: 55, title: "Documentation / Registration", link: "/" },
+    ],
+  },
+  { id: 6, title: "Gallery", link: "/gallery" },
+  { id: 7, title: "Careers", link: "/careers" },
+  { id: 8, title: "Contact", link: "/contact" },
 ];
 
 const MobileMenu = () => {
+  const [isSticky, setIsSticky] = useState(false); // ← DefaultHeader jaisa hi state
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 80px se zyada scroll hua toh sticky ON, warna OFF
+      setIsSticky(window.scrollY > 80);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // cleanup — memory leak se bachne ke liye
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="mobilie_header_nav stylehome1">
+    <div
+      className={`mobilie_header_nav stylehome1 ${
+        isSticky ? "sticky-header" : ""
+      }`}
+    >
       <div className="mobile-menu">
         <div className="header innerpage-style">
           <div className="menu_and_widgets">
@@ -34,15 +68,19 @@ const MobileMenu = () => {
               </a>
               <Link className="mobile_logo" href="/">
                 <Image
-                  width={138}
-                  height={44}
+                  width={100}
+                  height={50}
                   src="/assets/images/logo/aristo-logo.png"
                   alt="logo"
                 />
               </Link>
-              {/* <Link href="/login">
-                <span className="icon fz18 far fa-user-circle" />
-              </Link> */}
+
+              <Image
+                width={50}
+                height={44}
+                src="/assets/images/logo/maharera-new.webp"
+                alt="logo"
+              />
             </div>
           </div>
         </div>
@@ -73,17 +111,34 @@ const MobileMenu = () => {
             <div className="hiddenbar_navbar_content">
               <div className="hiddenbar_navbar_menu">
                 <ul className="navbar-nav">
-                  {menuItems.map((item) => (
-                    <li className="nav-item" key={item.id}>
-                      <Link className="nav-link" href={item.link} role="button">
-                        {item.title}
-                      </Link>
-                    </li>
-                  ))}
+                  {menuItems.map((item) => {
+                    const hasSubmenu = item.submenu && item.submenu.length > 0;
+
+                    if (hasSubmenu) {
+                      return (
+                        <SidebarSubmenu
+                          key={item.id}
+                          title={item.title}
+                          submenu={item.submenu!}
+                        />
+                      );
+                    }
+
+                    return (
+                      <li className="nav-item" key={item.id}>
+                        <Link
+                          className="nav-link"
+                          href={item.link}
+                          role="button"
+                        >
+                          {item.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
                 {/* <MenuItems /> */}
               </div>
-              {/* <ProSidebarContent /> /! NOT TO ADD */}
               {/* End .hiddenbar_navbar_menu */}
             </div>
           </div>
