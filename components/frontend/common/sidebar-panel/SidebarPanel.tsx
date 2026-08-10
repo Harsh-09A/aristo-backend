@@ -13,7 +13,7 @@ import SidebarSubmenu from "./SidebarSubmenu";
 //* Contact
 // Sell Your Property
 //* Our Philosophy
-// Our Logo
+//* Our Logo
 //* Our Executive Team
 //* Our Services
 // Gallery
@@ -29,14 +29,14 @@ const menuItems = [
     link: "/",
     submenu: [
       { id: 51, title: "EMI Calculator", link: "/emi-calculator" },
-      { id: 52, title: "Legal Assistance", link: "/" },
-      { id: 53, title: "Home Loan Assistance", link: "/" },
-      { id: 54, title: "Property Valuation", link: "/" },
-      { id: 55, title: "Documentation / Registration", link: "/" },
+      { id: 52, title: "Legal Assistance", link: "/legal-assistance/" },
+      { id: 53, title: "Home Loan Assistance", link: "/home-loan-assistance/" },
+      { id: 54, title: "Property Valuation", link: "/property-valuation/" },
+      { id: 55, title: "Documentation / Registration", link: "/documentation-registration/" },
     ],
   },
   { id: 6, title: "Gallery", link: "/gallery" },
-  { id: 7, title: "Careers", link: "/careers" },
+  // { id: 7, title: "Careers", link: "/careers" },
   { id: 8, title: "Contact", link: "/contact" },
 ];
 

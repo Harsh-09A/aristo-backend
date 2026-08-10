@@ -92,7 +92,7 @@ const AboutPage = () => {
       {/* End Our About Area */}
 
       {/* ============= */}
-      {/* <!-- Why Choose Us --> */}
+      {/* <!-- Philosophy --> */}
       <section className="overx-hide">
         <div className="container">
           <div
@@ -156,7 +156,46 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-      {/*  <!-- End Why Choose Us --> */}
+      {/*  <!-- End Philosophy --> */}
+
+      {/* Our Logo */}
+      <section className="our-about pb90">
+        <div className="container">
+          <div className="row" data-aos="fade-up" data-aos-delay="300">
+            <div className="col-lg-6">
+              <SectionHeading
+                heading={"Logo"}
+                title={"Our "}
+                highlight={"Logo"}
+                subtitle={""}
+              />
+              <p className="text mb25">
+                Our logo symbolizes the vision of Aristo Real Estate Consultants
+                of Turning Everyone’s dream of owning their own house in
+                Reality. It has a bold yet humble feel to it. Using creatively
+                crafted ‘A’ of Aristo and ‘E’ of Estate, we have created a House
+                which we believe is Everyone’s dream in today’s world. We help
+                our client’s in every possible way to achieve this dream. Hence
+                Our Tagline “Turning Dreams into Address”.
+              </p>
+
+            </div>
+            <div className="col-lg-6">
+              <div className="position-relative mb30-md">
+                <Image
+                  width={400}
+                  height={200}
+                  priority
+                  className="cover"
+                  src={"/assets/images/logo/aristo-logo.png"}
+                  alt="why chosse"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* End Our Logo */}
     </>
   );
 };
