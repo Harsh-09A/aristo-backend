@@ -1,3 +1,4 @@
+// ReelsSlider.tsx
 "use client";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,7 +17,10 @@ const ReelsSlider = ({ reels }: ReelsSliderProps) => {
   const [activeReel, setActiveReel] = useState<Reel | null>(null);
 
   return (
-    <>
+    // ← Naya wrapper: yahi position: relative deta hai, taaki
+    // rounded-arrow.arrowY-center-position isi box ke andar center ho,
+    // page-level ancestor tak na bhaage
+    <div className={styles.sliderWrap}>
       <Swiper
         modules={[Navigation, FreeMode]}
         slidesPerView="auto"
@@ -51,7 +55,7 @@ const ReelsSlider = ({ reels }: ReelsSliderProps) => {
       {activeReel && (
         <VideoModal reel={activeReel} onClose={() => setActiveReel(null)} />
       )}
-    </>
+    </div>
   );
 };
 

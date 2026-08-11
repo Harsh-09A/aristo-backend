@@ -1,5 +1,18 @@
 /* Swiper apni khud ki .swiper-slide class use karta hai, jo module-scoped nahi hoti —
    isliye :global() ke andar target karna padta hai */
+/* ReelsSlider.module.css */
+.sliderWrap {
+  position: relative;
+}
+
+.sliderWrap :global(.rounded-arrow.arrowY-center-position) {
+  pointer-events: none; /* is div ki khaali space clicks block na kare */
+}
+
+.sliderWrap :global(.rounded-arrow.arrowY-center-position button) {
+  pointer-events: auto; /* buttons khud clickable rahein */
+}
+
 .reelsSwiper :global(.swiper-slide) {
   width: 200px !important;
 }
