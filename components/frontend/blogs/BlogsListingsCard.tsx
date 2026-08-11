@@ -23,7 +23,7 @@ const BlogsListingsCard = ({ blog }: Props) => {
 
   // Guard: agar kisi blog ka images array khaali ho (admin ne upload
   // nahi kiya), toh <Image src={undefined}> crash na ho isliye fallback
-  const coverImage = blog.images[0] || "/assets/images/blog/placeholder.jpg";
+  const coverImage = blog.images[0] || "/assets/images/placeholder/placeholder-image.jpg";
 
   return (
     <div className="col-sm-6 col-lg-4" key={blog.id}>
@@ -50,7 +50,7 @@ const BlogsListingsCard = ({ blog }: Props) => {
             {blog.category ||"Real Estate"}
           </a>
           <h6 className="title mt-1">
-            <Link href={`/blogs/${blog.slug}`}>{blog.title}</Link>
+            <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
           </h6>
         </div>
       </div>

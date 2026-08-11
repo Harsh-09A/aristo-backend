@@ -62,3 +62,20 @@ export async function getBlogBySlug(slug: string) {
     },
   });
 }
+
+
+// -----------------------------------------------------------------------
+// getSimilarBlogs — single blog page ke "Related Posts" section ke liye.
+// Same jaisa getSimilarProperties (property-service.ts) — sirf current
+// blog ko exclude karke, latest blogs dikha do.
+// -----------------------------------------------------------------------
+export async function getSimilarBlogs(currentBlogId: string, limit: number = 3) {
+  return prisma.blog.findMany({
+    where: {
+      publishStatus: PublishStatus.PUBLISHED,
+      id: { not: currentBlogId }, // current blog khud na dikhe
+    },
+    orderBy: { createdAt: "desc" },
+    take: limit,
+  });
+}
