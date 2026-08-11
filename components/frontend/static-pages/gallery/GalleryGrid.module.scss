@@ -1,0 +1,43 @@
+.thumbBtn {
+  cursor: pointer;
+}
+
+.thumbWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+}
+
+.modalClose {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+}
