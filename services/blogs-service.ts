@@ -3,18 +3,37 @@
 import prisma from "@/lib/prisma";
 import { PublishStatus } from "@/generated/prisma/client";
 
+const BLOGS_PER_PAGE = 9; // 3-column grid hai, isliye 9 (3 rows) rakha — jo chahiye badal do
+
 // -----------------------------------------------------------------------
 // getBlogs — used on the Blog listing page (cards grid).
 // Only shows PUBLISHED blogs, newest first. Drafts stay hidden from
-// the public site.
+// the public site. Ab pagination bhi karta hai — properties/agents/
+// developers wale pattern jaisa hi (page number lo, skip+take lagao,
+// totalPages wapas bhejo).
 // -----------------------------------------------------------------------
-export async function getBlogs() {
-  return prisma.blog.findMany({
-    where: {
-      publishStatus: PublishStatus.PUBLISHED,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+export async function getBlogs(page: number = 1) {
+  const pageSize = BLOGS_PER_PAGE;
+  const skip = (page - 1) * pageSize;
+
+  const where = {
+    publishStatus: PublishStatus.PUBLISHED,
+  };
+
+  const [blogs, totalCount] = await Promise.all([
+    prisma.blog.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: pageSize,
+    }),
+    prisma.blog.count({ where }),
+  ]);
+
+  return {
+    blogs,
+    totalPages: Math.ceil(totalCount / pageSize),
+  };
 }
 
 // -----------------------------------------------------------------------
@@ -39,17 +58,7 @@ export async function getBlogBySlug(slug: string) {
   return prisma.blog.findFirst({
     where: {
       slug,
-      publishStatus: PublishStatus.PUBLISHED, // ← added
+      publishStatus: PublishStatus.PUBLISHED,
     },
-  });
-}
-
-// -----------------------------------------------------------------------
-// getAllBlogsForAdmin — optional helper for an admin/dashboard page
-// where you need to see DRAFT blogs too, not just published ones.
-// -----------------------------------------------------------------------
-export async function getAllBlogsForAdmin() {
-  return prisma.blog.findMany({
-    orderBy: { createdAt: "desc" },
   });
 }
