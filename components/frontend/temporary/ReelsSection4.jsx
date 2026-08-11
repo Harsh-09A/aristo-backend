@@ -539,44 +539,10 @@ export default function ReelsSection4() {
               heading={"Reels & Shorts"}
               title={"Watch"}
               highlight={"Property Reels"}
-              subtitle={"Behind-the-scenes site tours, progress updates & aerial walkthroughs."}
+              subtitle={
+                "Behind-the-scenes site tours, progress updates & aerial walkthroughs."
+              }
             />
-
-            {/* Navigation arrows */}
-            <div className="d-flex gap-2 reels-nav-wrap">
-              <button
-                className="reels-nav-btn"
-                id="reels-prev"
-                aria-label="Previous"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                >
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-              <button
-                className="reels-nav-btn"
-                id="reels-next"
-                aria-label="Next"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                >
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
-            </div>
           </div>
 
           {/* Swiper */}
@@ -586,8 +552,8 @@ export default function ReelsSection4() {
             spaceBetween={16}
             freeMode={{ enabled: true, momentum: true }}
             navigation={{
-              prevEl: "#reels-prev",
-              nextEl: "#reels-next",
+              prevEl: ".reels-next__active",
+              nextEl: ".reels-prev__active",
             }}
             slidesOffsetBefore={24}
             slidesOffsetAfter={24}
@@ -599,6 +565,19 @@ export default function ReelsSection4() {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          <div className="rounded-arrow arrowY-center-position">
+            <button className="reels-prev__active swiper_button _prev">
+              <i className="fa-solid fa-chevron-left" />
+            </button>
+            {/* End prev */}
+
+            <button className="reels-next__active swiper_button _next">
+              <i className="fa-solid fa-chevron-right"></i>
+            </button>
+            {/* End Next */}
+          </div>
+          {/* End .col for navigation  */}
         </div>
       </section>
 

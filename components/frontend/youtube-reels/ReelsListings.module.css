@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+
+.reelsSection {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  padding: 60px 0 80px;
+  background: #fafaf9;
+  overflow: hidden;
+}
+
+.reelsHeader {
+  padding: 0 24px;
+  margin-bottom: 32px;
+}

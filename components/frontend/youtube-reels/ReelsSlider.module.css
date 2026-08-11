@@ -1,0 +1,11 @@
+/* Swiper apni khud ki .swiper-slide class use karta hai, jo module-scoped nahi hoti —
+   isliye :global() ke andar target karna padta hai */
+.reelsSwiper :global(.swiper-slide) {
+  width: 200px !important;
+}
+
+@media (max-width: 576px) {
+  .reelsSwiper :global(.swiper-slide) {
+    width: 160px !important;
+  }
+}

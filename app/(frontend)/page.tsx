@@ -12,6 +12,7 @@ import FeaturedListings from "@/components/frontend/property/listing/FeaturedLis
 import TopListings from "@/components/frontend/property/listing/TopListings";
 import ReelsSection4 from "@/components/frontend/temporary/ReelsSection4";
 import TestimonialListings from "@/components/frontend/testimonial/TestimonialListings";
+import ReelsListings from "@/components/frontend/youtube-reels/ReelsListings";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -145,9 +146,8 @@ const Home = async () => {
       </section>
       {/* End Featured Listings */}
 
-      {/* Reels Section */}
-      <ReelsSection4 />
-      {/* End Reels Section */}
+
+<ReelsListings />
 
       {/* Top Listings */}
       <section className="bgc-f7 overx-hide">
