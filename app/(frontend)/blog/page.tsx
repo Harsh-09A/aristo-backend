@@ -28,10 +28,10 @@ export default async function BlogsPage({ searchParams }: Props) {
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcumb-style1">
-                <h2 className="title text-white">About Us</h2>
+                <h2 className="title text-white">Blogs</h2>
                 <div className="breadcumb-list ">
                   <a href="#">Home</a>
-                  <a href="#">About</a>
+                  <a href="#">Blogs</a>
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@ export default async function BlogsPage({ searchParams }: Props) {
             currentPage={currentPage}
             totalPages={totalPages}
             searchParams={params}
-            basePath="/blogs"
+            basePath="/blog"
           />
         </div>
       </section>
