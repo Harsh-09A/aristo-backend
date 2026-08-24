@@ -46,7 +46,7 @@ const WhyChooseUs = () => {
             heading={"Why Aristo"}
             title={"Why Choose"}
             highlight={"Us"}
-            subtitle={"Experience trusted expertise and personalized real estate solutions."}
+            subtitle={"More than brokers, we are strategic property advisors."}
           />
         </div>
         {/* End main-title2 */}

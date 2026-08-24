@@ -3,21 +3,27 @@ const Features = () => {
   const features = [
     {
       icon: "flaticon-security",
-      title: "Fully Transparent",
+      title: "Deep Local Market Knowledge",
       description:
-        "Nullam sollicitudin blandit eros eu pretium. Nullam maximus ultricies auctor.",
+        "In-depth understanding of Navi Mumbai’s micro-markets and trends.",
     },
     {
       icon: "flaticon-keywording",
-      title: "Mortgage Services",
+      title: "Verified Property Opportunities",
       description:
-        "Nullam sollicitudin blandit eros eu pretium. Nullam maximus ultricies auctor.",
+        "Access to genuine and legally verified properties only.",
     },
     {
       icon: "flaticon-investment",
-      title: "Seamless User Experience",
+      title: "Strong Negotiation Expertise",
       description:
-        "Nullam sollicitudin blandit eros eu pretium. Nullam maximus ultricies auctor.",
+        "We negotiate the best value for you.",
+    },
+    {
+      icon: "flaticon-investment",
+      title: "Long-Term Client Relationships",
+      description:
+        "We believe in relationships that go beyond transactions.",
     },
   ];
 

@@ -141,9 +141,12 @@ const AboutPage = () => {
                   title={"Our "}
                   highlight={"Philosophy"}
                   subtitle={
-                    "Experience trusted expertise and personalized real estate solutions."
+                    ""
                   }
                 />
+                <p>
+                  With over 25 years of experience in Navi Mumbai, we believe real estate decisions should be guided by knowledge, transparency and a clear understanding of our clients’ goals.
+                </p>
               </div>
               {/* End main-title2 */}
 
