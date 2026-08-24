@@ -15,15 +15,25 @@ const PropertyHero = ({ data }: Props) => {
       <section className="property-hero py-0">
         <div className="row">
           <div className="col-lg-6 col-sm-6">
-            <PropertySlider images={data.images} />
+            {/* Left column apni natural height define karta hai (image + thumbnails) */}
+            <div className="h-100 d-flex flex-column">
+              <PropertySlider images={data.images} />
+            </div>
           </div>
 
           <div className="col-lg-6 col-sm-6">
-            {/* OVERVIEW */}
-            <PropertyOverview data={data} />
+            {/* Right column: left column jitni height le lega (row stretch ki wajah se),
+          ab isko andar se flex-column bana ke Overview ko grow karwao aur
+          Actions ko bottom pe chipka do */}
+            <div className="h-100 d-flex flex-column">
+              <div className="flex-grow-1">
+                <PropertyOverview data={data} />
+              </div>
 
-            {/* ACTIONS */}
-            <PropertyActions phone={phone} />
+              <div className="mt-auto ">
+                <PropertyActions phone={phone} />
+              </div>
+            </div>
           </div>
         </div>
       </section>

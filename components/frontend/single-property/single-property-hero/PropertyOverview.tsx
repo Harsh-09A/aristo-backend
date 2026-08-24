@@ -57,7 +57,7 @@ const PropertyOverview = ({ data }: Props) => {
 
   return (
     <>
-      <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p15 mb30 overflow-hidden position-relative">
+      <div className="ps-widget bgc-white bdrs12 default-box-shadow2 p15 mb30 overflow-hidden position-relative h-100 d-flex flex-column">
         <h4 className="title fz17 mb30">Overview</h4>
         <div className="row">
           {overviewData.map((item, index) => (

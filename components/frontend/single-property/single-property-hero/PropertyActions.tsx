@@ -10,7 +10,7 @@ const PropertyActions = ({ phone }: Props) => {
 
   return (
     <>
-      <div className="d-grid gap-2">
+      <div className="d-grid gap-2 pt-2">
         <Link href={phone ? `tel:${phone}` : "#"} className="ud-btn btn-white2">
           <i className="fa-solid fa-phone pe-2"></i>
           {/* {phone ? phone : "View Contact"} */}

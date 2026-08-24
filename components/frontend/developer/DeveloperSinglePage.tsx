@@ -100,13 +100,10 @@ const DeveloperSinglePage = ({
                           Visit Website
                         </a>
                       )}
-                      {description && (
-                      <p className="text fz15 ps-2 text-white">
-                        {description }
-                      </p>
-                      )}
-
                     </div>
+                    {description && (
+                      <p className="text fz15 ps-2 text-white">{description}</p>
+                    )}
                   </div>
                 </div>
               </div>

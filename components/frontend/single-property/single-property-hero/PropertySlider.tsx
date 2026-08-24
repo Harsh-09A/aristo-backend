@@ -49,7 +49,9 @@ const PropertySlider = ({ images }: Props) => {
                     <div className="position-relative overflow-hidden rounded">
                       <div
                         style={{
-                          width: "100%", // 500px hata do
+                          // width: "100%", // for full width (adds more whitespace)
+                          height: "550px", 
+                          minHeight: "550px",
                           aspectRatio: 1,
                         }}
                       >
