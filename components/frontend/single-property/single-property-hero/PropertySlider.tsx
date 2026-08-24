@@ -49,7 +49,7 @@ const PropertySlider = ({ images }: Props) => {
                     <div className="position-relative overflow-hidden rounded">
                       <div
                         style={{
-                          width: "500px",
+                          width: "100%", // 500px hata do
                           aspectRatio: 1,
                         }}
                       >
@@ -57,7 +57,7 @@ const PropertySlider = ({ images }: Props) => {
                           src={item}
                           alt="image"
                           fill
-                          sizes="500px"
+                          sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 500px"
                           quality={100}
                           className="object-fit-cover"
                           placeholder="blur"

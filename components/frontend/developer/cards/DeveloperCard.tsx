@@ -44,7 +44,7 @@ const DeveloperCard = ({ developer }: Props) => {
         <div className="d-grid pt10">
           {/* <Link href={`/agency-single/${agent.id}`} className="ud-btn btn-white2"> */}
           <Link href={`/developer/${slug}`} className="ud-btn btn-white2">
-            View Listings
+            View Projects
             <i className="fal fa-arrow-right-long" />
           </Link>
         </div>

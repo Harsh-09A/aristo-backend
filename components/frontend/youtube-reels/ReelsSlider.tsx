@@ -20,11 +20,11 @@ const ReelsSlider = ({ reels }: ReelsSliderProps) => {
     // ← Naya wrapper: yahi position: relative deta hai, taaki
     // rounded-arrow.arrowY-center-position isi box ke andar center ho,
     // page-level ancestor tak na bhaage
-    <div className={styles.sliderWrap}>
+    <div className={`${styles.sliderWrap} mx-0 px-0 `}>
       <Swiper
         modules={[Navigation, FreeMode]}
         slidesPerView="auto"
-        spaceBetween={16}
+        spaceBetween={20}
         freeMode={{ enabled: true, momentum: true }}
         navigation={{
           // NOTE: original code mein yeh do lines swapped thi — waisa hi rakha hai
@@ -42,11 +42,11 @@ const ReelsSlider = ({ reels }: ReelsSliderProps) => {
         ))}
       </Swiper>
 
-      <div className="rounded-arrow arrowY-center-position">
+      <div className="rounded-arrow arrowY-center-position" style={{"width": "102%"}}>
         <button className="reels-prev__active swiper_button _prev">
           <i className="fa-solid fa-chevron-left" />
         </button>
-        <button className="reels-next__active swiper_button _next">
+        <button className="reels-next__active swiper_button _next custom-right">
           <i className="fa-solid fa-chevron-right"></i>
         </button>
       </div>

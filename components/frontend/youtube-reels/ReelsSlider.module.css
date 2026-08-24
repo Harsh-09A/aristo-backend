@@ -22,3 +22,6 @@
     width: 160px !important;
   }
 }
+.rounded-arrow .custom-right{
+  margin-right: -50px !important;
+}
