@@ -3,10 +3,11 @@
   border-radius: 0.5rem;
   overflow: hidden;
   background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
-/* Bootstrap ke form-control jaisa focus-glow, editor ke andar click karte hi */
 .rte-wrapper:focus-within {
   border-color: #86b7fe;
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
@@ -32,8 +33,7 @@
   background: transparent;
   border-radius: 6px;
   color: #495057;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.1s;
 }
@@ -54,11 +54,38 @@
   margin: 2px 4px;
 }
 
-/* Fixed height + internal scroll — form ka layout kabhi nahi tootega */
+.rte-heading-select {
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 0 6px;
+  font-size: 0.8rem;
+  color: #495057;
+  cursor: pointer;
+}
+
+.rte-heading-select:hover {
+  background: #e9ecef;
+}
+
+.rte-heading-select:focus {
+  outline: none;
+}
+
+/* Native color input ko hide karke sirf palette icon button dikhate hain */
+.rte-color-input {
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  opacity: 0;
+  position: absolute;
+}
 
 .rte-content {
-  min-height: 200px;
-  max-height: max-content;
+  min-height: 220px;
+  max-height: 420px;
   overflow-y: auto;
   padding: 14px;
   outline: none;
@@ -79,4 +106,28 @@
   padding-left: 12px;
   color: #6c757d;
   font-style: italic;
+}
+
+.rte-content pre {
+  background: #212529;
+  color: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+.rte-content hr {
+  border: none;
+  border-top: 1px solid #dee2e6;
+  margin: 1rem 0;
+}
+
+.rte-footer {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  color: #6c757d;
+  border-top: 1px solid #eee;
+  background: #f8f9fa;
+  text-align: right;
 }

@@ -1,8 +1,15 @@
 "use client";
 
+import { useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+// import Image from "@tiptap/extension-image";
+import TextAlign from "@tiptap/extension-text-align";
+import {TextStyle} from "@tiptap/extension-text-style";
+import Color from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
+import CharacterCount from "@tiptap/extension-character-count";
 import "./rich-text-editor.css";
 
 type RichTextEditorProps = {
@@ -14,16 +21,24 @@ export default function RichTextEditor({
   value,
   onChange,
 }: RichTextEditorProps) {
+  const colorInputRef = useRef<HTMLInputElement>(null);
+
   const editor = useEditor({
-    immediatelyRender: false, // SSR hydration mismatch se bachne ke liye
-    shouldRerenderOnTransaction: true, // v3 mein toolbar active-states dikhane ke liye zaroori
+    immediatelyRender: false,
+    shouldRerenderOnTransaction: true,
     extensions: [
       StarterKit.configure({
-        link: { openOnClick: false }, // v3 StarterKit mein Link built-in hai
+        link: { openOnClick: false },
       }),
       Placeholder.configure({
         placeholder: "Blog content likhna shuru karein...",
       }),
+      // Image.configure({ inline: false, allowBase64: false }),
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TextStyle, // Color mark ke liye base zaroori hai
+      Color,
+      Highlight.configure({ multicolor: true }),
+      CharacterCount,
     ],
     content: value,
     onUpdate: ({ editor }) => onChange(editor.getHTML()),
@@ -32,13 +47,77 @@ export default function RichTextEditor({
 
   if (!editor) return null;
 
-  // Button click se editor ka text-selection na khoye — warna pehla
-  // click "miss" hota hai kyunki button focus le leta hai selection se pehle
-  const keepFocus = (e: React.MouseEvent) => e.preventDefault();
+  // Button click se editor ka selection na khoye
+  const keepFocus = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName !== "SELECT" && target.tagName !== "INPUT") {
+      e.preventDefault();
+    }
+  };
+
+  const currentHeadingValue = editor.isActive("heading", { level: 1 })
+    ? "1"
+    : editor.isActive("heading", { level: 2 })
+      ? "2"
+      : editor.isActive("heading", { level: 3 })
+        ? "3"
+        : editor.isActive("heading", { level: 4 })
+          ? "4"
+          : editor.isActive("heading", { level: 5 })
+            ? "5"
+            : editor.isActive("heading", { level: 6 })
+              ? "6"
+              : "0";
 
   return (
     <div className="rte-wrapper">
       <div className="rte-toolbar" onMouseDown={keepFocus}>
+        <button
+          type="button"
+          title="Undo"
+          onClick={() => editor.chain().focus().undo().run()}
+        >
+          <i className="bi bi-arrow-counterclockwise"></i>
+        </button>
+        <button
+          type="button"
+          title="Redo"
+          onClick={() => editor.chain().focus().redo().run()}
+        >
+          <i className="bi bi-arrow-clockwise"></i>
+        </button>
+
+        <span className="rte-divider" />
+
+        {/* Paragraph + H1 se H6 — dropdown se, taaki toolbar bhare nahi */}
+        <select
+          className="rte-heading-select"
+          title="Heading level"
+          value={currentHeadingValue}
+          onChange={(e) => {
+            const level = Number(e.target.value);
+            if (level === 0) {
+              editor.chain().focus().setParagraph().run();
+            } else {
+              editor
+                .chain()
+                .focus()
+                .toggleHeading({ level: level as 1 | 2 | 3 | 4 | 5 | 6 })
+                .run();
+            }
+          }}
+        >
+          <option value="0">Paragraph</option>
+          <option value="1">Heading 1</option>
+          <option value="2">Heading 2</option>
+          <option value="3">Heading 3</option>
+          <option value="4">Heading 4</option>
+          <option value="5">Heading 5</option>
+          <option value="6">Heading 6</option>
+        </select>
+
+        <span className="rte-divider" />
+
         <button
           type="button"
           title="Bold"
@@ -74,25 +153,59 @@ export default function RichTextEditor({
 
         <span className="rte-divider" />
 
+        {/* Text color */}
         <button
           type="button"
-          title="Heading 2"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-          className={editor.isActive("heading", { level: 2 }) ? "active" : ""}
+          title="Text color"
+          onClick={() => colorInputRef.current?.click()}
         >
-          H2
+          <i className="bi bi-palette2"></i>
+        </button>
+        <input
+          ref={colorInputRef}
+          type="color"
+          className="rte-color-input"
+          onChange={(e) =>
+            editor.chain().focus().setColor(e.target.value).run()
+          }
+        />
+        {/* Highlight */}
+        <button
+          type="button"
+          title="Highlight"
+          onClick={() =>
+            editor.chain().focus().toggleHighlight({ color: "#fff3a3" }).run()
+          }
+          className={editor.isActive("highlight") ? "active" : ""}
+        >
+          <i className="bi bi-highlighter"></i>
+        </button>
+
+        <span className="rte-divider" />
+
+        <button
+          type="button"
+          title="Align left"
+          onClick={() => editor.chain().focus().setTextAlign("left").run()}
+          className={editor.isActive({ textAlign: "left" }) ? "active" : ""}
+        >
+          <i className="bi bi-text-left"></i>
         </button>
         <button
           type="button"
-          title="Heading 3"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-          }
-          className={editor.isActive("heading", { level: 3 }) ? "active" : ""}
+          title="Align center"
+          onClick={() => editor.chain().focus().setTextAlign("center").run()}
+          className={editor.isActive({ textAlign: "center" }) ? "active" : ""}
         >
-          H3
+          <i className="bi bi-text-center"></i>
+        </button>
+        <button
+          type="button"
+          title="Align right"
+          onClick={() => editor.chain().focus().setTextAlign("right").run()}
+          className={editor.isActive({ textAlign: "right" }) ? "active" : ""}
+        >
+          <i className="bi bi-text-right"></i>
         </button>
 
         <span className="rte-divider" />
@@ -121,6 +234,21 @@ export default function RichTextEditor({
         >
           <i className="bi bi-blockquote-left"></i>
         </button>
+        <button
+          type="button"
+          title="Code block"
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          className={editor.isActive("codeBlock") ? "active" : ""}
+        >
+          <i className="bi bi-code-slash"></i>
+        </button>
+        <button
+          type="button"
+          title="Divider line"
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        >
+          <i className="bi bi-dash-lg"></i>
+        </button>
 
         <span className="rte-divider" />
 
@@ -130,7 +258,7 @@ export default function RichTextEditor({
           onClick={() => {
             const previousUrl = editor.getAttributes("link").href || "";
             const url = window.prompt("Link URL daalein:", previousUrl);
-            if (url === null) return; // Cancel dabaya
+            if (url === null) return;
             if (url === "") {
               editor.chain().focus().unsetLink().run();
             } else {
@@ -142,25 +270,15 @@ export default function RichTextEditor({
           <i className="bi bi-link-45deg"></i>
         </button>
 
-        <span className="rte-divider" />
-
-        <button
-          type="button"
-          title="Undo"
-          onClick={() => editor.chain().focus().undo().run()}
-        >
-          <i className="bi bi-arrow-counterclockwise"></i>
-        </button>
-        <button
-          type="button"
-          title="Redo"
-          onClick={() => editor.chain().focus().redo().run()}
-        >
-          <i className="bi bi-arrow-clockwise"></i>
-        </button>
       </div>
 
       <EditorContent editor={editor} />
+
+      {/* Word / character count footer */}
+      <div className="rte-footer">
+        {editor.storage.characterCount.words()} words ·{" "}
+        {editor.storage.characterCount.characters()} characters
+      </div>
     </div>
   );
 }
