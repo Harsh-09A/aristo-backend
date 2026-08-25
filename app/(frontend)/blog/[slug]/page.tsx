@@ -80,15 +80,15 @@ export default async function BlogDetailPage({ params }: Props) {
                 hai, seedha render kar sakte ho. Neeche dono options diye hain. */}
 
             {/* Option A: agar body plain text hai */}
-            <div className="blog-body">{blog.body}</div>
+            {/* <div className="blog-body">{blog.body}</div> */}
 
             {/* Option B: agar body HTML hai (rich text editor se), Option A hata
                 ke ye use karo — LEKIN sirf tab jab admin trusted hai, kyunki ye
-                XSS risk create karta hai agar untrusted input aaye:
+                XSS risk create karta hai agar untrusted input aaye: */}
             <div
               className="blog-body"
               dangerouslySetInnerHTML={{ __html: blog.body }}
-            /> */}
+            />
           </div>
 
           {/* <div className="col-lg-12 mt-2 pt-2">

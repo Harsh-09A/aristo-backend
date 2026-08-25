@@ -1,0 +1,82 @@
+.rte-wrapper {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* Bootstrap ke form-control jaisa focus-glow, editor ke andar click karte hi */
+.rte-wrapper:focus-within {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.rte-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+}
+
+.rte-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  color: #495057;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.rte-toolbar button:hover {
+  background: #e9ecef;
+}
+
+.rte-toolbar button.active {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.rte-divider {
+  width: 1px;
+  align-self: stretch;
+  background: #dee2e6;
+  margin: 2px 4px;
+}
+
+/* Fixed height + internal scroll — form ka layout kabhi nahi tootega */
+
+.rte-content {
+  min-height: 200px;
+  max-height: max-content;
+  overflow-y: auto;
+  padding: 14px;
+  outline: none;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.rte-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #adb5bd;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.rte-content blockquote {
+  border-left: 3px solid #dee2e6;
+  padding-left: 12px;
+  color: #6c757d;
+  font-style: italic;
+}

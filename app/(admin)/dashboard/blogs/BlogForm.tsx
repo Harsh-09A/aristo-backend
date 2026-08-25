@@ -6,6 +6,8 @@ import ImageUploader, {
   ImageUploaderHandle,
 } from "@/components/dashboard/ImageUploader";
 import { createBlog, updateBlog } from "./actions";
+import RichTextEditor from "@/components/dashboard/RichTextEditor";
+
 
 export default function BlogForm({
   blog,
@@ -73,13 +75,14 @@ export default function BlogForm({
 
       <div className="mb-3">
         <label className="form-label">Body Content *</label>
-        <textarea
+        {/* <textarea
           className="form-control"
           rows={8}
           value={body}
           onChange={(event) => setBody(event.target.value)}
           required
-        />
+        /> */}
+        <RichTextEditor value={body} onChange={setBody} />
       </div>
 
       <div className="mb-3">
