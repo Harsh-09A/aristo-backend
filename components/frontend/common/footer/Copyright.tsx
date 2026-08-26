@@ -19,6 +19,7 @@ const Footer = () => {
       link: "#",
     },
   ];
+  // Copyright © 2025 Aristo Real Estate Consultants (Haresh Gurno Rochani). All rights reserved. Designed & Developed by DigIN Media
 
   return (
     <div className="container white-bdrt1 py-4">
@@ -26,16 +27,15 @@ const Footer = () => {
         <div className="col-sm-6">
           <div className="text-center text-lg-start">
             <p className="copyright-text text-gray ff-heading">
-              © Aristo {getCurrentYear()}{" "}
+              © {getCurrentYear()} Aristo Real Estate Consultants (Haresh Gurno
+              Rochani)
               <a
                 href=""
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white"
-              >
-                
-              </a>{" "}
-              - All rights reserved
+              ></a>
+              . All rights reserved
             </p>
           </div>
         </div>
@@ -44,14 +44,15 @@ const Footer = () => {
         <div className="col-sm-6">
           <div className="text-center text-lg-end">
             <p className="footer-menu ff-heading text-gray">
-              {footerMenuItems.map((item, index) => (
-                <React.Fragment key={index}>
-                  <a className="text-gray" href={item.link}>
-                    {item.label}
-                  </a>
-                  {index !== footerMenuItems.length - 1 && " · "}
-                </React.Fragment>
-              ))}
+              Designed & Developed by {" "}
+              <a
+                href="https://letsdigin.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white"
+              >
+                DigIN Media
+              </a>
             </p>
           </div>
         </div>

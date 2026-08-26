@@ -5,31 +5,41 @@ const MenuWidget = () => {
     {
       title: "Popular Search",
       links: [
-        { label: "Apartment for Rent", href: "#" },
-        { label: "Apartment Low to Hide", href: "#" },
-        { label: "Offices for Buy", href: "#" },
-        { label: "Offices for Rent", href: "#" },
+        {
+          label: "Apartments in Kharghar",
+          href: "/listings?category=Residential&type=Apartment&location=Kharghar",
+        },
+        {
+          label: "Apartment in Nerul",
+          href: "/listings?category=Residential&type=Apartment&location=Nerul",
+        },
+        {
+          label: "Offices in CBD Belapur",
+          href: "/listings?category=Commercial&type=Office&location=CBD+Belapur",
+        },
+        {
+          label: "Offices in Vashi",
+          href: "listings?category=Commercial&type=Office&location=Vashi",
+        },
       ],
     },
     {
       title: "Quick Links",
       links: [
-        { label: "Terms of Use", href: "#" },
-        { label: "Privacy Policy", href: "#" },
-        { label: "Pricing Plans", href: "#" },
-        { label: "Our Services", href: "#" },
-        { label: "Contact Support", href: "#" },
-        { label: "Careers", href: "#" },
-        { label: "FAQs", href: "#" },
+        { label: "About", href: "/about" },
+        { label: "Services", href: "/services" },
+        { label: "Contact", href: "/contact" },
+        { label: "Terms & Conditions ", href: "/terms-and-conditions" },
+        { label: "Privacy Policy", href: "/privacy-policy" },
       ],
     },
     {
       title: "Discover",
       links: [
-        { label: "Nerul", href: "#" },
-        { label: "Vashi", href: "#" },
-        { label: "Belapur", href: "#" },
-        { label: "Airoli", href: "#" },
+        { label: "Kharghar", href: "/locations/kharghar" },
+        { label: "Vashi", href: "/locations/vashi" },
+        { label: "Ulwe", href: "/locations/ulwe" },
+        { label: "Airoli", href: "/locations/airoli" },
       ],
     },
   ];

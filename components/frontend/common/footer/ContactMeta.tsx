@@ -4,16 +4,16 @@ const ContactMeta = () => {
   const contactInfoList = [
     {
       title: "Total Free Customer Care",
-      phone: "+91 12345 67890",
-      phoneLink: "tel:+012305094502", // Changed phoneLink to tel: URI
+      phone: "+919130307464",
+      phoneLink: "tel:+919130307464", // Changed phoneLink to tel: URI
     },
     {
       title: "Need Live Support?",
-      mail: "hi@aristouniversal.com",
-      mailLink: "mailto:hi@aristouniversal.com", // Changed mailLink to direct email address
+      mail: "belapur@aristouniversal.com",
+      mailLink: "mailto:belapur@aristouniversal.com", // Changed mailLink to direct email address
     },
   ];
-
+// 022 2756 0408 / 022 2757 0408/ +919130307464
   return (
     <div className="row mb-4 mb-lg-5">
       {contactInfoList.map((contact, index) => (
