@@ -9,8 +9,8 @@ const ContactMeta = () => {
     },
     {
       title: "Need Live Support?",
-      mail: "belapur@aristouniversal.com",
-      mailLink: "mailto:belapur@aristouniversal.com", // Changed mailLink to direct email address
+      mail: "info@aristouniversal.com",
+      mailLink: "mailto:info@aristouniversal.com", // Changed mailLink to direct email address
     },
   ];
 // 022 2756 0408 / 022 2757 0408/ +919130307464
