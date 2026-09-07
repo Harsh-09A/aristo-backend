@@ -17,16 +17,20 @@ const ContactPage = () => {
         {/* Brand-color overlay taaki breadcrumb bhi theme se match kare */}
         <div
           className="position-absolute top-0 start-0 w-100 h-100"
-        //   style={{ backgroundColor: "rgba(218, 37, 28, 0.55)" }}
+          //   style={{ backgroundColor: "rgba(218, 37, 28, 0.55)" }}
         />
         <div className="container position-relative">
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcumb-style1">
                 <h2 className="title text-white">Contact Us</h2>
-                <div className="breadcumb-list">
-                  <a href="#">Home</a>
-                  <a href="#">Contact</a>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    Contact
+                  </a>
                 </div>
               </div>
             </div>
@@ -39,16 +43,26 @@ const ContactPage = () => {
       <section className="contact-info-strip pt60 pb30">
         <div className="container">
           <div className="row">
-            <div className="col-md-4 mb30" data-aos="fade-up" data-aos-delay="100">
+            <div
+              className="col-md-4 mb30"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
               <div className="info-card h-100 p-4 rounded-4 text-center">
                 <div className="info-icon mx-auto mb-3">
                   <i className="bi bi-telephone-fill" />
                 </div>
                 <h6 className="mb-2">Call Us</h6>
-                <a href="tel:02227560408" className="d-block text-dark text-decoration-none">
+                <a
+                  href="tel:02227560408"
+                  className="d-block text-dark text-decoration-none"
+                >
                   022 2756 0408
                 </a>
-                <a href="tel:02227570408" className="d-block text-dark text-decoration-none">
+                <a
+                  href="tel:02227570408"
+                  className="d-block text-dark text-decoration-none"
+                >
                   022 2757 0408
                 </a>
                 <a
@@ -60,29 +74,35 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="col-md-4 mb30" data-aos="fade-up" data-aos-delay="200">
+            <div
+              className="col-md-4 mb30"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <div className="info-card h-100 p-4 rounded-4 text-center">
                 <div className="info-icon mx-auto mb-3">
                   <i className="bi bi-geo-alt-fill" />
                 </div>
                 <h6 className="mb-2">Visit Us</h6>
                 <p className="text mb-0">
-                  B 408 & 409, Mahaavir Icon, Plot 89 &amp; 90, Sector 15,
-                  CBD Belapur, Navi Mumbai 400614.
+                  B 408 & 409, Mahaavir Icon, Plot 89 &amp; 90, Sector 15, CBD
+                  Belapur, Navi Mumbai 400614.
                 </p>
               </div>
             </div>
 
-            <div className="col-md-4 mb30" data-aos="fade-up" data-aos-delay="300">
+            <div
+              className="col-md-4 mb30"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
               <div className="info-card h-100 p-4 rounded-4 text-center">
                 <div className="info-icon mx-auto mb-3">
                   <i className="bi bi-clock-fill" />
                 </div>
                 <h6 className="mb-2">Working Hours</h6>
                 <p className="text mb-0">
-                  Mon - Sat: 10:00 AM - 7:00 PM
-                  <br />
-                  Sunday: By appointment
+                  Tuesday - Sunday 10:00 AM to 8:00 PM
                 </p>
               </div>
             </div>
@@ -96,24 +116,35 @@ const ContactPage = () => {
         <div className="container">
           <div className="row">
             {/* Form column */}
-            <div className="col-lg-6 mb30" data-aos="fade-up" data-aos-delay="100">
+            <div
+              className="col-lg-6 mb30"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
               <div className="contact-form-wrap p-4 p-md-5 rounded-4 h-100">
                 <SectionHeading
                   heading={"Get In Touch"}
                   title={"Send Us a "}
                   highlight={"Message"}
-                  subtitle={"Fill the form and our team will reach out to you shortly"}
+                  subtitle={
+                    "Fill the form and our team will reach out to you shortly"
+                  }
                 />
                 <ContactPageForm />
               </div>
             </div>
 
             {/* Map column */}
-            <div className="col-lg-6 mb30" data-aos="fade-up" data-aos-delay="200">
+            <div
+              className="col-lg-6 mb30"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <div className="contact-map-wrap h-100 rounded-4 overflow-hidden">
                 <iframe
                   title="Aristo Office Location"
-                  src="https://www.google.com/maps?q=Mahaavir+Icon+Sector+15+CBD+Belapur+Navi+Mumbai&output=embed"
+                  // src="https://www.google.com/maps?q=Mahaavir+Icon+Sector+15+CBD+Belapur+Navi+Mumbai&output=embed"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.2182564736618!2d73.03458717593519!3d19.01010185403657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c307ab9eccbd%3A0xae52ece683757b69!2sAristo%20Real%20Estate%20Consultants!5e0!3m2!1sen!2sin!4v1788756792962!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0, minHeight: "450px" }}

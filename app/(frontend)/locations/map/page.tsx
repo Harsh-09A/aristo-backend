@@ -17,7 +17,7 @@ export default async function LocationMapPage() {
         heading={"Explore"}
         title={"Explore"}
         highlight={"Navi Mumbai"}
-        subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+        subtitle={"Explore our strategically located properties across Navi Mumbai."}
       />
       <p></p>
       <NaviMumbaiMap locations={locations} />

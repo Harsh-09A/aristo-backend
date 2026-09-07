@@ -21,9 +21,13 @@ const ServicesPage = () => {
             <div className="col-lg-12">
               <div className="breadcumb-style1">
                 <h2 className="title text-white">Home Loan Assistance</h2>
-                <div className="breadcumb-list">
-                  <a href="#">Home</a>
-                  <a href="#">Home Loan Assistance</a>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    Home Loan Assistance
+                  </a>
                 </div>
               </div>
             </div>

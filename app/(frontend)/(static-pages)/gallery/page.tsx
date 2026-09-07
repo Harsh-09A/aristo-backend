@@ -17,7 +17,7 @@ export default function GalleryPage() {
   return (
     <>
       {/* <Breadcrumb title="Gallery" subtitle="Explore our work" /> */}
-            {/* Breadcrumb Section */}
+      {/* Breadcrumb Section */}
       <section
         className="breadcumb-section2 p-0"
         style={{
@@ -32,9 +32,13 @@ export default function GalleryPage() {
             <div className="col-lg-12">
               <div className="breadcumb-style1">
                 <h2 className="title text-white">Gallery</h2>
-                <div className="breadcumb-list">
-                  <a href="#">Home</a>
-                  <a href="#">Gallery</a>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    Gallery
+                  </a>
                 </div>
               </div>
             </div>
@@ -47,12 +51,12 @@ export default function GalleryPage() {
       <section className="photo-gallery-section py-5">
         <div className="container">
           {/* <SectionHeading subtitle="Our Gallery" title="Photos" /> */}
-            <SectionHeading
+          <SectionHeading
             heading={"Photos"}
             title={"Our "}
             highlight={"Gallery"}
             subtitle={""}
-            />
+          />
           <PhotoGrid items={galleryImages} />
         </div>
       </section>
@@ -61,12 +65,12 @@ export default function GalleryPage() {
       <section className="video-gallery-section py-5">
         <div className="container">
           {/* <SectionHeading subtitle="Watch & Explore" title="Videos" /> */}
-            <SectionHeading
+          <SectionHeading
             heading={"Videos"}
             title={"Watch &  "}
             highlight={"Explore"}
             subtitle={""}
-            />
+          />
           <VideoGrid items={galleryVideos} />
         </div>
       </section>

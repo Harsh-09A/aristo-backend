@@ -25,7 +25,7 @@ export default async function LocationsPage({ searchParams }: PageProps) {
         heading={"Locations"}
         title={"All"}
         highlight={"Locations"}
-        subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+        subtitle={"Explore properties across well-connected and desirable locations."}
       />
 
       {locations.length > 0 ? (

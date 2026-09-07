@@ -20,10 +20,16 @@ const ServicesPage = () => {
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcumb-style1">
-                <h2 className="title text-white">Documentation / Registration</h2>
-                <div className="breadcumb-list">
-                  <a href="#">Home</a>
-                  <a href="#">Documentation / Registration</a>
+                <h2 className="title text-white">
+                  Documentation / Registration
+                </h2>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    Documentation / Registration
+                  </a>
                 </div>
               </div>
             </div>
@@ -48,9 +54,12 @@ const ServicesPage = () => {
                 subtitle={""}
               />
               <p className="text mb25">
-                We offer completely reliable documentation services for every property that we deal in. Our documentation process covers all sorts of legal formalities as we believe the documentation part is the most important part of any property transaction. We have team of experts to accomplish correct documents to keep you out of every legal trouble.
-
-
+                We offer completely reliable documentation services for every
+                property that we deal in. Our documentation process covers all
+                sorts of legal formalities as we believe the documentation part
+                is the most important part of any property transaction. We have
+                team of experts to accomplish correct documents to keep you out
+                of every legal trouble.
               </p>
               <p className="text mb55">
                 You can feel free to talk to our documentation consultant

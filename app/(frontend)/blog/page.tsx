@@ -3,7 +3,7 @@ import Pagination from "@/components/frontend/common/pagination/Pagination";
 import { getBlogs } from "@/services/blogs-service";
 
 type Props = {
-  searchParams: Promise<{ page?: string }>; 
+  searchParams: Promise<{ page?: string }>;
 };
 
 export default async function BlogsPage({ searchParams }: Props) {
@@ -29,9 +29,13 @@ export default async function BlogsPage({ searchParams }: Props) {
             <div className="col-lg-12">
               <div className="breadcumb-style1">
                 <h2 className="title text-white">Blogs</h2>
-                <div className="breadcumb-list ">
-                  <a href="#">Home</a>
-                  <a href="#">Blogs</a>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    Blogs
+                  </a>
                 </div>
               </div>
             </div>

@@ -65,9 +65,13 @@ const TeamPage = () => {
             <div className="col-lg-12">
               <div className="breadcumb-style1">
                 <h2 className="title text-white">Our Executive Team</h2>
-                <div className="breadcumb-list">
-                  <a href="#">Home</a>
-                  <a href="#">Our Team</a>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    Our Team
+                  </a>
                 </div>
               </div>
             </div>

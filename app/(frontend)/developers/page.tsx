@@ -27,7 +27,7 @@ export default async function DevelopersPage({ searchParams }: PageProps) {
         heading={"Developers"}
         title={"All"}
         highlight={"Developers"}
-        subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+        subtitle={"Explore leading developers and their latest projects."}
       />
 
       {developers.length > 0 ? (

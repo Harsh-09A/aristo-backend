@@ -21,9 +21,13 @@ const AboutPage = () => {
             <div className="col-lg-12">
               <div className="breadcumb-style1">
                 <h2 className="title text-white">About Us</h2>
-                <div className="breadcumb-list ">
-                  <a href="#">Home</a>
-                  <a href="#">About</a>
+                <div className="breadcumb-list text-white fs-5">
+                  <a href="#" className="text-white">
+                    Home
+                  </a>
+                  <a href="#" className="text-white">
+                    About
+                  </a>
                 </div>
               </div>
             </div>
@@ -140,12 +144,12 @@ const AboutPage = () => {
                   heading={"Why Aristo"}
                   title={"Our "}
                   highlight={"Philosophy"}
-                  subtitle={
-                    ""
-                  }
+                  subtitle={""}
                 />
                 <p>
-                  With over 25 years of experience in Navi Mumbai, we believe real estate decisions should be guided by knowledge, transparency and a clear understanding of our clients’ goals.
+                  With over 25 years of experience in Navi Mumbai, we believe
+                  real estate decisions should be guided by knowledge,
+                  transparency and a clear understanding of our clients’ goals.
                 </p>
               </div>
               {/* End main-title2 */}
@@ -181,7 +185,6 @@ const AboutPage = () => {
                 our client’s in every possible way to achieve this dream. Hence
                 Our Tagline “Turning Dreams into Address”.
               </p>
-
             </div>
             <div className="col-lg-6">
               <div className="position-relative mb30-md">
