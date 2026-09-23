@@ -105,7 +105,7 @@ export default async function ProjectsPage({
                     {project.images[0] ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={project.images[0] }
+                        src={project.images[0]}
                         alt={project.title}
                         style={{
                           width: 48,
@@ -134,6 +134,14 @@ export default async function ProjectsPage({
                     </span>
                   </td>
                   <td className="text-end">
+                    <Link
+                      href={`/property/${project.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm btn-outline-primary me-2"
+                    >
+                      View
+                    </Link>
                     <Link
                       href={`/dashboard/projects/${project.id}/edit`}
                       className="btn btn-sm btn-outline-secondary me-2"

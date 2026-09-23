@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/generated/prisma/client";
 import Link from "next/link";
 import Pagination from "@/components/dashboard/Pagination";
 import DeleteButton from "@/components/dashboard/DeleteButton";
@@ -9,15 +10,23 @@ const RECORDS_PER_PAGE = 10;
 export default async function AmenitiesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string }>;
 }) {
   const params = await searchParams;
   const currentPage = Math.max(1, Number(params.page) || 1);
+  const query = (params.q ?? "").trim();
 
-  const totalCount = await prisma.amenity.count();
+  const where: Prisma.AmenityWhereInput = query
+    ? {
+        name: { contains: query, mode: "insensitive" },
+      }
+    : {};
+
+  const totalCount = await prisma.amenity.count({ where });
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const amenities = await prisma.amenity.findMany({
+    where,
     orderBy: { id: "desc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
@@ -30,6 +39,31 @@ export default async function AmenitiesPage({
         <Link href="/dashboard/amenities/new" className="btn btn-primary">
           + Add Amenity
         </Link>
+      </div>
+
+      <div className="card mb-3">
+        <div className="card-body py-3">
+          <form method="GET" className="d-flex gap-2">
+            <input
+              type="text"
+              name="q"
+              defaultValue={query}
+              placeholder="Search by name..."
+              className="form-control"
+            />
+            <button type="submit" className="btn btn-outline-primary">
+              Search
+            </button>
+            {query && (
+              <Link
+                href="/dashboard/amenities"
+                className="btn btn-outline-secondary"
+              >
+                Clear
+              </Link>
+            )}
+          </form>
+        </div>
       </div>
 
       <div className="card">
@@ -46,8 +80,10 @@ export default async function AmenitiesPage({
             <tbody>
               {amenities.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="text-center text-muted py-4">
-                    No amenities yet.
+                  <td colSpan={3} className="text-center text-muted py-4">
+                    {query
+                      ? `No amenities found for "${query}".`
+                      : "No amenities yet."}
                   </td>
                 </tr>
               )}

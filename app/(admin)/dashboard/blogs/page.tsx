@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/generated/prisma/client";
 import Link from "next/link";
 import Pagination from "@/components/dashboard/Pagination";
 import DeleteButton from "@/components/dashboard/DeleteButton";
@@ -9,15 +10,26 @@ const RECORDS_PER_PAGE = 10;
 export default async function BlogsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string }>;
 }) {
   const params = await searchParams;
   const currentPage = Math.max(1, Number(params.page) || 1);
+  const query = (params.q ?? "").trim();
 
-  const totalCount = await prisma.blog.count();
+  const where: Prisma.BlogWhereInput = query
+    ? {
+        OR: [
+          { title: { contains: query, mode: "insensitive" } },
+          { slug: { contains: query, mode: "insensitive" } },
+        ],
+      }
+    : {};
+
+  const totalCount = await prisma.blog.count({ where });
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const blogs = await prisma.blog.findMany({
+    where,
     orderBy: { updatedAt: "desc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
@@ -30,6 +42,31 @@ export default async function BlogsPage({
         <Link href="/dashboard/blogs/new" className="btn btn-primary">
           + Add Blog Post
         </Link>
+      </div>
+
+      <div className="card mb-3">
+        <div className="card-body py-3">
+          <form method="GET" className="d-flex gap-2">
+            <input
+              type="text"
+              name="q"
+              defaultValue={query}
+              placeholder="Search by title or slug..."
+              className="form-control"
+            />
+            <button type="submit" className="btn btn-outline-primary">
+              Search
+            </button>
+            {query && (
+              <Link
+                href="/dashboard/blogs"
+                className="btn btn-outline-secondary"
+              >
+                Clear
+              </Link>
+            )}
+          </form>
+        </div>
       </div>
 
       <div className="card">
@@ -48,7 +85,9 @@ export default async function BlogsPage({
               {blogs.length === 0 && (
                 <tr>
                   <td colSpan={5} className="text-center text-muted py-4">
-                    No blog posts yet.
+                    {query
+                      ? `No blog posts found for "${query}".`
+                      : "No blog posts yet."}
                   </td>
                 </tr>
               )}

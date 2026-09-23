@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@/generated/prisma/client";
 import Link from "next/link";
 import Pagination from "@/components/dashboard/Pagination";
 import DeleteButton from "@/components/dashboard/DeleteButton";
@@ -9,15 +10,26 @@ const RECORDS_PER_PAGE = 10;
 export default async function LocationsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; q?: string }>;
 }) {
   const params = await searchParams;
   const currentPage = Math.max(1, Number(params.page) || 1);
+  const query = (params.q ?? "").trim();
 
-  const totalCount = await prisma.location.count();
+  const where: Prisma.LocationWhereInput = query
+    ? {
+        OR: [
+          { name: { contains: query, mode: "insensitive" } },
+          { state: { contains: query, mode: "insensitive" } },
+        ],
+      }
+    : {};
+
+  const totalCount = await prisma.location.count({ where });
   const totalPages = Math.max(1, Math.ceil(totalCount / RECORDS_PER_PAGE));
 
   const locations = await prisma.location.findMany({
+    where,
     orderBy: { name: "asc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
@@ -30,6 +42,31 @@ export default async function LocationsPage({
         <Link href="/dashboard/locations/new" className="btn btn-primary">
           + Add Location
         </Link>
+      </div>
+
+      <div className="card mb-3">
+        <div className="card-body py-3">
+          <form method="GET" className="d-flex gap-2">
+            <input
+              type="text"
+              name="q"
+              defaultValue={query}
+              placeholder="Search by name or state..."
+              className="form-control"
+            />
+            <button type="submit" className="btn btn-outline-primary">
+              Search
+            </button>
+            {query && (
+              <Link
+                href="/dashboard/locations"
+                className="btn btn-outline-secondary"
+              >
+                Clear
+              </Link>
+            )}
+          </form>
+        </div>
       </div>
 
       <div className="card">
@@ -47,8 +84,10 @@ export default async function LocationsPage({
             <tbody>
               {locations.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="text-center text-muted py-4">
-                    No locations yet.
+                  <td colSpan={4} className="text-center text-muted py-4">
+                    {query
+                      ? `No locations found for "${query}".`
+                      : "No locations yet."}
                   </td>
                 </tr>
               )}
@@ -61,7 +100,12 @@ export default async function LocationsPage({
                       <img
                         src={location.image}
                         alt={location.name}
-                        style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 6 }}
+                        style={{
+                          width: 48,
+                          height: 48,
+                          objectFit: "cover",
+                          borderRadius: 6,
+                        }}
                       />
                     ) : (
                       "-"
@@ -76,7 +120,10 @@ export default async function LocationsPage({
                     >
                       Edit
                     </Link>
-                    <DeleteButton id={location.id} deleteAction={deleteLocation} />
+                    <DeleteButton
+                      id={location.id}
+                      deleteAction={deleteLocation}
+                    />
                   </td>
                 </tr>
               ))}
