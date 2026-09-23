@@ -22,7 +22,7 @@ export default function ContactModal() {
           <div className="modal-header">
             <h5 className="modal-title">
               Get Best Price Offer
-              <span className="modal-subtitle">Our team will contact you within 24 hours</span>
+              <span className="modal-subtitle">Our team will be in touch with you soon.</span>
             </h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
           </div>

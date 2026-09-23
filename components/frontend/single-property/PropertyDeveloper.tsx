@@ -26,7 +26,7 @@ const PropertyDeveloper = ({ data }: Props) => {
             href={`/developer/${data.developer.slug}`}
             className="text-decoration-underline fw600"
           >
-            View Listings
+            View Projects
           </Link>
         </div>
         <div className="single-img mb30-sm">

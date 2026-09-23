@@ -27,8 +27,7 @@ const Footer = () => {
         <div className="col-sm-6">
           <div className="text-center text-lg-start">
             <p className="copyright-text text-gray ff-heading">
-              © {getCurrentYear()} Aristo Real Estate Consultants (Haresh Gurno
-              Rochani)
+              © {getCurrentYear()} Aristo Real Estate Consultants
               <a
                 href=""
                 target="_blank"
@@ -44,7 +43,7 @@ const Footer = () => {
         <div className="col-sm-6">
           <div className="text-center text-lg-end">
             <p className="footer-menu ff-heading text-gray">
-              Designed & Developed by {" "}
+              Designed & Developed by{" "}
               <a
                 href="https://letsdigin.in/"
                 target="_blank"

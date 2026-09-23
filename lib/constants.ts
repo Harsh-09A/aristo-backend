@@ -18,8 +18,8 @@ export const BHK_OPTIONS = [
 
 // Price dropdowns ke liye preset amounts (value hamesha rupees me, raw number)
 export const PRICE_OPTIONS = [
-  { label: "30 Lakh", value: 3000000 },
-  { label: "50 Lakh", value: 5000000 },
+  // { label: "30 Lakh", value: 3000000 },
+  // { label: "50 Lakh", value: 5000000 },
   { label: "80 Lakh", value: 8000000 },
   { label: "1 Crore", value: 10000000 },
   { label: "2 Crore", value: 20000000 },

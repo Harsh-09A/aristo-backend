@@ -124,7 +124,7 @@ const PropertySinglePage = async ({ params }: Props) => {
                 heading={"Similar Properties"}
                 title={"View"}
                 highlight={"Similar Properties"}
-                subtitle={"Lorem ipsum dolor sit, amet consectetur"}
+                subtitle={"Explore similar properties in nearby locations."}
               />
             </div>
             {/* End header */}

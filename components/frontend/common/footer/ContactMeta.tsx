@@ -3,12 +3,12 @@ import React from "react";
 const ContactMeta = () => {
   const contactInfoList = [
     {
-      title: "Call us",
+      title: "Get in Touch",
       phone: "+919130307464",
       phoneLink: "tel:+919130307464", // Changed phoneLink to tel: URI
     },
     {
-      title: "Connect on Mail",
+      title: "Email Us",
       mail: "info@aristouniversal.com",
       mailLink: "mailto:info@aristouniversal.com", // Changed mailLink to direct email address
     },

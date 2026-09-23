@@ -3,7 +3,7 @@ import React from "react";
 const MenuWidget = () => {
   const menuSections = [
     {
-      title: "Popular Search",
+      title: "Trending Searches",
       links: [
         {
           label: "Apartments in Kharghar",

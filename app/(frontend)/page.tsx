@@ -66,7 +66,9 @@ const Home = async () => {
                 heading={"Developers"}
                 title={"Top"}
                 highlight={"Developers"}
-                subtitle={"Explore verified developers offering the finest real estate opportunities."}
+                subtitle={
+                  "Explore verified developers offering the finest real estate opportunities."
+                }
               />
             </div>
             <div className="col-lg-3">
@@ -121,7 +123,9 @@ const Home = async () => {
                 heading={"Latest Properties"}
                 title={"Discover"}
                 highlight={"Latest Properties"}
-                subtitle={"Explore the newest property listings in prime locations."}
+                subtitle={
+                  "Explore the new properties in prime locations."
+                }
               />
             </div>
             <div className="col-lg-3">
@@ -146,8 +150,7 @@ const Home = async () => {
       </section>
       {/* End Featured Listings */}
 
-
-<ReelsListings />
+      <ReelsListings />
 
       {/* Top Listings */}
       <section className="bgc-f7 overx-hide">
@@ -158,7 +161,9 @@ const Home = async () => {
                 heading={"Featured Properties"}
                 title={"Discover"}
                 highlight={"Featured Properties"}
-                subtitle={"Explore our handpicked selection of featured properties."}
+                subtitle={
+                  "Explore our handpicked selection of featured properties."
+                }
               />
             </div>
             <div className="col-lg-3">
@@ -265,7 +270,9 @@ const Home = async () => {
                 heading={"Reviews"}
                 title={"What Customers Say About"}
                 highlight={"Aristo"}
-                subtitle={"Hear from clients who found their perfect property with Aristo."}
+                subtitle={
+                  "Hear from clients who found their perfect property with Aristo."
+                }
               />
             </div>
             {/* End header */}
@@ -296,7 +303,9 @@ const Home = async () => {
                 heading={"Blog"}
                 title={"Aristo"}
                 highlight={"Blog"}
-                subtitle={"Stay informed with the latest real estate insights and trends."}
+                subtitle={
+                  "Stay informed with the latest real estate insights and trends."
+                }
               />
             </div>
           </div>
