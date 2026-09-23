@@ -126,6 +126,14 @@ export default async function BlogsPage({
                   </td>
                   <td className="text-end">
                     <Link
+                      href={`/blog/${blog.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-sm btn-outline-primary me-2"
+                    >
+                      View
+                    </Link>
+                    <Link
                       href={`/dashboard/blogs/${blog.id}/edit`}
                       className="btn btn-sm btn-outline-secondary me-2"
                     >
