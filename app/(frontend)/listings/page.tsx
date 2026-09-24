@@ -14,10 +14,14 @@ const ListingsPage = async ({ searchParams }: Props) => {
   const rawParams = await searchParams; // Next 16 me searchParams Promise hota hai
   const filters = parseListingSearchParams(rawParams);
 
-  const pageParam = Array.isArray(rawParams.page) ? rawParams.page[0] : rawParams.page;
+  const pageParam = Array.isArray(rawParams.page)
+    ? rawParams.page[0]
+    : rawParams.page;
   const page = pageParam ? Math.max(1, Number(pageParam)) : 1;
 
-  const [{ properties, totalPages }, locations] = await Promise.all([
+  // total add kiya destructuring mein — service already isko return kar raha tha,
+  // bas page use nahi kar raha tha
+  const [{ properties, total, totalPages }, locations] = await Promise.all([
     getFilteredProperties({
       category: filters.category || undefined,
       type: filters.type || undefined,
@@ -33,6 +37,11 @@ const ListingsPage = async ({ searchParams }: Props) => {
     getAllLocations(),
   ]);
 
+  // "Showing X-Y of Z" ke liye range calculate karo
+  // Example: page 2, pageSize 20, total 45 → "Showing 21-40 of 45"
+  const rangeStart = total === 0 ? 0 : (page - 1) * PROPERTIES_PER_PAGE + 1;
+  const rangeEnd = Math.min(page * PROPERTIES_PER_PAGE, total);
+
   return (
     <>
       {/* Breadcumb Sections */}
@@ -47,14 +56,14 @@ const ListingsPage = async ({ searchParams }: Props) => {
                   <a href="#">{filters.category}</a>
                 </div>
                 <a
-                   className="filter-btn-left mobile-filter-btn d-block d-lg-none"
+                  className="filter-btn-left mobile-filter-btn d-block d-lg-none"
                   data-bs-toggle="offcanvas"
                   href="#listingSidebarFilter"
                   role="button"
                   aria-controls="listingSidebarFilter"
                 >
                   <span className="flaticon-settings" /> Filter
-                </a> 
+                </a>
               </div>
             </div>
           </div>
@@ -103,15 +112,43 @@ const ListingsPage = async ({ searchParams }: Props) => {
             {/* End mobile filter sidebar */}
 
             <div className="col-lg-8">
-              <div className="row mt15">
-                <PropertyListings listings={properties} />
-              </div>
-              {/* End .row */}
+              {/* Results count — "Showing 1-20 of 145 properties" */}
+              {/* <div className="d-flex justify-content-between align-items-center mb15">
+                <p className="mb-0">
+                  {total > 0
+                    ? `Showing ${rangeStart}-${rangeEnd} of ${total} properties`
+                    : "0 properties found"}
+                </p>
+              </div> */}
 
-              <div className="row">
-                <Pagination currentPage={page} totalPages={totalPages} searchParams={rawParams} />
-              </div>
-              {/* End .row */}
+              {properties.length === 0 ? (
+                // Empty state — jab filters ke hisaab se koi property nahi milti
+                <div className="text-center py60">
+                  <h5>No properties match your filters</h5>
+                  <p className="text-muted">
+                    Try adjusting or clearing some filters to see more results.
+                  </p>
+                  <a href="/listings" className="ud-btn btn-thm mt10">
+                    Clear all filters
+                  </a>
+                </div>
+              ) : (
+                <>
+                  <div className="row mt15">
+                    <PropertyListings listings={properties} />
+                  </div>
+                  {/* End .row */}
+
+                  <div className="row">
+                    <Pagination
+                      currentPage={page}
+                      totalPages={totalPages}
+                      searchParams={rawParams}
+                    />
+                  </div>
+                  {/* End .row */}
+                </>
+              )}
             </div>
             {/* End .col-lg-8 */}
           </div>
