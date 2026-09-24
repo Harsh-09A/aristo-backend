@@ -60,9 +60,27 @@ export default function PropertySearchFilters({
     label: loc.name,
   }));
 
+  // const handleCategoryChange = (category: string) => {
+  //   setValues((prev) => ({ ...prev, category, type: "", bhk: "" }));
+  // };
+
   const handleCategoryChange = (category: string) => {
+  // Hero (home page) pe tab click sirf tab switch kare, navigate nahi.
+  if (variant === "hero") {
     setValues((prev) => ({ ...prev, category, type: "", bhk: "" }));
-  };
+    return;
+  }
+
+  // Sidebar (listings page) pe: naya category + URL ke abhi ke applied filters
+  // (search, location, price, status). Type aur BHK reset, kyunki woh
+  // category pe depend karte hain.
+  const applied = { ...DEFAULT_FILTER_VALUES, ...initialValues };
+  const next = { ...applied, category, type: "", bhk: "" };
+
+  setValues(next); // UI turant update
+  const queryString = buildListingQueryString(next);
+  router.push(`/listings${queryString ? `?${queryString}` : ""}`);
+};
 
   const handleChange = (field: keyof PropertyFilterValues, value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
