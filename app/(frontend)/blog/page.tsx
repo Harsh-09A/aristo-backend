@@ -18,7 +18,7 @@ export default async function BlogsPage({ searchParams }: Props) {
       <section
         className="breadcumb-section2 p-0"
         style={{
-          backgroundImage: 'url("/assets/images/innerpages/about-bg.jpg")',
+          backgroundImage: 'url("/assets/images/innerpages/backgrounds/header-bg-004.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

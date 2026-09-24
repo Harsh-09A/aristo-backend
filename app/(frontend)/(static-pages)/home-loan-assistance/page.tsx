@@ -10,7 +10,7 @@ const ServicesPage = () => {
       <section
         className="breadcumb-section2 p-0"
         style={{
-          backgroundImage: 'url("/assets/images/innerpages/about-bg.jpg")',
+          backgroundImage: 'url("/assets/images/innerpages/backgrounds/header-bg-003.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

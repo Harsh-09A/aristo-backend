@@ -54,7 +54,7 @@ const TeamPage = () => {
       <section
         className="breadcumb-section2 p-0"
         style={{
-          backgroundImage: 'url("/assets/images/innerpages/about-bg.jpg")',
+          backgroundImage: 'url("/assets/images/innerpages/backgrounds/header-bg-003.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -70,7 +70,7 @@ const TeamPage = () => {
                     Home
                   </a>
                   <a href="#" className="text-white">
-                    Our Team
+                    Our Executive Team
                   </a>
                 </div>
               </div>

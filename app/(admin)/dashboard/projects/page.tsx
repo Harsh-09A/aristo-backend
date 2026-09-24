@@ -31,7 +31,7 @@ export default async function ProjectsPage({
 
   const projects = await prisma.project.findMany({
     where,
-    orderBy: { updatedAt: "desc" },
+    orderBy: { createdAt: "desc" },
     skip: (currentPage - 1) * RECORDS_PER_PAGE,
     take: RECORDS_PER_PAGE,
     include: {
