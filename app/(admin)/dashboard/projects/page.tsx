@@ -5,7 +5,7 @@ import Pagination from "@/components/dashboard/Pagination";
 import DeleteButton from "@/components/dashboard/DeleteButton";
 import { deleteProject } from "./actions";
 
-const RECORDS_PER_PAGE = 10;
+const RECORDS_PER_PAGE = 30;
 
 export default async function ProjectsPage({
   searchParams,
